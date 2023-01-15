@@ -1,0 +1,14 @@
+name: btc
+channels:
+  - defaults
+dependencies:
+  - jupyterlab
+  - pymc3
+  - pycbc
+  - plotly
+  - spyder
+  - numpy
+  - matplotlib
+  - pygam
+  - tabulate
+prefix: /Users/nick/anaconda3/envs/plotly
