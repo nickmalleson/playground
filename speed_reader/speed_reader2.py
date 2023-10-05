@@ -5,7 +5,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
 
     DISPLAY_FONT_SIZE = 92
     INITIAL_LONG_WORD_DELAY = 150
-    INITIAL_READ_SPEED = 450
+    INITIAL_READ_SPEED = 530
 
 
     def __init__(self):
@@ -29,8 +29,8 @@ class SpeedReaderApp(QtWidgets.QWidget):
 
         # Sliders for configuration
         self.speed_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
-        self.speed_slider.setMinimum(100)
-        self.speed_slider.setMaximum(1000)
+        self.speed_slider.setMinimum(300)
+        self.speed_slider.setMaximum(700)
         self.speed_slider.setValue(SpeedReaderApp.INITIAL_READ_SPEED)
         self.speed_slider.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.speed_slider.setTickInterval(100)
@@ -42,7 +42,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
 
         self.long_word_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
         self.long_word_slider.setMinimum(100)
-        self.long_word_slider.setMaximum(300)
+        self.long_word_slider.setMaximum(200)
         self.long_word_slider.setValue(SpeedReaderApp.INITIAL_LONG_WORD_DELAY)
         self.long_word_slider.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.long_word_slider.setTickInterval(10)
@@ -88,13 +88,13 @@ class SpeedReaderApp(QtWidgets.QWidget):
             if len(word) > 7:
                 delay *= ( self.long_word_slider.value() / 100 )
             # Delay at end of sentences
-            elif word.endswith('.'): 
+            elif word.strip().endswith('.'): 
                 delay *= ( self.long_word_slider.value() / 100 )
 
             self.timer.start(int(delay))
             self.current_word_index += 1
         else:
-            self.word_display.setText('Finished!')
+            self.word_display.setText('')  # Finished
             self.timer.stop()
 
     def toggle_pause(self):
