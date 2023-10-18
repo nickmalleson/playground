@@ -1,0 +1,3 @@
+pymc3
+numpy
+matplotlib

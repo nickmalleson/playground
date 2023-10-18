@@ -7,24 +7,24 @@ num_agents = 2
 max_x = 10
 max_y = 10
 
-# Initialize random walk step size distributions
-step_size = pm.Uniform('step_size', lower=0, upper=2)
-angle = pm.VonMises('angle', mu=0, kappa=0.1) 
-
-# Initialize starting positions
-start_pos = np.array([[1, 1], [5, 5]])
-pos = pm.Deterministic('pos', start_pos)
-
-# Step function for random walk
-@pm.deterministic
-def walk(pos=pos, step=step_size, angle=angle):
-    dir_x = np.cos(angle) * step
-    dir_y = np.sin(angle) * step
-    return pos + np.array([dir_x, dir_y]).T
-
 # Build model 
 model = pm.Model()
 with model:
+
+    # Initialize random walk step size distributions
+    step_size = pm.Uniform('step_size', lower=0, upper=2)
+    angle = pm.VonMises('angle', mu=0, kappa=0.1) 
+
+    # Initialize starting positions
+    start_pos = np.array([[1, 1], [5, 5]])
+    pos = pm.Deterministic('pos', start_pos)
+
+    # Step function for random walk
+    @pm.deterministic
+    def walk(pos=pos, step=step_size, angle=angle):
+        dir_x = np.cos(angle) * step
+        dir_y = np.sin(angle) * step
+        return pos + np.array([dir_x, dir_y]).T
 
     # Empty step for starting positions
     pm.Deterministic('step_0', pos)
