@@ -22,8 +22,9 @@ xhost + $IP
 #  - with a volume mount (so that we can edit py files and changes are reflected in the vm)
 #  - `bash` at the end means you drop out into a shell rather than having the VM exit
 #  - connect the X display to the mac for displaying figures
+#  - remove the container once it exits (to prevent having to clean up later)
 
 #docker run -it -p 8000:8000 -v $(pwd):/app --name pram-container pram-app bash
-docker run -it -v $(pwd):/app -e DISPLAY=$IP:0 --name pram-container pram-app bash
+docker run --rm -it -v $(pwd):/app -e DISPLAY=$IP:0 --name pram-container pram-app bash
 
 
