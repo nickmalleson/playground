@@ -6,6 +6,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
     DISPLAY_FONT_SIZE = 92
     INITIAL_LONG_WORD_DELAY = 150
     INITIAL_READ_SPEED = 530
+    INITIAL_WINDOW_WIDTH = 800
 
 
     def __init__(self):
@@ -19,6 +20,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
 
         # Text input area
         self.text_input = QtWidgets.QTextEdit(self)
+        self.text_input.setMinimumWidth(SpeedReaderApp.INITIAL_WINDOW_WIDTH)
         layout.addWidget(self.text_input)
 
         # Display area for words
@@ -88,7 +90,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
             if len(word) > 7:
                 delay *= ( self.long_word_slider.value() / 100 )
             # Delay at end of sentences
-            elif word.strip().endswith('.'): 
+            elif "." in word.strip(): 
                 delay *= ( self.long_word_slider.value() / 100 )
 
             self.timer.start(int(delay))
