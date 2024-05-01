@@ -81,6 +81,11 @@ class SpeedReaderApp(QtWidgets.QWidget):
         self.current_word_index = 0
         self.display_next_word()
 
+        # Reset the pause button
+        self.paused = False
+        self.pause_button.setText('Pause')
+        self.timer.start()
+
     def display_next_word(self):
         if self.current_word_index < len(self.words):
             word = self.words[self.current_word_index]
