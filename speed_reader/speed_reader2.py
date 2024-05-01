@@ -2,15 +2,24 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 
 
 class SpeedReaderApp(QtWidgets.QWidget):
-
     DISPLAY_FONT_SIZE = 92
     INITIAL_LONG_WORD_DELAY = 150
     INITIAL_READ_SPEED = 490
     INITIAL_WINDOW_WIDTH = 800
 
-
     def __init__(self):
         super().__init__()
+        self.paused = None
+        self.words = None
+        self.timer = None
+        self.pause_button = None
+        self.start_button = None
+        self.long_word_label = None
+        self.long_word_slider = None
+        self.speed_label = None
+        self.speed_slider = None
+        self.word_display = None
+        self.text_input = None
         self.init_ui()
 
     def init_ui(self):
@@ -19,7 +28,8 @@ class SpeedReaderApp(QtWidgets.QWidget):
         controls_layout = QtWidgets.QHBoxLayout()
 
         # Text input area
-        self.text_input = QtWidgets.QTextEdit(self)
+        self.text_input = CustomTextEdit(self)
+        self.text_input.space_pressed.connect(self.toggle_pause)
         self.text_input.setMinimumWidth(SpeedReaderApp.INITIAL_WINDOW_WIDTH)
         layout.addWidget(self.text_input)
 
@@ -36,7 +46,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
         self.speed_slider.setValue(SpeedReaderApp.INITIAL_READ_SPEED)
         self.speed_slider.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.speed_slider.setTickInterval(100)
-        self.speed_slider.valueChanged.connect(self.update_speed_label)        
+        self.speed_slider.valueChanged.connect(self.update_speed_label)
         controls_layout.addWidget(QtWidgets.QLabel('Words per minute'))
         controls_layout.addWidget(self.speed_slider)
         self.speed_label = QtWidgets.QLabel(str(self.speed_slider.value()))
@@ -48,7 +58,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
         self.long_word_slider.setValue(SpeedReaderApp.INITIAL_LONG_WORD_DELAY)
         self.long_word_slider.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.long_word_slider.setTickInterval(10)
-        self.long_word_slider.valueChanged.connect(self.update_long_word_label)        
+        self.long_word_slider.valueChanged.connect(self.update_long_word_label)
         controls_layout.addWidget(QtWidgets.QLabel('Multiplier for long words'))
         controls_layout.addWidget(self.long_word_slider)
         self.long_word_label = QtWidgets.QLabel(str(self.long_word_slider.value()))
@@ -76,6 +86,7 @@ class SpeedReaderApp(QtWidgets.QWidget):
         self.setWindowTitle('Speed Reader')
         self.show()
 
+
     def start_reading(self):
         self.words = self.text_input.toPlainText().split()
         self.current_word_index = 0
@@ -93,10 +104,10 @@ class SpeedReaderApp(QtWidgets.QWidget):
             delay = 60000 / self.speed_slider.value()
             # Delay for long words
             if len(word) > 7:
-                delay *= ( self.long_word_slider.value() / 100 )
+                delay *= (self.long_word_slider.value() / 100)
             # Delay at end of sentences
-            if "." in word: 
-                delay *= ( self.long_word_slider.value() / 100 )
+            if "." in word:
+                delay *= (self.long_word_slider.value() / 100)
 
             self.timer.start(int(delay))
             self.current_word_index += 1
@@ -119,10 +130,20 @@ class SpeedReaderApp(QtWidgets.QWidget):
 
     def update_long_word_label(self):
         self.long_word_label.setText(str(self.long_word_slider.value()))
-            
+
+
+# This is to get the space bar to pause/resume the reading
+# (otherwise the text input area would capture the space key)
+class CustomTextEdit(QtWidgets.QTextEdit):
+    space_pressed = QtCore.pyqtSignal()
+
+    def keyPressEvent(self, event: QtGui.QKeyEvent):
+        if event.key() == QtCore.Qt.Key_Space:
+            self.space_pressed.emit()
+        else:
+            super().keyPressEvent(event)
 
 # Uncomment the lines below to run the GUI on your local machine
 app = QtWidgets.QApplication([])
 window = SpeedReaderApp()
 app.exec_()
-
