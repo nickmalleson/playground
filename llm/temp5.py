@@ -1,42 +1,85 @@
-# Use quantization to reduce the memory footprint of the model (only works on CPU)
-
+import os
+import torch
 from datetime import datetime
 from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
 import gc
-import torch
-torch.backends.quantized.engine = 'qnnpack'  # or 'fbgemm' for some setups (for quantisation on the cpu)
 
+torch.backends.quantized.engine = 'qnnpack'  # or 'fbgemm' for some setups (for quantization on the cpu)
 
-# Load the tokenizer and the model
+# Paths for saving and loading the quantized model
 model_name = "meta-llama/Meta-Llama-3-8B-Instruct"
+quantized_model_path = "quantized_model.pt"
+
+# Load the tokenizer
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-# Load the model and apply dynamic quantization
-print("Loading model...\n")
-model = AutoModelForCausalLM.from_pretrained(model_name)
-print("Quantizing model...\n")
-quantized_model = torch.quantization.quantize_dynamic(
-    model, {torch.nn.Linear}, dtype=torch.qint8
-)
-# Free up memory
-del model
-gc.collect()
+# Function to save the quantized model
+def save_quantized_model(model, path):
+    torch.save(model, path)
+
+# Function to load the quantized model
+def load_quantized_model(path):
+    return torch.load(path)
+
+# Check if quantized model exists
+if os.path.exists(quantized_model_path):
+    print("Loading quantized model from disk...\n")
+    quantized_model = load_quantized_model(quantized_model_path)
+else:
+    # Load and quantize the model
+    print("Loading model...\n")
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    print("Quantizing model...\n")
+    quantized_model = torch.quantization.quantize_dynamic(
+        model, {torch.nn.Linear}, dtype=torch.qint8
+    )
+    # Save the quantized model to disk
+    print("Saving quantized model...\n")
+    save_quantized_model(quantized_model, quantized_model_path)
+    # Free up memory
+    del model
+    gc.collect()
 
 # Create the text generation pipeline with the quantized model
 print("Creating text generation pipeline...\n")
-text_generation_pipeline = pipeline("text-generation", model=quantized_model, tokenizer=tokenizer, device="cpu")
+text_generation_pipeline = pipeline("text-generation",
+                                    model=quantized_model,
+                                    tokenizer=tokenizer,
+                                    device="cpu",
+                                    max_new_tokens=10  # Cut off the output as we just want one word
+                                    )
 
 # Function to generate a response
-def generate_response(prompt, pipeline, max_length=512, temperature=0.7):
-    response = pipeline(prompt, max_length=max_length, temperature=temperature, pad_token_id=pipeline.tokenizer.eos_token_id)
-    return response[0]['generated_text']
+def generate_response(prompt, pipeline, temperature=0.7):
+    full_response = pipeline(prompt, temperature=temperature, pad_token_id=pipeline.tokenizer.eos_token_id)
+    generated_text = full_response[0]['generated_text']
+    # The generated text includes the prmopt. Extract the sentiment from the generated text by splitting on the prompt
+    sentiment = generated_text.split("Sentiment (one word):")[-1].strip().split()[0].lower()
+    return sentiment
 
-def create_prompt2(text):
+
+def create_prompt2(text, show_working=False):
     return f"""
-Classify the following text as positive, neutral or negative sentiment, showing your working:
+Classify the following text as positive, neutral or negative sentiment{'' if not show_working else ', showing your working'}:
 Text: "{text}"
-Sentiment:
+Sentiment (one word):
 """
+
+def create_prompt3(text):
+    return f"""
+Classify the following text as "positive", "neutral", or "negative" sentiment:
+
+Text: "I love sunny days!"
+Sentiment: positive
+
+Text: "It's an okay day."
+Sentiment: neutral
+
+Text: "I am not happy with the service."
+Sentiment: negative
+
+Text: "{text}"
+Sentiment:"""
 
 # Example usage
 texts = [
