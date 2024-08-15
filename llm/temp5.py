@@ -4,7 +4,11 @@ from datetime import datetime
 from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
 import gc
 
-torch.backends.quantized.engine = 'qnnpack'  # or 'fbgemm' for some setups (for quantization on the cpu)
+try:
+    torch.backends.quantized.engine = 'qnnpack'  # or 'fbgemm' for some setups (for quantization on the cpu)
+except Exception as e:  # Above doesn't work on my windows pc
+    print(e, "using fbgemm instead")
+    torch.backends.quantized.engine = 'fbgemm' # for some setups (for quantization on the cpu)
 
 # Paths for saving and loading the quantized model
 model_name = "meta-llama/Meta-Llama-3-8B-Instruct"
