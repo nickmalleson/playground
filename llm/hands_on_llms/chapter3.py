@@ -9,6 +9,9 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
+# Use MPS if available
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
 # %%
 # # Prepare model
 # Load the tokenizer and model
@@ -16,9 +19,9 @@ tokenizer = AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-4k-instruct")
 
 model = AutoModelForCausalLM.from_pretrained(
     "microsoft/Phi-3-mini-4k-instruct",
-    device_map="cpu",
+    device_map=device,
     torch_dtype="auto",
-    trust_remote_code=True,
+    trust_remote_code=False,
 )
 
 # Create a pipeline
@@ -33,7 +36,8 @@ generator = pipeline(
 
 # %%
 # CHUNK
-print(generator("How to", max_length=50))
+for _ in range(5):
+    print(generator("How to"))
 
 # %% 
 # CHUNK 
