@@ -1,0 +1,14 @@
+name: llm
+channels:
+  - defaults
+dependencies:
+  - datasets
+  - evaluate
+  - geopandas
+  - jupyter
+  - jupyterlab
+  - numpy
+  - pytorch
+  - scikit-learn
+  - transformers
+prefix: /usr/local/anaconda3/envs/llm
