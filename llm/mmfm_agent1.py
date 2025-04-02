@@ -1,3 +1,14 @@
+#############################
+# Simple example of the use of embeddings to determine an agent's behaviour.
+# Written by ChatGPT to help me understand the concept of embeddings and their use in behaviour.
+# Agents try to avoid pollution (or not) in a simple grid environment.
+# A simple transformer model is used to encode text into vectors and then compare goal vectors
+# (i.e. what the agent wants to do) with a concept vector (e.g. pollution) to determine behaviour.
+# There is an 'if' statement that looks at the similarity between the goal and the concept vector,
+# and if they are sufficiently similar then the agent tries to avoid polluted squares.
+# Working towards more comprehensive use of multi-modal agents.
+#############################
+
 import torch
 from transformers import AutoTokenizer, AutoModel
 import random
@@ -25,7 +36,7 @@ def encode_text(text: str) -> torch.Tensor:
     return embeddings.squeeze(0)  # shape [hidden_dim]
 
 #############################
-# 2) A Simple 5×5 Grid Environment
+# 2) A Simple 5×5 Grid Environment with different pollution levels.
 #############################
 class SimpleGridEnvironment:
     def __init__(self, size=5):
