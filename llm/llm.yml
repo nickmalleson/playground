@@ -1,14 +1,18 @@
 name: llm
 channels:
+  - conda-forge
   - defaults
 dependencies:
-  - datasets
-  - evaluate
   - geopandas
-  - jupyter
   - jupyterlab
   - numpy
   - pytorch
   - scikit-learn
+  - jupyter
   - transformers
-prefix: /usr/local/anaconda3/envs/llm
+  - datasets
+  - evaluate
+  - seaborn
+  - notebook
+  - contextily
+prefix: /opt/homebrew/anaconda3/envs/llm
