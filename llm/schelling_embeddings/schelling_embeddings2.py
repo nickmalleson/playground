@@ -108,6 +108,7 @@ class SchellingModel:
         # Calculate the embeddings for the household descriptions
         self.embedding_model = EmbeddingModel()
         self.description_embeddings = self.embedding_model.encode(self.descriptions)
+        print(f"Embedding shape: {self.description_embeddings.shape}")
         self.desc_lookup = {i: desc for i, desc in enumerate(self.descriptions)}
 
         ## PCA for RGB mapping (so agents with similar embeddings look similar)
