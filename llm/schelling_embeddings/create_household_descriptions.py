@@ -4,7 +4,7 @@ from datetime import datetime
 from together import Together  # pip install together
 
 # Number of descriptions to produce
-N = 149
+N = 350
 
 # Prepare the messages
 prompt = \
@@ -26,7 +26,7 @@ response = client.chat.completions.create(
     # model="meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo",
     model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
     messages=messages,
-    #max_tokens=max_tokens,  # max length of output (in case I get the prompt wront and it talks for ages...)
+    max_tokens= N * 30,
     temperature=0.01,  # lower for more deterministic
     #top_p=0.9,  # ??
     #top_k=40,  # ??

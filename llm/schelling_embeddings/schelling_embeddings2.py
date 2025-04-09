@@ -20,8 +20,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.manifold import TSNE
 import matplotlib.colors as mcolors
 from sentence_transformers import SentenceTransformer
-
-
+import matplotlib.patches as mpatches
 
 # -------------------------------
 # Household Descriptions.
@@ -91,7 +90,8 @@ class SchellingModel:
     Implements an embedding-based version of the Schelling segregation model.
     Agents decide to move based on similarity of text-derived embeddings.
     """
-    def __init__(self, descriptions, grid_size=20, num_agents=300, similarity_threshold=0.85, max_iters=20):
+    def __init__(self, descriptions, grid_size=20, num_agents=300, similarity_threshold=0.85, max_iters=20,
+                     color_method="tsne"):
         # Descriptions of the generic households
         self.descriptions = descriptions
 
@@ -111,37 +111,37 @@ class SchellingModel:
         print(f"Embedding shape: {self.description_embeddings.shape}")
         self.desc_lookup = {i: desc for i, desc in enumerate(self.descriptions)}
 
-        ## PCA for RGB mapping (so agents with similar embeddings look similar)
-        #self.pca = PCA(n_components=3)
-        #self.rgb_map = self.pca.fit_transform(self.description_embeddings)  # for RGB color plotting
-
         # ------------------------
-        # COLOR MAPPING USING t-SNE (t-distributed Stochastic Neighbor Embedding)
+        # COLOR MAPPING USING PCA or t-SNE (t-distributed Stochastic Neighbor Embedding)
         # ------------------------
-        # 1) Project the description embeddings into 2D
-        perplexity = min(5, len(self.description_embeddings) - 1)  # 5, or fewer if there are < 5 samples
-        self.tsne_map = TSNE(n_components=2, perplexity=perplexity, random_state=42).fit_transform(
-            self.description_embeddings
-        )
+        self.color_method = color_method
+        if self.color_method == "tsne":
+            perplexity = min(5, len(self.description_embeddings) - 1)
+            self.tsne_map = TSNE(n_components=2, perplexity=perplexity, random_state=42).fit_transform(
+                self.description_embeddings
+            )
+            t_min = self.tsne_map.min(axis=0)
+            t_max = self.tsne_map.max(axis=0)
+            tsne_norm = (self.tsne_map - t_min) / (t_max - t_min + 1e-8)
+            self.rgb_map = []
+            for i in range(len(tsne_norm)):
+                hue = tsne_norm[i, 0]
+                saturation = 0.8
+                value = 0.9 - 0.4 * tsne_norm[i, 1]
+                color_rgb = mcolors.hsv_to_rgb((hue, saturation, value))
+                self.rgb_map.append(color_rgb)
+        else:
+            from sklearn.decomposition import PCA
+            pca = PCA(n_components=3)
+            pca_proj = pca.fit_transform(self.description_embeddings)
+            pca_min = pca_proj.min(axis=0)
+            pca_max = pca_proj.max(axis=0)
+            norm = (pca_proj - pca_min) / (pca_max - pca_min + 1e-8)
+            self.rgb_map = norm.tolist()
 
-        # 2) Normalize into [0,1] so we can map to HSV
-        t_min = self.tsne_map.min(axis=0)
-        t_max = self.tsne_map.max(axis=0)
-        tsne_norm = (self.tsne_map - t_min) / (t_max - t_min + 1e-8)
-
-        # 3) Convert each point to HSV -> RGB
-        #    We'll treat tsne_norm[:,0] as 'hue' and tsne_norm[:,1] as 'value' for variety.
-        #    Keep saturation high, e.g. 0.8
-        self.rgb_map = []
-        for i in range(len(tsne_norm)):
-            hue = tsne_norm[i, 0]      # 0 to 1
-            saturation = 0.8
-            value = 0.9 - 0.4 * tsne_norm[i, 1]  # vary from about 0.9 down to 0.5
-            # hsv_to_rgb expects (h, s, v)
-            color_rgb = mcolors.hsv_to_rgb((hue, saturation, value))
-            self.rgb_map.append(color_rgb)
 
         self.rgb_map = np.array(self.rgb_map)
+        self.desc_color_map = {i: self.rgb_map[i] for i in range(len(self.rgb_map))}
 
         # Initialize the grid with agents
         self._init_agents()
@@ -203,6 +203,25 @@ class SchellingModel:
         plt.imshow(img)
         plt.title(f"Iteration {iteration}")
         plt.axis('off')
+
+        # Create legend patches
+        legend_patches = []
+        for idx, color in self.desc_color_map.items():
+            label = f"{idx}: {self.desc_lookup[idx][:40]}..."  # First 40 chars
+            patch = mpatches.Patch(color=color, label=label)
+            legend_patches.append(patch)
+
+        # Add the legend to the side
+        #plt.legend(handles=legend_patches, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+        # Add the legend below the plot
+        plt.legend(handles=legend_patches,
+                   loc='upper center',
+                   bbox_to_anchor=(0.5, -0.05),
+                   fancybox=True,
+                   shadow=True,
+                   ncol=1)
+                   #ncol=1 if len(legend_patches) < 4 else 2)
+        plt.subplots_adjust(bottom=0.3)  # Adjust bottom margin to fit the full legend
         plt.show()
 
     def plot_happiness(self, return_fig=False):
@@ -252,6 +271,7 @@ if __name__ == "__main__":
                            grid_size=20,
                            num_agents=300,
                            similarity_threshold=0.65,
-                           max_iters=50)
+                           max_iters=50,
+                           color_method="pca")
     model.run(do_plots=True)
     model.plot_happiness(return_fig=False)
