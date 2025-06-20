@@ -226,11 +226,12 @@ class SchellingModel:
 
     def plot_happiness(self, return_fig=False):
         """Plot number of happy agents per iteration. Return the plot if requested."""
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(12, 5))
         ax.plot(self.happy_counts)
         ax.set_title("Number of Happy Agents per Iteration")
         ax.set_xlabel("Iteration")
         ax.set_ylabel("Happy Agents")
+        fig.tight_layout()
         if return_fig:
             return fig
         else:
