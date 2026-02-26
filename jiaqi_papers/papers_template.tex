@@ -1,6 +1,12 @@
+% !TEX TS-program = XeLaTeX
+
 \documentclass[11pt]{book}
 \usepackage{pdfpages}
 \usepackage{hyperref}
+\usepackage{graphicx}
+
+%\usepackage{fontspec}
+%\usepackage{xeCJK}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -11,13 +17,28 @@
 
 \begin{document}
 
-\title{Collected Research Papers of Jiaqi Ge}
-%\author{<Author Name>}
-\date{}
-\maketitle
+\begin{titlepage}
+\centering
 
+{\LARGE Collected Research Papers of Jiaqi Ge\par}
+\vspace{2em}
+
+This book brings together a selection of Jiaqi's published papers, reflecting the breadth of her work and her contribution to agent-based modelling. 
+The papers were identified via her ORCID record, and some additional papers have been submitted by colleagues.
+If the paper was publicly-available, the full text has been included. 
+Where this was not possible, we have included bibliographic details. 
+Together, they form a small record of Jiaqi’s academic legacy.
+
+
+%本书汇集了嘉琪已发表论文中的一部分，体现了她研究工作的广度以及她对该领域的重要贡献。
+%这些论文主要依据她的 ORCID 记录整理，同时也收录了同事们补充提供的一些论文。
+%在条件允许的情况下，我们收录了论文的全文。
+%对于无法收录全文的论文，则提供了相应的书目信息。
+%这些内容共同构成了对嘉琪学术生涯的一份简要记录。
+
+
+\end{titlepage}
 \tableofcontents
-
 % === Automatically inserted content will be added to chapters.tex ===
 
 \input{chapters.tex}

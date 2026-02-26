@@ -1,3 +1,3 @@
 # Jiaqi's papers 
 
-Collaging all of Jiaqi's papers and collating them into a pdf book.
+Collecting Jiaqi's publicly-available papers and collating them into a pdf book.
