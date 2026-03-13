@@ -367,7 +367,7 @@ def apa_like_citation(row):
     if vip_bits:
         parts.append(", ".join(vip_bits) + ".")
     if doi:
-        parts.append(latex_escape(f"https://doi.org/{doi}"))
+        parts.append(f"\\url{{https://doi.org/{doi}}}")
 
     return " ".join(parts).strip()
 
@@ -473,11 +473,13 @@ def write_chapters_tex(df, output_path="chapters.tex"):
             if citation_plain:
                 citation_zh = translate_to_chinese(citation_plain)
                 if citation_zh:
+                    f.write("\\vspace{0.5em}\n")
                     f.write("\\noindent\\textbf{引用:} " + latex_escape(citation_zh) + "\n\n")
 
             # --- Abstract (English) ---
             abs_txt = abstract_text(row)
             if abs_txt:
+                f.write("\\vspace{1.5em}\n")
                 f.write("\\noindent\\textbf{Abstract}\\par\n")
                 f.write("\\begin{quote}\\small\n")
                 f.write(abs_txt + "\n")

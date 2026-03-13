@@ -1,9 +1,11 @@
 % !TEX TS-program = LuaLaTeX
 
-\documentclass[11pt]{book}
+\documentclass[11pt,openany]{book}
 \usepackage{pdfpages}
-\usepackage{hyperref}
+\usepackage[colorlinks=true, allcolors=black, urlcolor=blue]{hyperref}
+\usepackage{xurl}   % allow URL line-breaks at more characters
 \usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
 
 \usepackage{fontspec}
 \usepackage{luatexja-fontspec}
@@ -17,30 +19,47 @@
 % optional: keep page numbers
 \fancyfoot[C]{\thepage}
 
+% Tighten TOC spacing
+\usepackage{tocloft}
+\setlength{\cftbeforechapskip}{4pt}
+
+% Reduce chapter heading size and spacing
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\large\bfseries}{\thechapter\quad}{0pt}{}
+\titlespacing*{\chapter}{0pt}{20pt}{10pt}
+
 \begin{document}
 
 \begin{titlepage}
 \centering
+\vspace*{\fill}
 
-{\LARGE Collected Research Papers of Jiaqi Ge\par}
+{\Huge\bfseries Collected Research Papers of Jiaqi Ge\par}
+
+\vspace{2.5em}
+\noindent\rule{0.5\textwidth}{0.4pt}
 \vspace{2em}
 
-This book brings together a selection of Jiaqi's published papers, reflecting the breadth of her work and her contribution to agent-based modelling. 
+\begin{minipage}{0.75\textwidth}
+\setlength{\parskip}{0.8em}
+\raggedright
+This book brings together a selection of Jiaqi's published papers, reflecting the breadth of her work and her contribution to agent-based modelling.
 The papers were identified via her ORCID record, and some additional papers have been submitted by colleagues.
-If the paper was publicly-available, the full text has been included. 
-Where this was not possible, we have included bibliographic details. 
-Together, they form a small record of Jiaqi’s academic legacy.
+If the paper was publicly-available, the full text has been included.
+Where this was not possible, we have included bibliographic details.
+Together, they form a small record of Jiaqi's academic legacy.
 
-
-\vspace{1em}
+\medskip
 
 本书汇集了嘉琪已发表论文中的一部分，体现了她研究工作的广度以及她对该领域的重要贡献。
 这些论文主要依据她的 ORCID 记录整理，同时也收录了同事们补充提供的一些论文。
 在条件允许的情况下，我们收录了论文的全文。
 对于无法收录全文的论文，则提供了相应的书目信息。
 这些内容共同构成了对嘉琪学术生涯的一份简要记录。
+\end{minipage}
 
-
+\vspace*{\fill}
+{\large 2025}
 \end{titlepage}
 \tableofcontents
 % === Automatically inserted content will be added to chapters.tex ===
