@@ -1,0 +1,10 @@
+name: book_recommender
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10
+  - pip
+  - pip:
+    - flask>=3.0
+    - anthropic>=0.40

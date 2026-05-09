@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book recommender</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #FAF9F7;
+  --surface: #FFFFFF;
+  --text: #2C2C2A;
+  --text-muted: #5F5E5A;
+  --text-faint: #888780;
+  --border: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.22);
+  --done: #0F6E56;
+  --done-bg: #E1F5EE;
+  --love: #993556;
+  --love-bg: #FBEAF0;
+  --meh: #5F5E5A;
+  --meh-bg: #ECEAE2;
+  --error: #791F1F;
+  --error-bg: #FCEBEB;
+  --info: #0C447C;
+  --info-bg: #E6F1FB;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 24px 20px 40px;
+}
+.wrap { max-width: 980px; margin: 0 auto; }
+
+header { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 20px; gap: 16px; flex-wrap: wrap; }
+header h1 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
+header p { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.55; }
+header .header-text { flex: 1 1 320px; }
+.connection {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 5px 10px;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-faint); }
+.dot.ok { background: #1D9E75; }
+.dot.bad { background: #E24B4A; }
+
+.error-bar {
+  background: var(--error-bg);
+  border: 0.5px solid var(--error);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  color: var(--error);
+  font-size: 13px;
+  margin: 0 0 16px;
+  line-height: 1.6;
+  display: none;
+}
+.error-bar.visible { display: block; }
+.error-bar pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 11px;
+  margin: 8px 0 0;
+  padding: 8px;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  max-height: 180px;
+  overflow: auto;
+  color: var(--text);
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin: 0 0 16px;
+  flex-wrap: wrap;
+}
+.stats-numbers { display: flex; gap: 18px; flex-wrap: wrap; }
+.stats-num { font-size: 13px; color: var(--text-muted); }
+.stats-num strong { color: var(--text); font-weight: 500; margin-right: 4px; }
+.reset-btn {
+  background: transparent;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+}
+.reset-btn:hover { background: var(--bg); color: var(--text); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; align-items: center; }
+.spacer { flex: 1; min-width: 0; }
+.pill {
+  background: transparent;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+}
+.pill:hover { background: var(--surface); }
+.pill.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+.section { margin: 0 0 28px; }
+.section-label { font-size: 12px; color: var(--text-muted); margin: 0 0 4px; }
+.section-h { font-size: 17px; font-weight: 500; margin: 0 0 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+
+.card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: opacity 0.15s, border-color 0.15s, background 0.15s;
+}
+.card.read { opacity: 0.7; }
+.card.loved { opacity: 1; border-color: var(--love); background: #FFFCFD; }
+.card.passed { opacity: 0.5; }
+.card.fresh-pick { border-style: dashed; }
+.card.hidden { display: none; }
+
+.status-row { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: var(--radius-md); font-weight: 500; line-height: 1.5; }
+.badge.read { background: var(--done-bg); color: var(--done); }
+.badge.love { background: var(--love-bg); color: var(--love); }
+.badge.meh { background: var(--meh-bg); color: var(--meh); }
+.badge.new { background: var(--info-bg); color: var(--info); }
+
+.card-title { font-size: 15px; font-weight: 500; margin: 0 0 2px; line-height: 1.35; }
+.card-author { font-size: 13px; color: var(--text-muted); margin: 0 0 10px; }
+.card-why { font-size: 13px; color: var(--text); line-height: 1.55; margin: 0 0 14px; }
+
+.actions { display: flex; gap: 6px; margin-top: auto; flex-wrap: wrap; }
+.action {
+  background: transparent;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+}
+.action:hover { background: var(--bg); color: var(--text); }
+.action:disabled { opacity: 0.4; cursor: not-allowed; }
+.action.is-read { background: var(--done-bg); color: var(--done); border-color: var(--done); }
+.action.is-loved { background: var(--love-bg); color: var(--love); border-color: var(--love); }
+.action.is-meh { background: var(--meh-bg); color: var(--meh); border-color: var(--border-strong); }
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.replace-section {
+  margin: 24px 0 0;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.replace-section h2 { font-size: 16px; font-weight: 500; margin: 0 0 6px; }
+.replace-section p.replace-sub { font-size: 13px; color: var(--text-muted); margin: 0 0 14px; line-height: 1.6; }
+.replace-button {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 9px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.replace-button:hover { opacity: 0.85; }
+.replace-button:disabled { opacity: 0.4; cursor: not-allowed; }
+.replace-status { font-size: 12px; color: var(--text-muted); margin: 12px 0 0; }
+.replace-section .test-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 7px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  margin-left: 8px;
+}
+.replace-section .test-btn:hover { background: var(--bg); color: var(--text); }
+
+.history-section { margin: 32px 0 0; }
+.history-section .section-label { margin-bottom: 4px; }
+.history-section h2 { font-size: 17px; font-weight: 500; margin: 0 0 12px; }
+.history-list {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.history-row {
+  display: grid;
+  grid-template-columns: 78px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+}
+.history-row:last-child { border-bottom: none; }
+.history-row .badge { justify-self: start; }
+.history-text strong { font-weight: 500; font-size: 14px; display: block; }
+.history-text span { font-size: 12px; color: var(--text-muted); }
+.history-meta { text-align: right; font-size: 12px; color: var(--text-muted); }
+.history-empty { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
+.history-clear {
+  background: transparent;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 12px;
+}
+.history-clear:hover { background: var(--surface); color: var(--text); }
+
+.loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
+
+.debug-toggle {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  z-index: 50;
+}
+.debug-toggle:hover { color: var(--text); }
+.debug-panel {
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  width: 420px;
+  max-height: 360px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  font-size: 11px;
+  font-family: ui-monospace, SF Mono, Menlo, Monaco, monospace;
+  display: none;
+  flex-direction: column;
+  z-index: 50;
+}
+.debug-panel.open { display: flex; }
+.debug-panel h3 { font-size: 12px; margin: 0 0 8px; font-weight: 500; font-family: inherit; }
+.debug-log { flex: 1; overflow: auto; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.debug-log .err { color: var(--error); }
+.debug-log .ok { color: var(--done); }
+.debug-log .info { color: var(--info); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="header-text">
+      <h1>Your book recommender</h1>
+      <p>Mark each book as read, loved, or passed. The order shifts to surface what fits your taste, and "Generate fresh picks" replaces every marked book in place via Claude.</p>
+    </div>
+    <div class="connection" id="connection">
+      <span class="dot" id="connection-dot"></span>
+      <span id="connection-text">checking…</span>
+    </div>
+  </header>
+
+  <div class="error-bar" id="error-bar"></div>
+
+  <section class="stats">
+    <div class="stats-numbers">
+      <span class="stats-num"><strong id="stat-marked">0</strong>marked</span>
+      <span class="stats-num"><strong id="stat-love">0</strong>loved</span>
+      <span class="stats-num"><strong id="stat-meh">0</strong>passed</span>
+      <span class="stats-num"><strong id="stat-history">0</strong>in history</span>
+    </div>
+    <button class="reset-btn" id="reset-btn">Reset marks</button>
+  </section>
+
+  <div class="filters" id="filters">
+    <button class="pill active" data-genre="all">All</button>
+    <button class="pill" data-genre="cli-fi">Climate</button>
+    <button class="pill" data-genre="cyber">Cyberpunk</button>
+    <button class="pill" data-genre="space">Space opera</button>
+    <button class="pill" data-genre="fantasy">Fantasy</button>
+    <button class="pill" data-genre="historical">Historical</button>
+    <button class="pill" data-genre="literary">Literary</button>
+    <span class="spacer"></span>
+    <button class="pill" data-view="hide-read">Hide read</button>
+    <button class="pill" data-view="loved-only">Loved only</button>
+  </div>
+
+  <main id="main">
+    <div class="loading">Loading…</div>
+  </main>
+
+  <section class="replace-section">
+    <h2 id="replace-title">Generate fresh picks</h2>
+    <p class="replace-sub" id="replace-sub">Mark a book as read, loved, or passed and click below to swap it for a Claude-generated pick that learns from your signal.</p>
+    <button class="replace-button" id="replace-btn" disabled>Mark a book first</button>
+    <button class="test-btn" id="test-btn" title="Make a tiny Claude call to verify connectivity">Test Claude</button>
+    <p class="replace-status" id="replace-status" style="display:none"></p>
+  </section>
+
+  <section class="history-section">
+    <p class="section-label">Books removed from the list — keeps a record of what you've already evaluated.</p>
+    <h2>Marked books history</h2>
+    <div id="history-container"></div>
+    <button class="history-clear" id="history-clear" style="display:none">Clear history</button>
+  </section>
+</div>
+
+<button class="debug-toggle" id="debug-toggle">Debug log</button>
+<div class="debug-panel" id="debug-panel">
+  <h3>Recent activity (also see your terminal)</h3>
+  <div class="debug-log" id="debug-log"></div>
+</div>
+
+<script>
+// ───────────────────── State and rendering ─────────────────────
+
+let state = { current_books: [], marks: {}, history: [], genres: [], original_favourites: [], model: '' };
+let view = { genre: 'all', hideRead: false, lovedOnly: false };
+
+function dlog(level, msg) {
+  const log = document.getElementById('debug-log');
+  if (!log) return;
+  const cls = level === 'error' ? 'err' : level === 'ok' ? 'ok' : 'info';
+  const t = new Date().toLocaleTimeString();
+  const line = document.createElement('div');
+  line.className = cls;
+  line.textContent = `[${t}] ${msg}`;
+  log.insertBefore(line, log.firstChild);
+  while (log.children.length > 200) log.removeChild(log.lastChild);
+}
+
+function setError(msg, preview) {
+  const bar = document.getElementById('error-bar');
+  bar.innerHTML = '';
+  if (!msg) { bar.classList.remove('visible'); return; }
+  const line = document.createElement('div');
+  line.textContent = msg;
+  bar.appendChild(line);
+  if (preview) {
+    const pre = document.createElement('pre');
+    pre.textContent = preview;
+    bar.appendChild(pre);
+  }
+  bar.classList.add('visible');
+}
+
+function setConnection(status) {
+  const dot = document.getElementById('connection-dot');
+  const text = document.getElementById('connection-text');
+  dot.classList.remove('ok', 'bad');
+  if (status === 'ok') { dot.classList.add('ok'); text.textContent = `connected · ${state.model || 'claude'}`; }
+  else if (status === 'bad') { dot.classList.add('bad'); text.textContent = 'server unreachable'; }
+  else { text.textContent = 'checking…'; }
+}
+
+async function api(path, opts = {}) {
+  const t0 = performance.now();
+  const method = opts.method || 'GET';
+  dlog('info', `→ ${method} ${path}`);
+  try {
+    const res = await fetch(path, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: opts.body != null ? JSON.stringify(opts.body) : undefined,
+    });
+    const elapsed = (performance.now() - t0) | 0;
+    let data;
+    const text = await res.text();
+    try { data = JSON.parse(text); } catch (e) { data = { _raw: text }; }
+    if (!res.ok) {
+      dlog('error', `← ${res.status} ${path} (${elapsed}ms)`);
+      const err = new Error((data && data.error) ? data.error : `${res.status} ${res.statusText}`);
+      err.body = data;
+      err.status = res.status;
+      throw err;
+    }
+    dlog('ok', `← ${res.status} ${path} (${elapsed}ms)`);
+    return data;
+  } catch (e) {
+    if (!e.status) dlog('error', `× ${method} ${path}: ${e.message}`);
+    throw e;
+  }
+}
+
+// ───────────────────── Helpers ─────────────────────
+
+function el(tag, attrs, ...children) {
+  const node = document.createElement(tag);
+  if (attrs) {
+    for (const k in attrs) {
+      if (k === 'class') node.className = attrs[k];
+      else if (k === 'onclick') node.onclick = attrs[k];
+      else node.setAttribute(k, attrs[k]);
+    }
+  }
+  for (const c of children) {
+    if (c == null) continue;
+    if (typeof c === 'string') node.appendChild(document.createTextNode(c));
+    else node.appendChild(c);
+  }
+  return node;
+}
+
+function getMark(id) { return state.marks[id] || { read: false, like: null }; }
+function isMarked(id) { const m = getMark(id); return Boolean(m.read || m.like); }
+
+function genreLabel(key) {
+  const g = state.genres.find(g => g.key === key);
+  return g ? g.label : key;
+}
+
+function genreLikedScore(genreKey) {
+  let score = 0;
+  for (const b of state.current_books) {
+    if (b.genre !== genreKey) continue;
+    const m = getMark(b.id);
+    if (m.like === 'love') score += 2;
+    if (m.like === 'meh') score -= 2;
+    if (m.read && m.like == null) score += 0.25;
+  }
+  return score;
+}
+
+function relativeTime(iso) {
+  if (!iso) return '';
+  const ts = Date.parse(iso);
+  if (isNaN(ts)) return '';
+  const diff = Date.now() - ts;
+  const sec = Math.round(diff / 1000);
+  if (sec < 60) return 'just now';
+  const min = Math.round(sec / 60);
+  if (min < 60) return `${min} min ago`;
+  const hr = Math.round(min / 60);
+  if (hr < 24) return `${hr} hr ago`;
+  const day = Math.round(hr / 24);
+  if (day < 14) return `${day} day${day === 1 ? '' : 's'} ago`;
+  return new Date(ts).toLocaleDateString();
+}
+
+// ───────────────────── Server actions ─────────────────────
+
+async function loadState() {
+  setConnection(null);
+  try {
+    const data = await api('/api/state');
+    state = data;
+    setConnection('ok');
+    setError(null);
+    render();
+  } catch (e) {
+    setConnection('bad');
+    setError(`Could not reach the server. Is server.py running? (${e.message})`);
+  }
+}
+
+async function setMark(id, patch) {
+  try {
+    const data = await api('/api/mark', { method: 'POST', body: { id, patch } });
+    state.marks = data.marks;
+    setError(null);
+    render();
+  } catch (e) {
+    setError(`Failed to update mark: ${e.message}`);
+  }
+}
+
+async function clearMarks() {
+  if (!confirm('Clear all current read / loved / passed marks? Your history below will be kept.')) return;
+  try {
+    const data = await api('/api/clear-marks', { method: 'POST' });
+    state.marks = data.marks;
+    setError(null);
+    render();
+  } catch (e) {
+    setError(`Failed to clear marks: ${e.message}`);
+  }
+}
+
+async function clearHistory() {
+  if (!confirm('Clear the entire marked-books history? This cannot be undone.')) return;
+  try {
+    const data = await api('/api/clear-history', { method: 'POST' });
+    state.history = data.history;
+    setError(null);
+    render();
+  } catch (e) {
+    setError(`Failed to clear history: ${e.message}`);
+  }
+}
+
+async function freshPicks() {
+  const btn = document.getElementById('replace-btn');
+  const status = document.getElementById('replace-status');
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.textContent = 'Generating…';
+  status.style.display = 'block';
+  status.textContent = 'Asking Claude — see your terminal for live progress…';
+  setError(null);
+
+  try {
+    const data = await api('/api/fresh-picks', { method: 'POST' });
+    state.current_books = data.current_books;
+    state.marks = data.marks;
+    state.history = data.history;
+
+    if (data.ok) {
+      status.textContent = `Replaced ${data.replaced_count} of ${data.marked_count} books. Generated ${new Date().toLocaleTimeString()}.`;
+    } else {
+      // Partial: some replaced, error happened
+      const replaced = data.replaced_count || 0;
+      if (replaced > 0) {
+        setError(`Replaced ${replaced} of ${data.marked_count} books, then a batch failed: ${data.error}. The remaining marked books are still marked — click again to retry.`,
+                 data.last_response_preview);
+      } else {
+        setError(`Couldn't reach Claude: ${data.error}`, data.last_response_preview);
+      }
+      status.textContent = `Replaced ${replaced} of ${data.marked_count}.`;
+    }
+  } catch (e) {
+    const preview = (e.body && (e.body.last_response_preview || (typeof e.body === 'string' ? e.body : ''))) || '';
+    setError(`Fresh picks failed: ${e.message}`, preview || null);
+    status.textContent = 'Failed — see error above and your terminal.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    render();
+  }
+}
+
+async function testClaude() {
+  const status = document.getElementById('replace-status');
+  status.style.display = 'block';
+  status.textContent = 'Pinging Claude…';
+  setError(null);
+  try {
+    const data = await api('/api/test');
+    if (data.ok) {
+      status.textContent = `Claude reachable: ${JSON.stringify(data.reply)} in ${data.latency_s}s (model ${data.model}).`;
+    } else {
+      setError(`Claude test failed: ${data.error}`);
+      status.textContent = 'Test failed — see error above.';
+    }
+  } catch (e) {
+    setError(`Claude test failed: ${e.message}`);
+    status.textContent = 'Test failed — see error above.';
+  }
+}
+
+// ───────────────────── Rendering ─────────────────────
+
+function renderCard(book) {
+  const mark = getMark(book.id);
+  const classes = ['card'];
+  if (mark.like === 'love') classes.push('loved');
+  else if (mark.like === 'meh') classes.push('passed');
+  else if (mark.read) classes.push('read');
+  if (book.is_fresh) classes.push('fresh-pick');
+
+  const inGenre = view.genre === 'all' || book.genre === view.genre;
+  const passesView = (!view.hideRead || !mark.read) && (!view.lovedOnly || mark.like === 'love');
+  if (!inGenre || !passesView) classes.push('hidden');
+
+  const card = el('div', { class: classes.join(' ') });
+
+  const status = el('div', { class: 'status-row' });
+  if (book.is_fresh) status.appendChild(el('span', { class: 'badge new' }, 'New'));
+  if (mark.read) status.appendChild(el('span', { class: 'badge read' }, 'Read'));
+  if (mark.like === 'love') status.appendChild(el('span', { class: 'badge love' }, 'Loved'));
+  if (mark.like === 'meh') status.appendChild(el('span', { class: 'badge meh' }, 'Passed'));
+  if (status.children.length) card.appendChild(status);
+
+  card.appendChild(el('p', { class: 'card-title' }, book.title));
+  card.appendChild(el('p', { class: 'card-author' }, book.author));
+  card.appendChild(el('p', { class: 'card-why' }, book.why || ''));
+
+  const actions = el('div', { class: 'actions' });
+
+  const readBtn = el('button', {
+    class: 'action' + (mark.read ? ' is-read' : ''),
+    onclick: () => setMark(book.id, { read: !mark.read })
+  }, mark.read ? 'Read' : 'Mark read');
+  actions.appendChild(readBtn);
+
+  const loveBtn = el('button', {
+    class: 'action' + (mark.like === 'love' ? ' is-loved' : ''),
+    onclick: () => setMark(book.id, { like: mark.like === 'love' ? null : 'love' })
+  }, mark.like === 'love' ? 'Loved' : 'Loved it');
+  actions.appendChild(loveBtn);
+
+  const mehBtn = el('button', {
+    class: 'action' + (mark.like === 'meh' ? ' is-meh' : ''),
+    onclick: () => setMark(book.id, { like: mark.like === 'meh' ? null : 'meh' })
+  }, mark.like === 'meh' ? 'Passed' : 'Not for me');
+  actions.appendChild(mehBtn);
+
+  card.appendChild(actions);
+  return card;
+}
+
+function render() {
+  let marked = 0, love = 0, meh = 0;
+  for (const id in state.marks) {
+    const m = state.marks[id];
+    if (m.read || m.like) marked++;
+    if (m.like === 'love') love++;
+    if (m.like === 'meh') meh++;
+  }
+  document.getElementById('stat-marked').textContent = marked;
+  document.getElementById('stat-love').textContent = love;
+  document.getElementById('stat-meh').textContent = meh;
+  document.getElementById('stat-history').textContent = state.history.length;
+
+  const replaceBtn = document.getElementById('replace-btn');
+  const replaceSub = document.getElementById('replace-sub');
+  if (marked === 0) {
+    replaceBtn.disabled = true;
+    replaceBtn.textContent = 'Mark a book first';
+    replaceSub.textContent = "Mark a book as read, loved, or passed and click below to swap it for a Claude-generated pick that learns from your signal.";
+  } else {
+    replaceBtn.disabled = false;
+    replaceBtn.textContent = `Replace ${marked} marked book${marked === 1 ? '' : 's'}`;
+    replaceSub.textContent = `Will replace ${marked} marked book${marked === 1 ? '' : 's'} via Claude. Replaced books move to your history below.`;
+  }
+
+  const sortedGenres = state.genres.slice();
+
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  let totalVisible = 0;
+  for (const genre of sortedGenres) {
+    if (view.genre !== 'all' && view.genre !== genre.key) continue;
+
+    const sectionEl = el('section', { class: 'section' });
+    sectionEl.appendChild(el('p', { class: 'section-label' }, genre.sub));
+    sectionEl.appendChild(el('h3', { class: 'section-h' }, genre.label));
+
+    const books = state.current_books.filter(b => b.genre === genre.key).slice().sort((a, b) => {
+      const ma = getMark(a.id), mb = getMark(b.id);
+      function rank(m) {
+        if (m.like === 'love') return 0;
+        if (!m.read && m.like == null) return 1;
+        if (m.read && m.like == null) return 2;
+        if (m.like === 'meh') return 3;
+        return 1;
+      }
+      return rank(ma) - rank(mb);
+    });
+
+    const grid = el('div', { class: 'grid' });
+    let visibleInSection = 0;
+    for (const book of books) {
+      const card = renderCard(book);
+      if (!card.classList.contains('hidden')) visibleInSection++;
+      grid.appendChild(card);
+    }
+    if (visibleInSection === 0) continue;
+    sectionEl.appendChild(grid);
+    main.appendChild(sectionEl);
+    totalVisible += visibleInSection;
+  }
+
+  if (totalVisible === 0) {
+    main.appendChild(el('div', { class: 'empty-state' }, 'No books match the current filters. Try clearing them.'));
+  }
+
+  document.querySelectorAll('.pill[data-genre]').forEach(p => {
+    p.classList.toggle('active', p.getAttribute('data-genre') === view.genre);
+  });
+  const hideReadPill = document.querySelector('.pill[data-view="hide-read"]');
+  const lovedOnlyPill = document.querySelector('.pill[data-view="loved-only"]');
+  if (hideReadPill) hideReadPill.classList.toggle('active', view.hideRead);
+  if (lovedOnlyPill) lovedOnlyPill.classList.toggle('active', view.lovedOnly);
+
+  renderHistory();
+}
+
+function renderHistory() {
+  const container = document.getElementById('history-container');
+  const clearBtn = document.getElementById('history-clear');
+  container.innerHTML = '';
+
+  if (state.history.length === 0) {
+    const empty = el('div', { class: 'history-empty' }, "Nothing here yet. Books you've marked and replaced will appear here so you can see your reading-list history at a glance.");
+    const wrap = el('div', { class: 'history-list' }, empty);
+    container.appendChild(wrap);
+    clearBtn.style.display = 'none';
+    return;
+  }
+
+  const list = el('div', { class: 'history-list' });
+  for (const h of state.history) {
+    const row = el('div', { class: 'history-row' });
+    const badgeClass = h.mark === 'loved' ? 'love' : h.mark === 'passed' ? 'meh' : 'read';
+    const badgeText = h.mark === 'loved' ? 'Loved' : h.mark === 'passed' ? 'Passed' : 'Read';
+    row.appendChild(el('span', { class: 'badge ' + badgeClass }, badgeText));
+    const text = el('div', { class: 'history-text' });
+    text.appendChild(el('strong', null, h.title));
+    text.appendChild(el('span', null, `${h.author} · ${genreLabel(h.genre)}`));
+    row.appendChild(text);
+    row.appendChild(el('div', { class: 'history-meta' }, h.replaced_at ? `replaced ${relativeTime(h.replaced_at)}` : ''));
+    list.appendChild(row);
+  }
+  container.appendChild(list);
+  clearBtn.style.display = 'inline-block';
+}
+
+// ───────────────────── Wire-up ─────────────────────
+
+document.getElementById('filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('.pill');
+  if (!btn) return;
+  if (btn.hasAttribute('data-genre')) view.genre = btn.getAttribute('data-genre');
+  if (btn.getAttribute('data-view') === 'hide-read') view.hideRead = !view.hideRead;
+  if (btn.getAttribute('data-view') === 'loved-only') view.lovedOnly = !view.lovedOnly;
+  render();
+});
+
+document.getElementById('reset-btn').addEventListener('click', clearMarks);
+document.getElementById('history-clear').addEventListener('click', clearHistory);
+document.getElementById('replace-btn').addEventListener('click', freshPicks);
+document.getElementById('test-btn').addEventListener('click', testClaude);
+
+document.getElementById('debug-toggle').addEventListener('click', () => {
+  document.getElementById('debug-panel').classList.toggle('open');
+});
+
+loadState();
+</script>
+</body>
+</html>
