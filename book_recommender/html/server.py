@@ -2,13 +2,16 @@
 Local web server for the book recommender.
 
 Run with:
-    python server.py [--debug] [--port 5050]
+    python server.py [--debug] [--port 5050] [--model sonnet|haiku|opus]
 
 Then open http://localhost:5050 in your browser.
 
 Requires:
     - ANTHROPIC_API_KEY environment variable
     - pip install -r requirements.txt
+    (or use anaconda)
+    - conda env create -f environment.yml
+    - conda activate book_recommender
 """
 from __future__ import annotations
 
@@ -45,7 +48,13 @@ STATE_FILE = HERE / "state.json"
 LOG_FILE = HERE / "server.log"
 DEFAULT_PORT = 5050
 
-MODEL = "claude-sonnet-4-6"
+MODEL = "claude-sonnet-4-6"  # overridden by --model at startup
+
+MODELS = {
+    "sonnet": "claude-sonnet-4-6",
+    "haiku":  "claude-haiku-4-5-20251001",
+    "opus":   "claude-opus-4-7",
+}
 MAX_TOKENS = 2048
 BATCH_SIZE = 6        # books per Claude call
 TIMEOUT_S = 90.0      # per-call timeout
@@ -624,7 +633,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Local book recommender server")
     parser.add_argument("--debug", action="store_true", help="Verbose debug logging")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
+    parser.add_argument("--model", choices=["sonnet", "haiku", "opus"], default="sonnet",
+                        help="Claude model to use (default: sonnet)")
     args = parser.parse_args()
+
+    global MODEL
+    MODEL = MODELS[args.model]
 
     setup_logging(args.debug)
 

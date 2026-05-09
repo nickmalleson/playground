@@ -57,6 +57,7 @@ Open `http://localhost:5050` in your browser.
 ```
 python server.py --debug             # verbose logging (full prompts, full responses)
 python server.py --port 5070         # different port
+python server.py --model haiku       # faster/cheaper model (sonnet is default, opus also available)
 ```
 
 ## What you'll see in the terminal
