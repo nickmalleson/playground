@@ -43,6 +43,20 @@ header { display: flex; align-items: baseline; justify-content: space-between; m
 header h1 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
 header p { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.55; }
 header .header-text { flex: 1 1 320px; }
+.header-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 5px 10px;
+}
+.user-badge strong { font-weight: 500; }
+.user-badge .others { color: var(--text-faint); }
 .connection {
   display: inline-flex;
   align-items: center;
@@ -300,9 +314,12 @@ header .header-text { flex: 1 1 320px; }
       <h1>Your book recommender</h1>
       <p>Mark each book as read, loved, or passed. The order shifts to surface what fits your taste, and "Generate fresh picks" replaces every marked book in place via Claude.</p>
     </div>
-    <div class="connection" id="connection">
-      <span class="dot" id="connection-dot"></span>
-      <span id="connection-text">checking…</span>
+    <div class="header-side">
+      <div class="user-badge" id="user-badge" title="Switch users by restarting the server with --user NAME"></div>
+      <div class="connection" id="connection">
+        <span class="dot" id="connection-dot"></span>
+        <span id="connection-text">checking…</span>
+      </div>
     </div>
   </header>
 
@@ -360,7 +377,7 @@ header .header-text { flex: 1 1 320px; }
 <script>
 // ───────────────────── State and rendering ─────────────────────
 
-let state = { current_books: [], marks: {}, history: [], genres: [], original_favourites: [], model: '' };
+let state = { current_books: [], marks: {}, history: [], genres: [], original_favourites: [], model: '', user: '', display_name: '', users: [] };
 let view = { genre: 'all', hideRead: false, lovedOnly: false };
 
 function dlog(level, msg) {
@@ -388,6 +405,21 @@ function setError(msg, preview) {
     bar.appendChild(pre);
   }
   bar.classList.add('visible');
+}
+
+function renderUserBadge() {
+  const badge = document.getElementById('user-badge');
+  if (!badge) return;
+  const name = state.display_name || state.user || '';
+  if (!name) { badge.textContent = ''; return; }
+  badge.innerHTML = '';
+  badge.appendChild(document.createTextNode('User: '));
+  badge.appendChild(el('strong', null, name));
+  const others = (state.users || []).filter(u => u !== state.user);
+  if (others.length) {
+    badge.appendChild(el('span', { class: 'others' }, ` · also: ${others.join(', ')}`));
+  }
+  document.title = `Book recommender — ${name}`;
 }
 
 function setConnection(status) {
@@ -492,6 +524,7 @@ async function loadState() {
     state = data;
     setConnection('ok');
     setError(null);
+    renderUserBadge();
     render();
   } catch (e) {
     setConnection('bad');

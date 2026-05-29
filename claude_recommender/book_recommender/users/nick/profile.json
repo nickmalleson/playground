@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "display_name": "Nick",
+  "original_favourites": [
+    "Margaret Atwood — Oryx and Crake",
+    "William Gibson — The Sprawl Trilogy and most other Gibson",
+    "Cormac McCarthy — The Road",
+    "Tim Winton — Juice",
+    "Paolo Bacigalupi — all books, especially The Water Knife and The Windup Girl",
+    "George R. R. Martin — A Game of Thrones",
+    "Patrick Rothfuss — The Kingkiller Chronicle",
+    "Joe Abercrombie — all books, especially The First Law",
+    "Cixin Liu — The Three-Body Problem and the rest of the trilogy",
+    "Dan Simmons — the Hyperion Cantos",
+    "Robert Harris — all books",
+    "Bernard Cornwell — especially the Saxon Stories (Uhtred and Alfred the Great)",
+    "Ursula K. Le Guin — sci-fi and fantasy",
+    "David Mitchell — Cloud Atlas",
+    "Frank Herbert — Dune (and posthumous continuations)",
+    "Scott Lynch — Gentleman Bastard / Locke Lamora"
+  ],
+  "genres": [
+    {
+      "key": "cli-fi",
+      "label": "Climate dystopia",
+      "sub": "For when you want Bacigalupi, Atwood or McCarthy"
+    },
+    {
+      "key": "cyber",
+      "label": "Cyberpunk and tech-noir",
+      "sub": "For when you want Gibson"
+    },
+    {
+      "key": "space",
+      "label": "Space opera and hard sci-fi",
+      "sub": "For when you want Hyperion, Three Body or Dune"
+    },
+    {
+      "key": "fantasy",
+      "label": "Epic fantasy",
+      "sub": "For when you want Abercrombie, GRRM or Lynch"
+    },
+    {
+      "key": "historical",
+      "label": "Historical fiction",
+      "sub": "For when you want Cornwell or Harris"
+    },
+    {
+      "key": "literary",
+      "label": "Literary speculative",
+      "sub": "For when you want Le Guin or Mitchell"
+    }
+  ],
+  "seed_books": [
+    {
+      "id": "parable-of-the-sower",
+      "title": "Parable of the Sower",
+      "author": "Octavia E. Butler",
+      "genre": "cli-fi",
+      "why": "Walled communities, climate collapse, a teenage prophet on the road. The bone-deep dread of The Road meets the political thrust of Bacigalupi — and it was written in 1993."
+    },
+    {
+      "id": "ministry-future",
+      "title": "The Ministry for the Future",
+      "author": "Kim Stanley Robinson",
+      "genre": "cli-fi",
+      "why": "A polyphonic climate novel that opens with a heatwave scene as devastating as anything in The Water Knife, then pivots into oddly hopeful policy wonkery."
+    },
+    {
+      "id": "american-war",
+      "title": "American War",
+      "author": "Omar El Akkad",
+      "genre": "cli-fi",
+      "why": "A second US civil war in the 2070s, fought over the last fossil fuels. Spare, devastating prose — distinctly McCarthy-coded, with a slow-burn protagonist arc."
+    },
+    {
+      "id": "gold-fame-citrus",
+      "title": "Gold Fame Citrus",
+      "author": "Claire Vaye Watkins",
+      "genre": "cli-fi",
+      "why": "California's water is gone and a dune sea is swallowing the Southwest. Lyrical and hallucinatory — basically a literary sibling to The Water Knife."
+    },
+    {
+      "id": "snow-crash",
+      "title": "Snow Crash",
+      "author": "Neal Stephenson",
+      "genre": "cyber",
+      "why": "Cyberpunk's other foundational text — funnier and faster than Gibson. Samurai pizza couriers, a metaverse linguistic virus, and the best opening 50 pages in the genre."
+    },
+    {
+      "id": "altered-carbon",
+      "title": "Altered Carbon",
+      "author": "Richard Morgan",
+      "genre": "cyber",
+      "why": "Hard-boiled detective noir plus downloadable consciousness. The Sprawl trilogy's 2000s grandchild — grittier, pulpier, and very confident."
+    },
+    {
+      "id": "quantum-thief",
+      "title": "The Quantum Thief",
+      "author": "Hannu Rajaniemi",
+      "genre": "cyber",
+      "why": "A post-cyberpunk caper across a transhuman solar system. Dense, dazzling, throws you in the deep end exactly the way Neuromancer did."
+    },
+    {
+      "id": "blindsight",
+      "title": "Blindsight",
+      "author": "Peter Watts",
+      "genre": "cyber",
+      "why": "First-contact horror with transhumans and predator-vampires interrogating consciousness itself. Brutally smart — Hyperion fans tend to love it too."
+    },
+    {
+      "id": "memory-called-empire",
+      "title": "A Memory Called Empire",
+      "author": "Arkady Martine",
+      "genre": "space",
+      "why": "A small-station ambassador navigates the seductive horror of a vast empire. Reads like Hyperion crossed with Le Guin's anthropological eye. The sequel is just as good."
+    },
+    {
+      "id": "player-of-games",
+      "title": "The Player of Games",
+      "author": "Iain M. Banks",
+      "genre": "space",
+      "why": "The friendliest doorway into the Culture. Scope, civilisational politics, and moral weight that should hit your Dune and Hyperion nerve. Banks is the missing author from your list."
+    },
+    {
+      "id": "children-of-time",
+      "title": "Children of Time",
+      "author": "Adrian Tchaikovsky",
+      "genre": "space",
+      "why": "Uplifted spiders evolve over millennia while a battered generation ship limps toward them. Big-idea SF in Cixin Liu's lineage but with more empathy."
+    },
+    {
+      "id": "house-of-suns",
+      "title": "House of Suns",
+      "author": "Alastair Reynolds",
+      "genre": "space",
+      "why": "A six-million-year galactic timescale, with clones of a single woman trading memories at meet-ups every 200,000 years. Hyperion-grade scope and melancholy."
+    },
+    {
+      "id": "gardens-of-the-moon",
+      "title": "Gardens of the Moon (Malazan)",
+      "author": "Steven Erikson",
+      "genre": "fantasy",
+      "why": "An army-scale, mythologically dense fantasy spread across continents and millennia. Steeper learning curve than First Law but the payoff over ten books is enormous."
+    },
+    {
+      "id": "black-company",
+      "title": "The Black Company",
+      "author": "Glen Cook",
+      "genre": "fantasy",
+      "why": "Grimdark before grimdark was a word. Mercenary-company POV, blood-and-mud morality — the obvious ancestor of Abercrombie's First Law."
+    },
+    {
+      "id": "assassins-apprentice",
+      "title": "Assassin's Apprentice",
+      "author": "Robin Hobb",
+      "genre": "fantasy",
+      "why": "Slow-burn, ferocious character work across a 16-book braided saga. The author Rothfuss readers most often graduate to — and she actually finishes her series."
+    },
+    {
+      "id": "poppy-war",
+      "title": "The Poppy War",
+      "author": "R. F. Kuang",
+      "genre": "fantasy",
+      "why": "Military academy to genocide-scale war, drawn from 20th-century Chinese history. Brutal, modern, GRRM-territory stakes — not for the faint-hearted."
+    },
+    {
+      "id": "wolf-hall",
+      "title": "Wolf Hall",
+      "author": "Hilary Mantel",
+      "genre": "historical",
+      "why": "Thomas Cromwell's rise in Henry VIII's court. Prose good enough to be illegal, plus all the political cunning of GRRM but in actual history. The trilogy is one of the great achievements."
+    },
+    {
+      "id": "shogun",
+      "title": "Shōgun",
+      "author": "James Clavell",
+      "genre": "historical",
+      "why": "An Englishman shipwrecked into Sengoku-era Japan. Massive, addictive, written with the same propulsive instinct as Cornwell's Saxon books."
+    },
+    {
+      "id": "master-and-commander",
+      "title": "Master and Commander",
+      "author": "Patrick O'Brian",
+      "genre": "historical",
+      "why": "Napoleonic naval fiction across 20 books. The more literary cousin of Cornwell's Sharpe — quieter, funnier, profoundly companionable once you tune in to the rhythm."
+    },
+    {
+      "id": "hhhh",
+      "title": "HHhH",
+      "author": "Laurent Binet",
+      "genre": "historical",
+      "why": "The 1942 plot to assassinate Reinhard Heydrich, told as a meta-narrative about the difficulty of telling it. Slim, riveting — Robert Harris would adore this one."
+    },
+    {
+      "id": "piranesi",
+      "title": "Piranesi",
+      "author": "Susanna Clarke",
+      "genre": "literary",
+      "why": "A man lives alone in an infinite labyrinth of statues and tides. Short, strange, perfect — Le Guin would have loved it."
+    },
+    {
+      "id": "never-let-me-go",
+      "title": "Never Let Me Go",
+      "author": "Kazuo Ishiguro",
+      "genre": "literary",
+      "why": "Quiet dystopia disguised as a boarding-school memoir. Devastating in the same way Cloud Atlas is devastating, but more concentrated."
+    },
+    {
+      "id": "jonathan-strange",
+      "title": "Jonathan Strange & Mr Norrell",
+      "author": "Susanna Clarke",
+      "genre": "literary",
+      "why": "Two magicians revive English magic during the Napoleonic Wars. Footnoted, funny, immense — the texture of Le Guin with the wit of an Austen novel."
+    },
+    {
+      "id": "memory-police",
+      "title": "The Memory Police",
+      "author": "Yoko Ogawa",
+      "genre": "literary",
+      "why": "On a small island, things vanish from memory one by one — birds, ribbons, novels, body parts. Ishiguro-quiet, Atwood-political, hauntingly beautiful."
+    }
+  ]
+}

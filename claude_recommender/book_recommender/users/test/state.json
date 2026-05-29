@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "current_books": [
+    {
+      "id": "the-name-of-the-wind",
+      "title": "The Name of the Wind",
+      "author": "Patrick Rothfuss",
+      "genre": "epic-fantasy",
+      "why": "Like Tolkien, Rothfuss builds a deeply detailed secondary world with its own history and magic system. The prose is lyrical and the storytelling self-aware in ways that reward patient readers."
+    },
+    {
+      "id": "the-sword-of-kaigen",
+      "title": "The Sword of Kaigen",
+      "author": "M.L. Wang",
+      "genre": "epic-fantasy",
+      "why": "A self-contained epic fantasy with the emotional weight of Tolkien and a non-Western setting that feels as fully realised as Middle-earth. War, myth and family collide brilliantly."
+    },
+    {
+      "id": "the-farseer-trilogy",
+      "title": "Assassin's Apprentice",
+      "author": "Robin Hobb",
+      "genre": "epic-fantasy",
+      "why": "Robin Hobb's Farseer Trilogy shares Tolkien's moral seriousness and long-game storytelling, following a royal bastard in a deeply imagined coastal kingdom."
+    },
+    {
+      "id": "tigana",
+      "title": "Tigana",
+      "author": "Guy Gavriel Kay",
+      "genre": "epic-fantasy",
+      "why": "Kay studied under Tolkien's son Christopher and helped edit The Silmarillion, and Tigana channels that same elegiac grandeur into a story about memory, identity and lost nations."
+    },
+    {
+      "id": "the-calculating-stars",
+      "title": "The Calculating Stars",
+      "author": "Mary Robinette Kowal",
+      "genre": "hard-scifi",
+      "why": "Like The Martian, this is rigorous, problem-solving sci-fi centred on a determined protagonist — here a female astronaut racing to get humanity off an imperilled Earth."
+    },
+    {
+      "id": "seveneves",
+      "title": "Seveneves",
+      "author": "Neal Stephenson",
+      "genre": "hard-scifi",
+      "why": "Stephenson's orbital survival epic shares Andy Weir's love of real physics and engineering detail, scaling the lone-survivor ingenuity of The Martian to all of humanity."
+    },
+    {
+      "id": "the-long-way-to-a-small-angry-planet",
+      "title": "The Long Way to a Small, Angry Planet",
+      "author": "Becky Chambers",
+      "genre": "hard-scifi",
+      "why": "Chambers blends the warmth and crew-resourcefulness of The Martian with hopeful, character-driven interstellar travel. A gentle antidote that never sacrifices plausibility."
+    },
+    {
+      "id": "delta-v",
+      "title": "Delta-v",
+      "author": "Daniel Suarez",
+      "genre": "hard-scifi",
+      "why": "A near-future asteroid-mining thriller with the same technical authenticity and seat-of-your-pants problem-solving that makes The Martian so compulsive."
+    },
+    {
+      "id": "len-deighton-ss-gb",
+      "title": "SS-GB",
+      "author": "Len Deighton",
+      "genre": "alt-history-thriller",
+      "why": "Like Robert Harris's Fatherland, this is a landmark Nazi-victory alternate history — a London under occupation seen through the eyes of a murder detective navigating moral compromise."
+    },
+    {
+      "id": "the-man-in-the-high-castle",
+      "title": "The Man in the High Castle",
+      "author": "Philip K. Dick",
+      "genre": "alt-history-thriller",
+      "why": "The founding text of the Axis-won-war subgenre that Harris revisited in Fatherland, dense with paranoia and questions about what history and identity actually mean."
+    },
+    {
+      "id": "the-spy-who-came-in-from-the-cold",
+      "title": "The Spy Who Came in from the Cold",
+      "author": "John le Carré",
+      "genre": "alt-history-thriller",
+      "why": "Le Carré's Cold War espionage shares Robert Harris's taste for moral ambiguity, institutional betrayal and the grinding machinery of intelligence services."
+    },
+    {
+      "id": "the-versailles-affair",
+      "title": "Munich",
+      "author": "Robert Harris",
+      "genre": "alt-history-thriller",
+      "why": "Already a Harris fan? His Munich is sometimes overlooked — a taut diplomatic thriller set over the four days of the 1938 conference, as tightly wound as any of his best work."
+    },
+    {
+      "id": "hhhh",
+      "title": "HHhH",
+      "author": "Laurent Binet",
+      "genre": "historical-fiction",
+      "why": "Binet reconstructs the 1942 assassination attempt on Reinhard Heydrich with the same obsessive archival fidelity as Robert Harris, while brilliantly interrogating the act of historical fiction itself."
+    },
+    {
+      "id": "the-pillars-of-the-earth",
+      "title": "The Pillars of the Earth",
+      "author": "Ken Follett",
+      "genre": "historical-fiction",
+      "why": "Like Pompeii, this is meticulously researched immersive history — a cathedral-building epic set in 12th-century England that makes the medieval world physically present."
+    },
+    {
+      "id": "the-name-of-the-rose",
+      "title": "The Name of the Rose",
+      "author": "Umberto Eco",
+      "genre": "historical-fiction",
+      "why": "Eco's medieval monastery murder mystery combines Harris's thriller plotting with extraordinary scholarly depth — a book that rewards rereading as richly as any Tolkien text."
+    },
+    {
+      "id": "colymbeites",
+      "title": "Imperium",
+      "author": "Robert Harris",
+      "genre": "historical-fiction",
+      "why": "If you haven't read Harris's Cicero trilogy, Imperium is an essential companion to Pompeii — the same vivid ancient world, this time seen through the eyes of Rome's greatest orator."
+    },
+    {
+      "id": "the-female-man",
+      "title": "The Female Man",
+      "author": "Joanna Russ",
+      "genre": "philosophical-scifi",
+      "why": "Like Le Guin's The Left Hand of Darkness, this is a radical feminist thought-experiment in sci-fi form, sending the same woman across four parallel worlds with different gender realities."
+    },
+    {
+      "id": "babel-17",
+      "title": "Babel-17",
+      "author": "Samuel R. Delany",
+      "genre": "philosophical-scifi",
+      "why": "Delany shares Le Guin's fascination with language as a shaper of thought and society — this slim, brilliant novel asks whether a weapon can be a language and a language a weapon."
+    },
+    {
+      "id": "the-city-and-the-city",
+      "title": "The City & The City",
+      "author": "China Miéville",
+      "genre": "philosophical-scifi",
+      "why": "Miéville's novel about two cities occupying the same space asks Le Guin-style questions about perception, power and ideology, wrapped in a gripping noir detective plot."
+    },
+    {
+      "id": "always-coming-home",
+      "title": "Always Coming Home",
+      "author": "Ursula K. Le Guin",
+      "genre": "philosophical-scifi",
+      "why": "One of Le Guin's most experimental and underread works — a future California tribe's entire culture rendered as archaeology, poetry and story. Unmissable for devoted fans."
+    },
+    {
+      "id": "the-wizard-knight",
+      "title": "The Wizard Knight",
+      "author": "Gene Wolfe",
+      "genre": "immersive-worldbuilding",
+      "why": "Wolfe builds a Norse-inflected secondary world with the same mythic weight as Tolkien, layered with unreliable narration and meaning that deepens on every reread."
+    },
+    {
+      "id": "the-tombs-of-atuan",
+      "title": "The Tombs of Atuan",
+      "author": "Ursula K. Le Guin",
+      "genre": "immersive-worldbuilding",
+      "why": "The second Earthsea book is often cited as Le Guin's most perfectly crafted — a claustrophobic, mythic novel about darkness, captivity and the cost of power."
+    },
+    {
+      "id": "gormenghast",
+      "title": "Titus Groan",
+      "author": "Mervyn Peake",
+      "genre": "immersive-worldbuilding",
+      "why": "Peake's Gormenghast sequence creates one of literature's most complete and eccentric imaginary worlds — gothic, tragicomic and as inexhaustible as Middle-earth itself."
+    },
+    {
+      "id": "the-book-of-the-new-sun",
+      "title": "The Shadow of the Torturer",
+      "author": "Gene Wolfe",
+      "genre": "immersive-worldbuilding",
+      "why": "The opening volume of The Book of the New Sun is one of the most densely world-built novels in the canon — a dying Earth epic as mythically layered as Tolkien, written in a future-archaic English."
+    }
+  ],
+  "marks": {},
+  "history": []
+}
