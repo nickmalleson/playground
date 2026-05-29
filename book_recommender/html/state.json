@@ -2,11 +2,12 @@
   "version": 1,
   "current_books": [
     {
-      "id": "parable-of-the-sower",
-      "title": "Parable of the Sower",
-      "author": "Octavia E. Butler",
+      "id": "the-dispossessed",
+      "title": "The Dispossessed",
+      "author": "Ursula K. Le Guin",
       "genre": "cli-fi",
-      "why": "Walled communities, climate collapse, a teenage prophet on the road. The bone-deep dread of The Road meets the political thrust of Bacigalupi — and it was written in 1993."
+      "why": "Like Parable of the Sower, it follows a protagonist building a new social order against a backdrop of ecological scarcity and systemic collapse. Le Guin's moral seriousness and world-building rigour will feel immediately familiar given your love of Atwood and Bacigalupi.",
+      "is_fresh": true
     },
     {
       "id": "ministry-future",
@@ -23,18 +24,19 @@
       "why": "A second US civil war in the 2070s, fought over the last fossil fuels. Spare, devastating prose — distinctly McCarthy-coded, with a slow-burn protagonist arc."
     },
     {
-      "id": "gold-fame-citrus",
-      "title": "Gold Fame Citrus",
-      "author": "Claire Vaye Watkins",
+      "id": "the-carbon-diaries-2015",
+      "title": "The Carbon Diaries 2015",
+      "author": "Saci Lloyd",
       "genre": "cli-fi",
-      "why": "California's water is gone and a dune sea is swallowing the Southwest. Lyrical and hallucinatory — basically a literary sibling to The Water Knife."
+      "why": "A grounded, street-level look at climate rationing in near-future Britain, told with a sharp, sardonic voice that contrasts with Gold Fame Citrus's lyrical desert surrealism. It broadens the cli-fi palette toward social realism and dark wit closer to Gibson's observational style.",
+      "is_fresh": true
     },
     {
-      "id": "neuromancer",
-      "title": "Neuromancer",
-      "author": "William Gibson",
+      "id": "schismatrix-plus",
+      "title": "Schismatrix Plus",
+      "author": "Bruce Sterling",
       "genre": "cyber",
-      "why": "You already love Gibson's Sprawl Trilogy, and this is the novel that launched it — the dense, hallucinatory ur-text of cyberpunk that Snow Crash was consciously riffing on. If it somehow slipped past you, it's essential.",
+      "why": "Sterling co-invented cyberpunk alongside Gibson and shares that same grimy, idea-dense prose; the posthuman factions and body-modification politics here feel like a spiritual sibling to the Sprawl. A strong stylistic match for a Neuromancer lover.",
       "is_fresh": true
     },
     {
@@ -46,11 +48,12 @@
       "is_fresh": true
     },
     {
-      "id": "quantum-thief",
-      "title": "The Quantum Thief",
-      "author": "Hannu Rajaniemi",
+      "id": "light",
+      "title": "Light",
+      "author": "M. John Harrison",
       "genre": "cyber",
-      "why": "A post-cyberpunk caper across a transhuman solar system. Dense, dazzling, throws you in the deep end exactly the way Neuromancer did."
+      "why": "Like Rajaniemi's Quantum Thief, it's baroque, math-drenched far-future SF that trusts you to swim in its jargon, with the same fractured timelines and noir undertow Gibson fans appreciate.",
+      "is_fresh": true
     },
     {
       "id": "blindsight",
@@ -89,11 +92,11 @@
       "why": "A six-million-year galactic timescale, with clones of a single woman trading memories at meet-ups every 200,000 years. Hyperion-grade scope and melancholy."
     },
     {
-      "id": "the-blade-itself",
-      "title": "The Blade Itself",
-      "author": "Joe Abercrombie",
+      "id": "the-tainted-cup",
+      "title": "The Tainted Cup",
+      "author": "Robert Jackson Bennett",
       "genre": "fantasy",
-      "why": "You already love Abercrombie, so if The First Law trilogy itself has somehow not been read front-to-back, this is the starting point — it broadens from Malazan's vast military canvas into something more character-intimate and bleakly funny.",
+      "why": "Shares Abercrombie's sardonic voice and morally grimy worldbuilding while delivering the tight plotting and rogue-protagonist chemistry you loved in Locke Lamora.",
       "is_fresh": true
     },
     {
@@ -118,11 +121,11 @@
       "why": "Military academy to genocide-scale war, drawn from 20th-century Chinese history. Brutal, modern, GRRM-territory stakes — not for the faint-hearted."
     },
     {
-      "id": "imperium",
-      "title": "Imperium",
-      "author": "Robert Harris",
+      "id": "augustus",
+      "title": "Augustus",
+      "author": "John Williams",
       "genre": "historical",
-      "why": "You already love Harris, and his Cicero trilogy is his finest historical work — a forensically researched, politically thrilling account of Roman power that shares Wolf Hall's interest in men who survive by intelligence rather than force.",
+      "why": "If Harris's Cicero books hooked you, this epistolary portrait of Rome's first emperor offers the same political knife-work and intimate access to power, told with extraordinary restraint.",
       "is_fresh": true
     },
     {
@@ -133,11 +136,12 @@
       "why": "An Englishman shipwrecked into Sengoku-era Japan. Massive, addictive, written with the same propulsive instinct as Cornwell's Saxon books."
     },
     {
-      "id": "master-and-commander",
-      "title": "Master and Commander",
-      "author": "Patrick O'Brian",
+      "id": "eirik-the-red-s-saga",
+      "title": "Eirik the Red's Saga",
+      "author": "Anonymous (trans. Keneva Kunz)",
       "genre": "historical",
-      "why": "Napoleonic naval fiction across 20 books. The more literary cousin of Cornwell's Sharpe — quieter, funnier, profoundly companionable once you tune in to the rhythm."
+      "why": "If Cornwell's Uhtred captured your love of brutal, immediate Norse-era storytelling, reading the original saga source material delivers that same world with raw authenticity. The spare, fatalistic prose has a McCarthy-like quality that should resonate strongly.",
+      "is_fresh": true
     },
     {
       "id": "hhhh",
@@ -155,11 +159,12 @@
       "is_fresh": true
     },
     {
-      "id": "never-let-me-go",
-      "title": "Never Let Me Go",
+      "id": "the-unconsoled",
+      "title": "The Unconsoled",
       "author": "Kazuo Ishiguro",
       "genre": "literary",
-      "why": "Quiet dystopia disguised as a boarding-school memoir. Devastating in the same way Cloud Atlas is devastating, but more concentrated."
+      "why": "A stranger, more unsettling Ishiguro than Never Let Me Go — dreamlike and disorienting in the way David Mitchell bends reality, but with Ishiguro's precise, quietly suffocating prose. It broadens the territory considerably.",
+      "is_fresh": true
     },
     {
       "id": "jonathan-strange",
@@ -178,6 +183,86 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "lustrum",
+      "title": "Lustrum",
+      "author": "Robert Harris",
+      "genre": "historical",
+      "mark": "loved",
+      "replaced_at": "2026-05-29T08:42:45+00:00"
+    },
+    {
+      "id": "the-blade-itself",
+      "title": "The Blade Itself",
+      "author": "Joe Abercrombie",
+      "genre": "fantasy",
+      "mark": "loved",
+      "replaced_at": "2026-05-29T08:42:45+00:00"
+    },
+    {
+      "id": "quantum-thief",
+      "title": "The Quantum Thief",
+      "author": "Hannu Rajaniemi",
+      "genre": "cyber",
+      "mark": "loved",
+      "replaced_at": "2026-05-29T08:42:45+00:00"
+    },
+    {
+      "id": "the-last-kingdom",
+      "title": "The Last Kingdom",
+      "author": "Bernard Cornwell",
+      "genre": "historical",
+      "mark": "loved",
+      "replaced_at": "2026-05-29T08:33:52+00:00"
+    },
+    {
+      "id": "gold-fame-citrus",
+      "title": "Gold Fame Citrus",
+      "author": "Claire Vaye Watkins",
+      "genre": "cli-fi",
+      "mark": "read",
+      "replaced_at": "2026-05-29T08:33:52+00:00"
+    },
+    {
+      "id": "parable-of-the-sower",
+      "title": "Parable of the Sower",
+      "author": "Octavia E. Butler",
+      "genre": "cli-fi",
+      "mark": "loved",
+      "replaced_at": "2026-05-29T08:33:52+00:00"
+    },
+    {
+      "id": "never-let-me-go",
+      "title": "Never Let Me Go",
+      "author": "Kazuo Ishiguro",
+      "genre": "literary",
+      "mark": "read",
+      "replaced_at": "2026-05-12T19:36:54+00:00"
+    },
+    {
+      "id": "master-and-commander",
+      "title": "Master and Commander",
+      "author": "Patrick O'Brian",
+      "genre": "historical",
+      "mark": "loved",
+      "replaced_at": "2026-05-12T19:36:54+00:00"
+    },
+    {
+      "id": "imperium",
+      "title": "Imperium",
+      "author": "Robert Harris",
+      "genre": "historical",
+      "mark": "loved",
+      "replaced_at": "2026-05-12T19:36:54+00:00"
+    },
+    {
+      "id": "neuromancer",
+      "title": "Neuromancer",
+      "author": "William Gibson",
+      "genre": "cyber",
+      "mark": "loved",
+      "replaced_at": "2026-05-12T19:36:54+00:00"
+    },
     {
       "id": "piranesi",
       "title": "Piranesi",
