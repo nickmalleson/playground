@@ -2,19 +2,20 @@
   "version": 1,
   "current_books": [
     {
-      "id": "the-dispossessed",
-      "title": "The Dispossessed",
+      "id": "the-word-for-world-is-forest",
+      "title": "The Word for World is Forest",
       "author": "Ursula K. Le Guin",
       "genre": "cli-fi",
-      "why": "Like Parable of the Sower, it follows a protagonist building a new social order against a backdrop of ecological scarcity and systemic collapse. Le Guin's moral seriousness and world-building rigour will feel immediately familiar given your love of Atwood and Bacigalupi.",
+      "why": "Since you loved The Dispossessed, this shorter Le Guin hits similar anthropological-utopian nerves while foregrounding ecological violence — a natural bridge to your Bacigalupi and Atwood tastes.",
       "is_fresh": true
     },
     {
-      "id": "ministry-future",
-      "title": "The Ministry for the Future",
-      "author": "Kim Stanley Robinson",
+      "id": "the-swan-book",
+      "title": "The Swan Book",
+      "author": "Alexis Wright",
       "genre": "cli-fi",
-      "why": "A polyphonic climate novel that opens with a heatwave scene as devastating as anything in The Water Knife, then pivots into oddly hopeful policy wonkery."
+      "why": "A hallucinatory Aboriginal-Australian climate novel that would broaden your cli-fi range beyond Robinson's policy realism, with a lyric strangeness closer to Tim Winton's Juice.",
+      "is_fresh": true
     },
     {
       "id": "american-war",
@@ -56,11 +57,12 @@
       "is_fresh": true
     },
     {
-      "id": "blindsight",
-      "title": "Blindsight",
-      "author": "Peter Watts",
+      "id": "void-star",
+      "title": "Void Star",
+      "author": "Zachary Mason",
       "genre": "cyber",
-      "why": "First-contact horror with transhumans and predator-vampires interrogating consciousness itself. Brutally smart — Hyperion fans tend to love it too."
+      "why": "A literary, Gibson-adjacent cyberpunk of drowned cities, AIs and implants — a strong lateral step from Blindsight's hard-SF austerity toward the Sprawl atmospherics you already love.",
+      "is_fresh": true
     },
     {
       "id": "memory-called-empire",
@@ -100,11 +102,12 @@
       "is_fresh": true
     },
     {
-      "id": "black-company",
-      "title": "The Black Company",
-      "author": "Glen Cook",
+      "id": "the-company-wars-downbelow-station",
+      "title": "The Company Wars: Downbelow Station",
+      "author": "C. J. Cherryh",
       "genre": "fantasy",
-      "why": "Grimdark before grimdark was a word. Mercenary-company POV, blood-and-mud morality — the obvious ancestor of Abercrombie's First Law."
+      "why": "Correcting course — try instead: Chris Wooding's The Iron Jackal... Actually, for Black Company loved: Steven Erikson's aside, recommending K. J. Parker's The Folding Knife: grim, soldierly, morally cold mercenary-politics fantasy in the Cook vein you just enjoyed.",
+      "is_fresh": true
     },
     {
       "id": "assassins-apprentice",
@@ -183,6 +186,38 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "black-company",
+      "title": "The Black Company",
+      "author": "Glen Cook",
+      "genre": "fantasy",
+      "mark": "loved",
+      "replaced_at": "2026-07-29T07:11:19+00:00"
+    },
+    {
+      "id": "blindsight",
+      "title": "Blindsight",
+      "author": "Peter Watts",
+      "genre": "cyber",
+      "mark": "read",
+      "replaced_at": "2026-07-29T07:11:19+00:00"
+    },
+    {
+      "id": "ministry-future",
+      "title": "The Ministry for the Future",
+      "author": "Kim Stanley Robinson",
+      "genre": "cli-fi",
+      "mark": "read",
+      "replaced_at": "2026-07-29T07:11:19+00:00"
+    },
+    {
+      "id": "the-dispossessed",
+      "title": "The Dispossessed",
+      "author": "Ursula K. Le Guin",
+      "genre": "cli-fi",
+      "mark": "loved",
+      "replaced_at": "2026-07-29T07:11:19+00:00"
+    },
     {
       "id": "lustrum",
       "title": "Lustrum",
