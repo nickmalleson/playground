@@ -1,0 +1,7 @@
+# Runtime / local artifacts
+server.log
+last_user.txt
+
+# One-off migration and recovery backups
+state.json.pre-multiuser-*
+*.corrupt-*.json

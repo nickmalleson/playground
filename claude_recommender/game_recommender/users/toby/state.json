@@ -1,0 +1,230 @@
+{
+  "version": 1,
+  "current_games": [
+    {
+      "id": "overwatch-2",
+      "title": "Overwatch 2",
+      "developer": "Blizzard Entertainment",
+      "genre": "hero-shooters",
+      "why": "Same team-based hero brawling as Marvel Rivals, with a huge cast of roles to master."
+    },
+    {
+      "id": "paladins",
+      "title": "Paladins",
+      "developer": "Evil Mojo Games",
+      "genre": "hero-shooters",
+      "why": "Free-to-play hero shooter with a card-based loadout twist, great if Marvel Rivals hooked you."
+    },
+    {
+      "id": "deadlock",
+      "title": "Deadlock",
+      "developer": "Valve",
+      "genre": "hero-shooters",
+      "why": "Valve's hero shooter-MOBA hybrid scratches the same team-composition itch as Marvel Rivals."
+    },
+    {
+      "id": "gigantic-rampage",
+      "title": "Gigantic: Rampage Edition",
+      "developer": "Abstraction Games",
+      "genre": "hero-shooters",
+      "why": "Stylish 5v5 hero shooter with guardians to defend, a lesser-known pick for Rivals fans."
+    },
+    {
+      "id": "apex-legends",
+      "title": "Apex Legends",
+      "developer": "Respawn Entertainment",
+      "genre": "battle-royale-shooters",
+      "why": "Slick movement and squad play if Fortnite's battle royale is your comfort zone."
+    },
+    {
+      "id": "the-finals",
+      "title": "The Finals",
+      "developer": "Embark Studios",
+      "genre": "battle-royale-shooters",
+      "why": "Destructible arenas and squad chaos, a fresh spin on the Fortnite-style shooter."
+    },
+    {
+      "id": "xdefiant",
+      "title": "Hunt: Showdown 1896",
+      "developer": "Crytek",
+      "genre": "battle-royale-shooters",
+      "why": "Tense squad-based extraction shooter for when you want stakes bigger than a Battlefront match."
+    },
+    {
+      "id": "warhammer-40-000-darktide",
+      "title": "Warhammer 40,000: Darktide",
+      "developer": "Fatshark",
+      "genre": "battle-royale-shooters",
+      "why": "Since Halo Infinite's punchy arena gunplay landed, this delivers the same weighty, sci-fi FPS combat with a co-op squad focus that echoes the team energy of Marvel Rivals and Battlefront.",
+      "is_fresh": true
+    },
+    {
+      "id": "wreckfest",
+      "title": "Wreckfest",
+      "developer": "Bugbear Entertainment",
+      "genre": "arcade-racing",
+      "why": "Loved Forza Horizon 5's playful car handling? Wreckfest keeps that arcade drivability but adds destructible demolition-derby chaos for a rowdier take on the Forza feel.",
+      "is_fresh": true
+    },
+    {
+      "id": "the-crew-motorfest",
+      "title": "The Crew Motorfest",
+      "developer": "Ivory Tower",
+      "genre": "arcade-racing",
+      "why": "Hawaiian open-world racing playlists in the same laid-back spirit as Forza Horizon."
+    },
+    {
+      "id": "need-for-speed-unbound",
+      "title": "Need for Speed Unbound",
+      "developer": "Criterion Games",
+      "genre": "arcade-racing",
+      "why": "Street-race arcade thrills for Forza fans who want more attitude and night runs."
+    },
+    {
+      "id": "art-of-rally",
+      "title": "Art of Rally",
+      "developer": "Funselektor Labs",
+      "genre": "arcade-racing",
+      "why": "A stylised top-down rally game, a great indie palate cleanser between Forza sessions."
+    },
+    {
+      "id": "riders-republic",
+      "title": "Riders Republic",
+      "developer": "Ubisoft Annecy",
+      "genre": "extreme-sports",
+      "why": "Massive multiplayer bike, ski and wingsuit playground for Descenders riders."
+    },
+    {
+      "id": "olliolli-world",
+      "title": "OlliOlli World",
+      "developer": "Roll7",
+      "genre": "extreme-sports",
+      "why": "A natural broadening pick after Lonely Mountains and Descenders — same trick-chaining, run-perfecting flow but in a stylish 2D skating world.",
+      "is_fresh": true
+    },
+    {
+      "id": "skate-3",
+      "title": "Skate 3",
+      "developer": "EA Black Box",
+      "genre": "extreme-sports",
+      "why": "Cult skateboarding sandbox for anyone who loves nailing lines like in Descenders."
+    },
+    {
+      "id": "session-skate-sim",
+      "title": "Session: Skate Sim",
+      "developer": "Crea-ture Studios",
+      "genre": "extreme-sports",
+      "why": "Deep, physics-driven skateboarding for players who obsess over trick craft."
+    },
+    {
+      "id": "efootball-2024",
+      "title": "eFootball 2024",
+      "developer": "Konami",
+      "genre": "sports-sims",
+      "why": "The Pro Evo lineage offers a free alternative for EA Sports FC and FIFA fans."
+    },
+    {
+      "id": "nba-2k25",
+      "title": "NBA 2K25",
+      "developer": "Visual Concepts",
+      "genre": "sports-sims",
+      "why": "If FC and FIFA are your MyCareer of choice, 2K brings the same depth to basketball."
+    },
+    {
+      "id": "football-manager-2024",
+      "title": "Football Manager 2024",
+      "developer": "Sports Interactive",
+      "genre": "sports-sims",
+      "why": "For when you want to run the club instead of just playing matches in EA Sports FC."
+    },
+    {
+      "id": "ufl",
+      "title": "UFL",
+      "developer": "Strikerz Inc.",
+      "genre": "sports-sims",
+      "why": "A free-to-play football challenger to FIFA and FC, worth a kick for football fans."
+    },
+    {
+      "id": "sleeping-dogs-definitive-edition",
+      "title": "Sleeping Dogs: Definitive Edition",
+      "developer": "United Front Games",
+      "genre": "cinematic-action-adventure",
+      "why": "Captures the same open-city traversal and flashy melee/gunplay rhythm that made Spider-Man 2 click, with a cinematic Hong Kong crime story on top.",
+      "is_fresh": true
+    },
+    {
+      "id": "star-wars-jedi-fallen-order",
+      "title": "Star Wars Jedi: Fallen Order",
+      "developer": "Respawn Entertainment",
+      "genre": "cinematic-action-adventure",
+      "why": "If Survivor was a hit, its predecessor delivers the same lightsaber-and-Force combat, Metroidvania planets and cinematic Star Wars beats you already love.",
+      "is_fresh": true
+    },
+    {
+      "id": "uncharted-4-a-thief-s-end",
+      "title": "Uncharted 4: A Thief's End",
+      "developer": "Naughty Dog",
+      "genre": "cinematic-action-adventure",
+      "why": "Plague Tale's slow stealth didn't stick, so swap to a punchier, blockbuster take on cinematic adventure — big set-pieces, gunfights and climbing that pair well with Spider-Man and 007 First Light.",
+      "is_fresh": true
+    },
+    {
+      "id": "hi-fi-rush",
+      "title": "Hi-Fi Rush",
+      "developer": "Tango Gameworks",
+      "genre": "cinematic-action-adventure",
+      "why": "Colourful rhythm-action romp with the playful energy of Super Mario Odyssey."
+    }
+  ],
+  "marks": {},
+  "history": [
+    {
+      "id": "a-plague-tale-requiem",
+      "title": "A Plague Tale: Requiem",
+      "developer": "Asobo Studio",
+      "genre": "cinematic-action-adventure",
+      "mark": "passed",
+      "replaced_at": "2026-07-18T13:01:51+00:00"
+    },
+    {
+      "id": "star-wars-jedi-survivor",
+      "title": "Star Wars Jedi: Survivor",
+      "developer": "Respawn Entertainment",
+      "genre": "cinematic-action-adventure",
+      "mark": "loved",
+      "replaced_at": "2026-07-18T13:01:51+00:00"
+    },
+    {
+      "id": "marvels-spider-man-2",
+      "title": "Marvel's Spider-Man 2",
+      "developer": "Insomniac Games",
+      "genre": "cinematic-action-adventure",
+      "mark": "loved",
+      "replaced_at": "2026-07-18T13:01:51+00:00"
+    },
+    {
+      "id": "lonely-mountains-downhill",
+      "title": "Lonely Mountains: Downhill",
+      "developer": "Megagon Industries",
+      "genre": "extreme-sports",
+      "mark": "played",
+      "replaced_at": "2026-07-18T13:01:51+00:00"
+    },
+    {
+      "id": "forza-horizon-5",
+      "title": "Forza Horizon 5",
+      "developer": "Playground Games",
+      "genre": "arcade-racing",
+      "mark": "loved",
+      "replaced_at": "2026-07-18T13:01:51+00:00"
+    },
+    {
+      "id": "halo-infinite",
+      "title": "Halo Infinite",
+      "developer": "343 Industries",
+      "genre": "battle-royale-shooters",
+      "mark": "loved",
+      "replaced_at": "2026-07-18T13:01:51+00:00"
+    }
+  ]
+}

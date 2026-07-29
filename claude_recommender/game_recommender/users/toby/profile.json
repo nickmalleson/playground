@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "display_name": "Toby",
+  "original_favourites": [
+    "Descenders — RageSquid extreme downhill biking",
+    "Marvel's Spider-Man Remastered — Insomniac Games",
+    "Forza — Turn 10 / Playground Games racing series",
+    "EA Sports FC — EA Sports football",
+    "Marvel Rivals — NetEase hero shooter",
+    "Fortnite — Epic Games battle royale",
+    "Super Mario Odyssey — Nintendo EPD",
+    "007 First Light — IO Interactive James Bond action",
+    "Hogwarts Legacy — Avalanche Software",
+    "Nerf Legends — GameMill dart-blaster shooter",
+    "FIFA — EA Sports football classic",
+    "Star Wars Battlefront — DICE / EA"
+  ],
+  "genres": [
+    {
+      "key": "hero-shooters",
+      "label": "Hero and arena shooters",
+      "sub": "For when you want the team chaos of Marvel Rivals"
+    },
+    {
+      "key": "battle-royale-shooters",
+      "label": "Battle royale and squad shooters",
+      "sub": "For when you want another Fortnite or Battlefront night"
+    },
+    {
+      "key": "arcade-racing",
+      "label": "Arcade and open-world racing",
+      "sub": "For when you want that Forza cruise feeling"
+    },
+    {
+      "key": "extreme-sports",
+      "label": "Extreme sports and trick riders",
+      "sub": "For when Descenders has you chasing airtime"
+    },
+    {
+      "key": "sports-sims",
+      "label": "Football and ball-sports sims",
+      "sub": "For when you want more pitches like EA Sports FC and FIFA"
+    },
+    {
+      "key": "cinematic-action-adventure",
+      "label": "Cinematic action-adventure",
+      "sub": "For when you want another Spider-Man or Hogwarts Legacy story"
+    }
+  ],
+  "seed_games": [
+    {
+      "id": "overwatch-2",
+      "title": "Overwatch 2",
+      "developer": "Blizzard Entertainment",
+      "genre": "hero-shooters",
+      "why": "Same team-based hero brawling as Marvel Rivals, with a huge cast of roles to master."
+    },
+    {
+      "id": "paladins",
+      "title": "Paladins",
+      "developer": "Evil Mojo Games",
+      "genre": "hero-shooters",
+      "why": "Free-to-play hero shooter with a card-based loadout twist, great if Marvel Rivals hooked you."
+    },
+    {
+      "id": "deadlock",
+      "title": "Deadlock",
+      "developer": "Valve",
+      "genre": "hero-shooters",
+      "why": "Valve's hero shooter-MOBA hybrid scratches the same team-composition itch as Marvel Rivals."
+    },
+    {
+      "id": "gigantic-rampage",
+      "title": "Gigantic: Rampage Edition",
+      "developer": "Abstraction Games",
+      "genre": "hero-shooters",
+      "why": "Stylish 5v5 hero shooter with guardians to defend, a lesser-known pick for Rivals fans."
+    },
+    {
+      "id": "apex-legends",
+      "title": "Apex Legends",
+      "developer": "Respawn Entertainment",
+      "genre": "battle-royale-shooters",
+      "why": "Slick movement and squad play if Fortnite's battle royale is your comfort zone."
+    },
+    {
+      "id": "the-finals",
+      "title": "The Finals",
+      "developer": "Embark Studios",
+      "genre": "battle-royale-shooters",
+      "why": "Destructible arenas and squad chaos, a fresh spin on the Fortnite-style shooter."
+    },
+    {
+      "id": "xdefiant",
+      "title": "Hunt: Showdown 1896",
+      "developer": "Crytek",
+      "genre": "battle-royale-shooters",
+      "why": "Tense squad-based extraction shooter for when you want stakes bigger than a Battlefront match."
+    },
+    {
+      "id": "halo-infinite",
+      "title": "Halo Infinite",
+      "developer": "343 Industries",
+      "genre": "battle-royale-shooters",
+      "why": "Sci-fi multiplayer shooting that echoes the blaster fights of Star Wars Battlefront."
+    },
+    {
+      "id": "forza-horizon-5",
+      "title": "Forza Horizon 5",
+      "developer": "Playground Games",
+      "genre": "arcade-racing",
+      "why": "The open-world Forza festival at its peak if you love the mainline Forza series."
+    },
+    {
+      "id": "the-crew-motorfest",
+      "title": "The Crew Motorfest",
+      "developer": "Ivory Tower",
+      "genre": "arcade-racing",
+      "why": "Hawaiian open-world racing playlists in the same laid-back spirit as Forza Horizon."
+    },
+    {
+      "id": "need-for-speed-unbound",
+      "title": "Need for Speed Unbound",
+      "developer": "Criterion Games",
+      "genre": "arcade-racing",
+      "why": "Street-race arcade thrills for Forza fans who want more attitude and night runs."
+    },
+    {
+      "id": "art-of-rally",
+      "title": "Art of Rally",
+      "developer": "Funselektor Labs",
+      "genre": "arcade-racing",
+      "why": "A stylised top-down rally game, a great indie palate cleanser between Forza sessions."
+    },
+    {
+      "id": "riders-republic",
+      "title": "Riders Republic",
+      "developer": "Ubisoft Annecy",
+      "genre": "extreme-sports",
+      "why": "Massive multiplayer bike, ski and wingsuit playground for Descenders riders."
+    },
+    {
+      "id": "lonely-mountains-downhill",
+      "title": "Lonely Mountains: Downhill",
+      "developer": "Megagon Industries",
+      "genre": "extreme-sports",
+      "why": "Minimalist downhill biking with the same run-again pull as Descenders."
+    },
+    {
+      "id": "skate-3",
+      "title": "Skate 3",
+      "developer": "EA Black Box",
+      "genre": "extreme-sports",
+      "why": "Cult skateboarding sandbox for anyone who loves nailing lines like in Descenders."
+    },
+    {
+      "id": "session-skate-sim",
+      "title": "Session: Skate Sim",
+      "developer": "Crea-ture Studios",
+      "genre": "extreme-sports",
+      "why": "Deep, physics-driven skateboarding for players who obsess over trick craft."
+    },
+    {
+      "id": "efootball-2024",
+      "title": "eFootball 2024",
+      "developer": "Konami",
+      "genre": "sports-sims",
+      "why": "The Pro Evo lineage offers a free alternative for EA Sports FC and FIFA fans."
+    },
+    {
+      "id": "nba-2k25",
+      "title": "NBA 2K25",
+      "developer": "Visual Concepts",
+      "genre": "sports-sims",
+      "why": "If FC and FIFA are your MyCareer of choice, 2K brings the same depth to basketball."
+    },
+    {
+      "id": "football-manager-2024",
+      "title": "Football Manager 2024",
+      "developer": "Sports Interactive",
+      "genre": "sports-sims",
+      "why": "For when you want to run the club instead of just playing matches in EA Sports FC."
+    },
+    {
+      "id": "ufl",
+      "title": "UFL",
+      "developer": "Strikerz Inc.",
+      "genre": "sports-sims",
+      "why": "A free-to-play football challenger to FIFA and FC, worth a kick for football fans."
+    },
+    {
+      "id": "marvels-spider-man-2",
+      "title": "Marvel's Spider-Man 2",
+      "developer": "Insomniac Games",
+      "genre": "cinematic-action-adventure",
+      "why": "Direct follow-up to Spider-Man Remastered with two web-slingers and a bigger New York."
+    },
+    {
+      "id": "star-wars-jedi-survivor",
+      "title": "Star Wars Jedi: Survivor",
+      "developer": "Respawn Entertainment",
+      "genre": "cinematic-action-adventure",
+      "why": "Cinematic Star Wars adventure for Battlefront fans who want a hero-led story."
+    },
+    {
+      "id": "a-plague-tale-requiem",
+      "title": "A Plague Tale: Requiem",
+      "developer": "Asobo Studio",
+      "genre": "cinematic-action-adventure",
+      "why": "Emotional, story-driven action in the same cinematic mould as Hogwarts Legacy."
+    },
+    {
+      "id": "hi-fi-rush",
+      "title": "Hi-Fi Rush",
+      "developer": "Tango Gameworks",
+      "genre": "cinematic-action-adventure",
+      "why": "Colourful rhythm-action romp with the playful energy of Super Mario Odyssey."
+    }
+  ]
+}
