@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "display_name": "nick",
+  "original_favourites": [
+    "Turbo Overkill — Trigger Happy Interactive",
+    "Uncharted: Legacy of Thieves Collection — Naughty Dog",
+    "What Remains of Edith Finch — Giant Sparrow",
+    "The Witcher 3: Wild Hunt — CD Projekt Red",
+    "Little Nightmares II — Tarsier Studios",
+    "The Long Dark — Hinterland",
+    "Mafia: Definitive Edition — Hangar 13",
+    "Metal Gear Solid V: The Phantom Pain — Kojima Productions",
+    "Metro Exodus — 4A Games",
+    "NORCO — Geography of Robots",
+    "Outer Wilds — Mobius Digital",
+    "Red Dead Redemption II — Rockstar",
+    "Resident Evil 4 — Capcom",
+    "Roadwarden — Moral Anxiety Studio",
+    "Titanfall 2 — Respawn",
+    "Elden Ring — FromSoftware"
+  ],
+  "genres": [
+    {
+      "key": "narrative-vignette",
+      "label": "Narrative vignette adventures",
+      "sub": "For when you want another Edith Finch or NORCO"
+    },
+    {
+      "key": "survival-horror",
+      "label": "Survival horror & creature dread",
+      "sub": "For when you want more Resident Exil 4 or Alien: Isolation tension"
+    },
+    {
+      "key": "boomer-shooter",
+      "label": "Boomer & retro-styled shooters",
+      "sub": "For when you want that Turbo Overkill / DOOM Eternal rush"
+    },
+    {
+      "key": "open-world-rpg",
+      "label": "Open-world RPG epics",
+      "sub": "For when you want another Witcher 3 or Elden Ring saga"
+    },
+    {
+      "key": "immersive-sim-stealth",
+      "label": "Immersive sims & stealth-action",
+      "sub": "For when you want more MGSV or Deus Ex freedom"
+    },
+    {
+      "key": "cinematic-action-adventure",
+      "label": "Cinematic action-adventures",
+      "sub": "For when you want another Uncharted or Last of Us ride"
+    }
+  ],
+  "seed_games": [
+    {
+      "id": "kentucky-route-zero",
+      "title": "Kentucky Route Zero",
+      "developer": "Cardboard Computer",
+      "genre": "narrative-vignette",
+      "why": "Shares NORCO's magical-realist Southern melancholy and slow, poetic vignettes."
+    },
+    {
+      "id": "a-short-hike",
+      "title": "A Short Hike",
+      "developer": "Adam Robinson-Yu",
+      "genre": "narrative-vignette",
+      "why": "A tiny, gentle exploration piece that scratches the same tender itch as Journey and Edith Finch."
+    },
+    {
+      "id": "virginia",
+      "title": "Virginia",
+      "developer": "Variable State",
+      "genre": "narrative-vignette",
+      "why": "Wordless, cinematic storytelling in the Edith Finch and Before Your Eyes mold."
+    },
+    {
+      "id": "mutazione",
+      "title": "Mutazione",
+      "developer": "Die Gute Fabrik",
+      "genre": "narrative-vignette",
+      "why": "A soap-opera adventure with the character-driven warmth Roadwarden fans tend to love."
+    },
+    {
+      "id": "signalis",
+      "title": "Signalis",
+      "developer": "rose-engine",
+      "genre": "survival-horror",
+      "why": "A retro top-down homage to classic Resident Evil with Silent Hill dread."
+    },
+    {
+      "id": "the-evil-within-2",
+      "title": "The Evil Within 2",
+      "developer": "Tango Gameworks",
+      "genre": "survival-horror",
+      "why": "Shinji Mikami's follow-up to the RE4 lineage — a natural next stop after Resident Evil Village."
+    },
+    {
+      "id": "soma",
+      "title": "SOMA",
+      "developer": "Frictional Games",
+      "genre": "survival-horror",
+      "why": "Underwater existential horror with the atmospheric menace of Alien: Isolation."
+    },
+    {
+      "id": "observer",
+      "title": ">observer_",
+      "developer": "Bloober Team",
+      "genre": "survival-horror",
+      "why": "Cyberpunk dread that pairs the sci-fi grime of Cloudpunk with survival-horror tension."
+    },
+    {
+      "id": "dusk",
+      "title": "DUSK",
+      "developer": "David Szymanski",
+      "genre": "boomer-shooter",
+      "why": "Quake-flavoured speed and gore that sits right beside Turbo Overkill and DOOM."
+    },
+    {
+      "id": "amid-evil",
+      "title": "AMID EVIL",
+      "developer": "Indefatigable",
+      "genre": "boomer-shooter",
+      "why": "Heretic-inspired arcane arenas for anyone who devoured DOOM Eternal's combat loop."
+    },
+    {
+      "id": "prodeus",
+      "title": "Prodeus",
+      "developer": "Bounding Box Software",
+      "genre": "boomer-shooter",
+      "why": "Modern-feeling retro FPS with the meaty weapon feedback of DOOM and Turbo Overkill."
+    },
+    {
+      "id": "ultrakill",
+      "title": "ULTRAKILL",
+      "developer": "Arsi Hakkô Patala",
+      "genre": "boomer-shooter",
+      "why": "Style-meter carnage that matches the frantic momentum of Turbo Overkill."
+    },
+    {
+      "id": "dragons-dogma-2",
+      "title": "Dragon's Dogma 2",
+      "developer": "Capcom",
+      "genre": "open-world-rpg",
+      "why": "A weird, systemic fantasy world for Elden Ring and Skyrim wanderers."
+    },
+    {
+      "id": "gothic-2",
+      "title": "Gothic II",
+      "developer": "Piranha Bytes",
+      "genre": "open-world-rpg",
+      "why": "Grounded, hostile medieval RPG that pairs beautifully with Kingdom Come: Deliverance II."
+    },
+    {
+      "id": "outward",
+      "title": "Outward",
+      "developer": "Nine Dots Studio",
+      "genre": "open-world-rpg",
+      "why": "Survival-flavoured RPG travel that echoes The Long Dark meeting Skyrim."
+    },
+    {
+      "id": "elex-2",
+      "title": "ELEX II",
+      "developer": "Piranha Bytes",
+      "genre": "open-world-rpg",
+      "why": "A rough-edged post-apoc RPG with the faction politics Witcher 3 fans enjoy."
+    },
+    {
+      "id": "dishonored-2",
+      "title": "Dishonored 2",
+      "developer": "Arkane",
+      "genre": "immersive-sim-stealth",
+      "why": "Peak immersive-sim playgrounds for anyone who loved Deus Ex: Mankind Divided."
+    },
+    {
+      "id": "prey-2017",
+      "title": "Prey",
+      "developer": "Arkane",
+      "genre": "immersive-sim-stealth",
+      "why": "System Shock-lineage sci-fi that scratches the MGSV sandbox-and-tools itch."
+    },
+    {
+      "id": "hitman-world-of-assassination",
+      "title": "Hitman: World of Assassination",
+      "developer": "IO Interactive",
+      "genre": "immersive-sim-stealth",
+      "why": "The natural evolution of Hitman: Absolution's stealth sandbox, dialled to perfection."
+    },
+    {
+      "id": "styx-shards-of-darkness",
+      "title": "Styx: Shards of Darkness",
+      "developer": "Cyanide",
+      "genre": "immersive-sim-stealth",
+      "why": "Pure stealth-first level design for anyone who savours MGSV's quiet approaches."
+    },
+    {
+      "id": "a-plague-tale-requiem",
+      "title": "A Plague Tale: Requiem",
+      "developer": "Asobo Studio",
+      "genre": "cinematic-action-adventure",
+      "why": "Sweeping cinematic storytelling in the vein of The Last of Us Part II."
+    },
+    {
+      "id": "tomb-raider-2013",
+      "title": "Tomb Raider",
+      "developer": "Crystal Dynamics",
+      "genre": "cinematic-action-adventure",
+      "why": "Set-piece climbing and gunplay that scratches the Uncharted itch directly."
+    },
+    {
+      "id": "days-gone",
+      "title": "Days Gone",
+      "developer": "Bend Studio",
+      "genre": "cinematic-action-adventure",
+      "why": "Open-road cinematic action that pairs Red Dead's ride-outs with Last of Us survival."
+    },
+    {
+      "id": "sifu",
+      "title": "Sifu",
+      "developer": "Sloclap",
+      "genre": "cinematic-action-adventure",
+      "why": "Choreographed brawling with the stylish momentum God of War and Ghost of Tsushima fans crave."
+    }
+  ]
+}

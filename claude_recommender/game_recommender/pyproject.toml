@@ -1,0 +1,9 @@
+[project]
+name = "game-recommender"
+version = "1.0.0"
+description = "Local video game recommender (Flask + Claude)"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=3.0",
+    "anthropic>=0.40",
+]

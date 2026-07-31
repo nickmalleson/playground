@@ -19,11 +19,17 @@ User management (no server is started for these):
     python server.py --new-user NAME      # interactively create a new user
                                           # (asks for favourite games, then
                                           #  Claude builds their starting profile)
+    python server.py --new-user NAME --favourites-file games.txt
+                                          # read the favourite games from a text
+                                          # file (one per line) instead of typing
+                                          # them at the prompt
 
 Requires:
     - ANTHROPIC_API_KEY environment variable
+    - uv: just run any command as `uv run server.py ...` (deps auto-installed)
+    (or pip)
     - pip install -r requirements.txt
-    (or use anaconda)
+    (or anaconda)
     - conda env create -f environment.yml
     - conda activate game_recommender
 """
@@ -63,7 +69,7 @@ LAST_USER_FILE = HERE / "last_user.txt"
 LOG_FILE = HERE / "server.log"
 DEFAULT_PORT = 5051
 
-MODEL = "claude-sonnet-4-6"  # overridden by --model at startup
+MODEL = "claude-sonnet-5"  # overridden by --model at startup
 
 # Set at startup once a user has been resolved. The web routes operate on
 # whichever user the server was launched for.
@@ -71,9 +77,9 @@ CURRENT_USER = ""
 PROFILE: dict[str, Any] = {}
 
 MODELS = {
-    "sonnet": "claude-sonnet-4-6",
-    "haiku":  "claude-haiku-4-5-20251001",
-    "opus":   "claude-opus-4-7",
+    "sonnet": "claude-sonnet-5",
+    "haiku":  "claude-haiku-4-5",
+    "opus":   "claude-opus-5",
 }
 MAX_TOKENS = 2048
 BOOTSTRAP_MAX_TOKENS = 8192   # new-user profile is a much bigger generation
@@ -399,7 +405,8 @@ def call_claude(
         f"→ Claude  model={MODEL}  prompt_chars={len(user_content)}  "
         f"slots={len(payload.get('slotsToReplace', []))}"
     )
-    log.debug(f"full prompt:\n{user_content}")
+    log.info("── system prompt ──\n" + system)
+    log.info("── user prompt ──\n" + user_content)
 
     t0 = time.time()
     try:
@@ -558,6 +565,17 @@ def _prompt_multiline(prompt: str) -> str:
     return "\n".join(lines).strip()
 
 
+def read_favourites_file(path: str) -> str:
+    """Read a favourites text file: strip blank lines, keep one game per line."""
+    try:
+        raw = Path(path).read_text(encoding="utf-8")
+    except OSError as e:
+        print(f"ERROR: could not read favourites file {path!r}: {e}", file=sys.stderr)
+        sys.exit(1)
+    lines = [line.strip() for line in raw.splitlines() if line.strip()]
+    return "\n".join(lines)
+
+
 def generate_profile(favourites_text: str, genre_hint: str, display_name: str) -> dict[str, Any]:
     """Ask Claude to build a starting profile from the user's stated tastes."""
     payload: dict[str, Any] = {"favourites": favourites_text}
@@ -582,8 +600,12 @@ def generate_profile(favourites_text: str, genre_hint: str, display_name: str) -
     return profile
 
 
-def create_user_interactive(name: str) -> None:
-    """Interactively create a new user: collect tastes, generate a profile."""
+def create_user_interactive(name: str, favourites_file: str | None = None) -> None:
+    """Interactively create a new user: collect tastes, generate a profile.
+
+    If favourites_file is given, the favourite games are read from that file
+    (one per line) instead of being typed at the prompt.
+    """
     try:
         user = normalise_user_name(name)
     except ValueError as e:
@@ -603,13 +625,18 @@ def create_user_interactive(name: str) -> None:
     print("═" * 60)
     display_name = input("Display name (press Enter to use the user name): ").strip() or user
 
-    favourites_text = _prompt_multiline(
-        "\nList this person's favourite video games and developers — one per line, free-form.\n"
-        "Example:\n"
-        "  Hollow Knight — Team Cherry\n"
-        "  The Witcher 3, especially the side quests\n"
-        "Finish with a blank line:"
-    )
+    if favourites_file is not None:
+        favourites_text = read_favourites_file(favourites_file)
+        n_lines = len(favourites_text.splitlines())
+        print(f"\nRead {n_lines} favourite(s) from {favourites_file}")
+    else:
+        favourites_text = _prompt_multiline(
+            "\nList this person's favourite video games and developers — one per line, free-form.\n"
+            "Example:\n"
+            "  Hollow Knight — Team Cherry\n"
+            "  The Witcher 3, especially the side quests\n"
+            "Finish with a blank line:"
+        )
     if not favourites_text:
         print("No favourites given — cannot build a profile. Aborting.", file=sys.stderr)
         sys.exit(1)
@@ -942,6 +969,9 @@ def main() -> None:
                         help="Which user to run as (default: the last user)")
     parser.add_argument("--new-user", metavar="NAME", default=None,
                         help="Interactively create a new user, then exit")
+    parser.add_argument("--favourites-file", metavar="PATH", default=None,
+                        help="With --new-user: read the favourite games from this "
+                             "text file (one per line) instead of prompting")
     parser.add_argument("--list-users", action="store_true",
                         help="List all users, then exit")
     args = parser.parse_args()
@@ -967,8 +997,11 @@ def main() -> None:
                 print(f"  {u}{suffix}")
         return
 
+    if args.favourites_file is not None and args.new_user is None:
+        parser.error("--favourites-file only makes sense with --new-user")
+
     if args.new_user is not None:
-        create_user_interactive(args.new_user)
+        create_user_interactive(args.new_user, favourites_file=args.favourites_file)
         return
 
     # ── Resolve and load the user we'll serve ──

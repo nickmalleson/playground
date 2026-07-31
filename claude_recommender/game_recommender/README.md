@@ -5,7 +5,20 @@ The browser keeps the nice UI; all Claude API calls go through Python so you can
 
 ## One-time setup
 
-### Option A — conda (recommended)
+### Option A — uv (recommended)
+
+Nothing to set up: with [uv](https://docs.astral.sh/uv/) installed, just prefix
+every command in this README with `uv run` instead of activating an environment,
+e.g.
+
+```
+uv run server.py
+```
+
+uv reads `pyproject.toml`, creates a `.venv` and installs the dependencies
+automatically on first run.
+
+### Option B — conda
 
 Create and activate the environment:
 
@@ -14,7 +27,7 @@ conda env create -f environment.yml
 conda activate game_recommender
 ```
 
-### Option B — pip
+### Option C — pip
 
 ```
 pip install -r requirements.txt
@@ -44,7 +57,7 @@ will tell you to do this.
 ## Run it
 
 ```
-python server.py
+python server.py          # or, with uv:  uv run server.py
 ```
 
 You should see startup output like:
@@ -57,7 +70,7 @@ Video game recommender server
   profile     : /Users/.../game_recommender/users/alice/profile.json
   state file  : /Users/.../game_recommender/users/alice/state.json
   log file    : /Users/.../game_recommender/server.log
-  model       : claude-sonnet-4-6
+  model       : claude-sonnet-5
   batch size  : 6
   timeout     : 90.0s per call
   api key     : sk-ant-abc…wxyz
@@ -90,6 +103,9 @@ python server.py                     # run as the last-used user
 python server.py --user alice        # run as a specific user
 python server.py --list-users        # show all users, then exit
 python server.py --new-user alice    # create a new user, then exit
+python server.py --new-user alice --favourites-file games.txt
+                                     # create a new user, reading their favourite
+                                     # games from a text file
 ```
 
 - **Default behaviour** is to reuse whichever user you last ran. The most
@@ -111,6 +127,17 @@ developers (one per line). Claude then builds a personalised starting profile �
 six genres and 24 seed games tuned to those tastes — and saves it to
 `users/alice/profile.json`. Edit that file by hand any time to fine-tune the
 favourites, genres or seed games. Then run `python server.py --user alice`.
+
+Instead of typing the favourites at the prompt, you can put them in a text
+file (one game per line, free-form, blank lines ignored) and pass it with
+`--favourites-file`:
+
+```
+python server.py --new-user alice --favourites-file games.txt
+```
+
+You'll still be asked for the display name and the optional genre hint; only
+the favourites prompt is skipped.
 
 ## What you'll see in the terminal
 
