@@ -5,7 +5,13 @@ The browser keeps the nice UI; all Claude API calls go through Python so you can
 
 ## One-time setup
 
-### Option A — conda (recommended)
+### Option A — uv (recommended, zero setup)
+
+If you have [uv](https://docs.astral.sh/uv/) installed (`brew install uv`), there is **no setup step**.
+The dependencies are declared inline in `server.py` (PEP 723), so uv creates and
+caches the environment automatically the first time you run it.
+
+### Option B — conda
 
 Create and activate the environment:
 
@@ -14,7 +20,7 @@ conda env create -f environment.yml
 conda activate book_recommender
 ```
 
-### Option B — pip
+### Option C — pip
 
 ```
 pip install -r requirements.txt
@@ -28,9 +34,19 @@ export ANTHROPIC_API_KEY=sk-ant-...
 
 ## Run it
 
+With uv (no conda activation needed):
+
+```
+uv run server.py
+```
+
+Or, inside an activated conda/pip environment:
+
 ```
 python server.py
 ```
+
+All command-line flags work the same either way, e.g. `uv run server.py --debug --user nick`.
 
 You should see startup output like:
 
@@ -118,7 +134,7 @@ With `--debug`, you also get the complete prompt and response printed.
 - **`last_user.txt`** — name of the most recently run user (used as the default)
 - **`server.log`** — append-only log of everything the server does
 - **`environment.yml`** — conda environment (Python 3.14, Flask, Anthropic)
-- **`requirements.txt`** — pip dependencies
+- **`requirements.txt`** — pip dependencies (uv users need neither file — deps are declared inline at the top of `server.py`)
 
 ## Useful endpoints (for poking around)
 

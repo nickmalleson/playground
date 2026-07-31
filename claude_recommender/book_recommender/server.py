@@ -20,11 +20,19 @@ User management (no server is started for these):
 
 Requires:
     - ANTHROPIC_API_KEY environment variable
-    - pip install -r requirements.txt
+    - easiest: uv run server.py   (no env setup needed)
+    - or: pip install -r requirements.txt
     (or use anaconda)
     - conda env create -f environment.yml
     - conda activate book_recommender
 """
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "flask>=3.0",
+#     "anthropic>=0.40",
+# ]
+# ///
 from __future__ import annotations
 
 import argparse
