@@ -2,11 +2,11 @@
   "version": 1,
   "current_books": [
     {
-      "id": "the-word-for-world-is-forest",
-      "title": "The Word for World is Forest",
-      "author": "Ursula K. Le Guin",
+      "id": "the-overstory",
+      "title": "The Overstory",
+      "author": "Richard Powers",
       "genre": "cli-fi",
-      "why": "Since you loved The Dispossessed, this shorter Le Guin hits similar anthropological-utopian nerves while foregrounding ecological violence — a natural bridge to your Bacigalupi and Atwood tastes.",
+      "why": "Like Le Guin's Athshean forest, Powers gives trees moral agency and indicts extractive humanity — a sweeping, lyrical ecological reckoning that should resonate with your love of Atwood and Bacigalupi's eco-fables.",
       "is_fresh": true
     },
     {
@@ -186,6 +186,14 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "the-word-for-world-is-forest",
+      "title": "The Word for World is Forest",
+      "author": "Ursula K. Le Guin",
+      "genre": "cli-fi",
+      "mark": "loved",
+      "replaced_at": "2026-07-31T09:43:37+00:00"
+    },
     {
       "id": "black-company",
       "title": "The Black Company",
