@@ -357,7 +357,7 @@ def save_state(user: str, state: dict[str, Any]) -> None:
 
 SYSTEM_PROMPT = """You recommend video games. The user gives you a list of their original favourite games and developers, a list of titles to avoid, and a list of "slots to replace" — each slot has a genre and a mark indicating how the user reacted to the game it's replacing. For each slot, return one new recommendation.
 
-The user may also give "alsoPlayed": games they have played outside this app, each with a reaction. Treat "loved" entries like extra favourites and "passed" entries as a style to steer away from; "played" entries are neutral. Never recommend an alsoPlayed game.
+"lovedSoFar" lists games the user has loved in this app so far (including in earlier rounds) — treat them like extra favourites and let them drive your picks as much as originalFavourites do. "passedSoFar" lists games they did not take to — steer away from that style. "alsoPlayed" lists games played outside this app with the user's reaction; the loved/passed ones are already in those two lists. Never recommend anything in avoidTitles, which includes everything above.
 
 Output format: your entire reply must be a single JSON array. The first character must be [ and the last must be ]. No prose, no preamble, no code fences, no commentary.
 
@@ -830,16 +830,22 @@ def api_fresh_picks():
         {"title": e["title"], "reaction": label_for_mark({"played": True, "like": e.get("like")})}
         for e in state["also_played"]
     ]
-    loved_so_far = [
-        f"{b['title']} by {b['developer']}"
-        for b in state["current_games"]
-        if state["marks"].get(b["id"], {}).get("like") == "love"
-    ]
-    passed_so_far = [
-        f"{b['title']} by {b['developer']}"
-        for b in state["current_games"]
-        if state["marks"].get(b["id"], {}).get("like") == "meh"
-    ]
+    # Taste signal accumulates across rounds: games on the board now, games
+    # replaced in earlier rounds (history keeps their mark), and alsoPlayed.
+    def with_reaction(reaction: str) -> list[str]:
+        return (
+            [
+                f"{b['title']} by {b['developer']}"
+                for b in state["current_games"]
+                if label_for_mark(state["marks"].get(b["id"], {})) == reaction
+                and state["marks"].get(b["id"], {}).get("like")
+            ]
+            + [f"{h['title']} by {h['developer']}" for h in state["history"] if h.get("mark") == reaction]
+            + [e["title"] for e in state["also_played"] if e.get("like") and label_for_mark(e) == reaction]
+        )
+
+    loved_so_far = with_reaction("loved")
+    passed_so_far = with_reaction("passed")
 
     slots = []
     for b in marked_games:
