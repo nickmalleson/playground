@@ -60,11 +60,15 @@ except ImportError:
     print("ERROR: anthropic not installed. Run: pip install -r requirements.txt", file=sys.stderr)
     sys.exit(1)
 
+# Local
+import steam
+
 
 # ───────────────────── Configuration ─────────────────────
 
 HERE = Path(__file__).parent.resolve()
 USERS_DIR = HERE / "users"
+STEAM = steam.SteamCache(HERE / "steam_cache.json")  # shared across users
 LAST_USER_FILE = HERE / "last_user.txt"
 LOG_FILE = HERE / "server.log"
 DEFAULT_PORT = 5051
@@ -938,6 +942,15 @@ def api_fresh_picks():
             "history": state["history"],
         }
     )
+
+
+@app.route("/api/steam", methods=["GET"])
+def api_steam():
+    """Steam review rating for a title (cached). rating is null when unmatched."""
+    title = (request.args.get("title") or "").strip()
+    if not title:
+        return jsonify({"ok": False, "error": "Missing title"}), 400
+    return jsonify({"ok": True, "rating": STEAM.get(title)})
 
 
 @app.route("/api/test", methods=["GET"])

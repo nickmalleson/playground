@@ -169,6 +169,10 @@ header .header-text { flex: 1 1 320px; }
 
 .card-title { font-size: 15px; font-weight: 500; margin: 0 0 2px; line-height: 1.35; }
 .card-developer { font-size: 13px; color: var(--text-muted); margin: 0 0 10px; }
+.steam { margin-left: 8px; font-size: 12px; white-space: nowrap; }
+.steam a { color: var(--info); text-decoration: none; }
+.steam a:hover { text-decoration: underline; }
+.steam a::before { content: "Steam "; color: var(--text-faint); }
 .card-why { font-size: 13px; color: var(--text); line-height: 1.55; margin: 0 0 14px; }
 
 .actions { display: flex; gap: 6px; margin-top: auto; flex-wrap: wrap; }
@@ -706,6 +710,47 @@ function renderFilters() {
   );
 }
 
+// ── Steam ratings ──
+// Looked up lazily per card so page load stays instant; the server caches on disk.
+const steamRatings = new Map();  // title -> rating record | null | Promise
+
+function formatCount(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M';
+  if (n >= 1e3) return Math.round(n / 1e3) + 'k';
+  return String(n);
+}
+
+function fillSteamBadge(span, rating) {
+  span.innerHTML = '';
+  if (!rating) return;
+  span.appendChild(el('a', {
+    href: rating.url, target: '_blank', rel: 'noopener',
+    title: `${rating.name}: ${rating.score_desc} (${rating.positive.toLocaleString()} of ${rating.total.toLocaleString()} reviews positive)`
+  }, `${rating.pct}% · ${formatCount(rating.total)} reviews`));
+}
+
+function steamBadge(title) {
+  const span = el('span', { class: 'steam', 'data-steam-title': title });
+  const cached = steamRatings.get(title);
+  if (cached !== undefined && !(cached instanceof Promise)) {
+    fillSteamBadge(span, cached);
+    return span;
+  }
+  if (cached === undefined) {
+    const p = api('/api/steam?title=' + encodeURIComponent(title))
+      .then(d => d.rating)
+      .catch(e => { dlog('error', `steam lookup failed for ${title}: ${e.message}`); return null; })
+      .then(rating => {
+        steamRatings.set(title, rating);
+        for (const s of document.querySelectorAll('.steam[data-steam-title]')) {
+          if (s.getAttribute('data-steam-title') === title) fillSteamBadge(s, rating);
+        }
+      });
+    steamRatings.set(title, p);
+  }
+  return span;
+}
+
 function renderCard(game) {
   const mark = getMark(game.id);
   const classes = ['card'];
@@ -728,7 +773,9 @@ function renderCard(game) {
   if (status.children.length) card.appendChild(status);
 
   card.appendChild(el('p', { class: 'card-title' }, game.title));
-  card.appendChild(el('p', { class: 'card-developer' }, game.developer));
+  const dev = el('p', { class: 'card-developer' }, game.developer);
+  dev.appendChild(steamBadge(game.title));
+  card.appendChild(dev);
   card.appendChild(el('p', { class: 'card-why' }, game.why || ''));
 
   const actions = el('div', { class: 'actions' });

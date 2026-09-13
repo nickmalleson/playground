@@ -7,3 +7,5 @@ __pycache__/
 # One-off migration and recovery backups
 state.json.pre-multiuser-*
 *.corrupt-*.json
+steam_cache.json
+steam_cache.tmp
