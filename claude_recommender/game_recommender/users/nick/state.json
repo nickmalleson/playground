@@ -91,11 +91,11 @@
       "why": "Style-meter carnage that matches the frantic momentum of Turbo Overkill."
     },
     {
-      "id": "kingdom-come-deliverance",
-      "title": "Kingdom Come: Deliverance",
-      "developer": "Warhorse Studios",
+      "id": "gothic",
+      "title": "Gothic",
+      "developer": "Piranha Bytes",
       "genre": "open-world-rpg",
-      "why": "Instead of Dragon's Dogma 2's monster-hunting loop, this is a meticulously grounded medieval world with deliberate, weighty combat — the historical-simulation cousin of Red Dead Redemption II and The Witcher 3.",
+      "why": "Like Kingdom Come: Deliverance, it drops you in as a nobody in a grounded, hand-built world where survival and reputation are earned through hard, systemic progression — and it's the clear ancestor of Drova, which you loved.",
       "is_fresh": true
     },
     {
@@ -154,11 +154,11 @@
       "is_fresh": true
     },
     {
-      "id": "hellblade-senua-s-sacrifice",
-      "title": "Hellblade: Senua's Sacrifice",
-      "developer": "Ninja Theory",
+      "id": "alan-wake-2",
+      "title": "Alan Wake 2",
+      "developer": "Remedy Entertainment",
       "genre": "cinematic-action-adventure",
-      "why": "Like God of War, it's a mythology-soaked, tightly framed journey about a parent and grief, with weighty melee combat and no HUD.",
+      "why": "Like The Last of Us Part II, it's a dual-protagonist, heavily authored survival thriller with tense scarce-ammo combat and a bleak, beautifully shot world — and its eerie small-town dread echoes your love of NORCO and Metro Exodus.",
       "is_fresh": true
     },
     {
@@ -187,6 +187,30 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "the-last-of-us-part-ii",
+      "title": "The Last of Us Part II",
+      "developer": "Naughty Dog",
+      "genre": "cinematic-action-adventure",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T11:07:25+00:00"
+    },
+    {
+      "id": "hellblade-senua-s-sacrifice",
+      "title": "Hellblade: Senua's Sacrifice",
+      "developer": "Ninja Theory",
+      "genre": "cinematic-action-adventure",
+      "mark": "played",
+      "replaced_at": "2026-09-13T11:06:05+00:00"
+    },
+    {
+      "id": "kingdom-come-deliverance",
+      "title": "Kingdom Come: Deliverance",
+      "developer": "Warhorse Studios",
+      "genre": "open-world-rpg",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T11:06:05+00:00"
+    },
     {
       "id": "ghost-of-tsushima-director-s-cut",
       "title": "Ghost of Tsushima Director's Cut",
