@@ -204,14 +204,6 @@
       "replaced_at": "2026-09-13T10:52:06+00:00"
     },
     {
-      "id": "ghost-of-tsushima",
-      "title": "Ghost of Tsushima",
-      "developer": "Sucker Punch Productions",
-      "genre": "open-world-rpg",
-      "mark": "loved",
-      "replaced_at": "2026-09-13T10:52:06+00:00"
-    },
-    {
       "id": "fallout-new-vegas",
       "title": "Fallout: New Vegas",
       "developer": "Obsidian Entertainment",
@@ -459,7 +451,7 @@
       "added_at": "2026-09-13T10:45:50+00:00"
     },
     {
-      "title": "Before your eyes",
+      "title": "Before Your Eyes",
       "like": "love",
       "added_at": "2026-09-13T10:48:04+00:00"
     },
@@ -474,24 +466,14 @@
       "added_at": "2026-09-13T10:48:52+00:00"
     },
     {
-      "title": "The long Dark",
-      "like": "love",
-      "added_at": "2026-09-13T10:49:31+00:00"
-    },
-    {
       "title": "Silent Hill",
       "like": "meh",
       "added_at": "2026-09-13T10:49:44+00:00"
     },
     {
-      "title": "Tomb raider (all of them)",
+      "title": "Tomb Raider (all of them)",
       "like": "love",
       "added_at": "2026-09-13T10:50:01+00:00"
-    },
-    {
-      "title": "Uncharted",
-      "like": "love",
-      "added_at": "2026-09-13T10:50:05+00:00"
     },
     {
       "title": "Dirt Rally",
