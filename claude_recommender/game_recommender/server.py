@@ -69,7 +69,7 @@ LAST_USER_FILE = HERE / "last_user.txt"
 LOG_FILE = HERE / "server.log"
 DEFAULT_PORT = 5051
 
-MODEL = "claude-sonnet-5"  # overridden by --model at startup
+MODEL = "claude-opus-5"  # overridden by --model at startup
 
 # Set at startup once a user has been resolved. The web routes operate on
 # whichever user the server was launched for.
@@ -426,7 +426,7 @@ def call_claude(
         raise
 
     elapsed = time.time() - t0
-    text = response.content[0].text
+    text = _response_text(response)
     usage = getattr(response, "usage", None)
     usage_str = ""
     if usage is not None:
@@ -435,6 +435,15 @@ def call_claude(
     log.debug(f"raw response:\n{text}")
 
     return text
+
+
+def _response_text(response: Any) -> str:
+    """Join the text blocks of a response.
+
+    Claude 5 models think by default, so response.content may start with a
+    ThinkingBlock (no .text) — never assume content[0] is the text block.
+    """
+    return "".join(b.text for b in response.content if b.type == "text")
 
 
 def parse_picks(text: str) -> list[dict[str, Any]] | None:
@@ -902,7 +911,7 @@ def api_test():
             messages=[{"role": "user", "content": "Reply with exactly: OK"}],
         )
         elapsed = time.time() - t0
-        text = resp.content[0].text
+        text = _response_text(resp)
         log.info(f"test-api OK  latency={elapsed:.1f}s  reply={text!r}")
         return jsonify({"ok": True, "latency_s": round(elapsed, 2), "reply": text, "model": MODEL})
     except Exception as e:
@@ -963,8 +972,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Local video game recommender server")
     parser.add_argument("--debug", action="store_true", help="Verbose debug logging")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
-    parser.add_argument("--model", choices=["sonnet", "haiku", "opus"], default="sonnet",
-                        help="Claude model to use (default: sonnet)")
+    parser.add_argument("--model", choices=["sonnet", "haiku", "opus"], default="opus",
+                        help="Claude model to use (default: opus)")
     parser.add_argument("--user", default=None,
                         help="Which user to run as (default: the last user)")
     parser.add_argument("--new-user", metavar="NAME", default=None,
