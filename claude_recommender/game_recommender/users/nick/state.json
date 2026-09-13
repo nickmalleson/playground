@@ -17,11 +17,12 @@
       "is_fresh": true
     },
     {
-      "id": "virginia",
-      "title": "Virginia",
-      "developer": "Variable State",
+      "id": "the-vanishing-of-ethan-carter",
+      "title": "The Vanishing of Ethan Carter",
+      "developer": "The Astronauts",
       "genre": "narrative-vignette",
-      "why": "Wordless, cinematic storytelling in the Edith Finch and Before Your Eyes mold."
+      "why": "Like Firewatch, it's a lonely walk through gorgeous wilderness piecing together a story from fragments, with the same melancholy tone you liked in What Remains of Edith Finch.",
+      "is_fresh": true
     },
     {
       "id": "mutazione",
@@ -45,11 +46,12 @@
       "why": "Shinji Mikami's follow-up to the RE4 lineage — a natural next stop after Resident Evil Village."
     },
     {
-      "id": "soma",
-      "title": "SOMA",
-      "developer": "Frictional Games",
+      "id": "darkwood",
+      "title": "Darkwood",
+      "developer": "Acid Wizard Studio",
       "genre": "survival-horror",
-      "why": "Underwater existential horror with the atmospheric menace of Alien: Isolation."
+      "why": "Since you've already been through SOMA's slow-burn dread, this top-down Polish nightmare broadens your horror exposure with brutal scarcity and day/night barricading that should click with your love of The Long Dark's survival pressure and Little Nightmares II's grotesque atmosphere.",
+      "is_fresh": true
     },
     {
       "id": "amnesia-the-bunker",
@@ -89,11 +91,12 @@
       "why": "Style-meter carnage that matches the frantic momentum of Turbo Overkill."
     },
     {
-      "id": "dragons-dogma-2",
-      "title": "Dragon's Dogma 2",
-      "developer": "Capcom",
+      "id": "kingdom-come-deliverance",
+      "title": "Kingdom Come: Deliverance",
+      "developer": "Warhorse Studios",
       "genre": "open-world-rpg",
-      "why": "A weird, systemic fantasy world for Elden Ring and Skyrim wanderers."
+      "why": "Instead of Dragon's Dogma 2's monster-hunting loop, this is a meticulously grounded medieval world with deliberate, weighty combat — the historical-simulation cousin of Red Dead Redemption II and The Witcher 3.",
+      "is_fresh": true
     },
     {
       "id": "gothic-2",
@@ -103,18 +106,20 @@
       "why": "Grounded, hostile medieval RPG that pairs beautifully with Kingdom Come: Deliverance II."
     },
     {
-      "id": "outward",
-      "title": "Outward",
-      "developer": "Nine Dots Studio",
+      "id": "atom-rpg-trudograd",
+      "title": "Atom RPG: Trudograd",
+      "developer": "AtomTeam",
       "genre": "open-world-rpg",
-      "why": "Survival-flavoured RPG travel that echoes The Long Dark meeting Skyrim."
+      "why": "A post-apocalyptic wasteland RPG built on dialogue-heavy quests, faction choices and skill checks — the closest thing in spirit to the Fallout: New Vegas you loved.",
+      "is_fresh": true
     },
     {
-      "id": "elex-2",
-      "title": "ELEX II",
-      "developer": "Piranha Bytes",
+      "id": "nioh-2",
+      "title": "Nioh 2",
+      "developer": "Team Ninja",
       "genre": "open-world-rpg",
-      "why": "A rough-edged post-apoc RPG with the faction politics Witcher 3 fans enjoy."
+      "why": "Keeps the feudal Japan setting and stance-based katana combat you loved in Ghost of Tsushima, with the build depth and punishing bosses of Elden Ring.",
+      "is_fresh": true
     },
     {
       "id": "gloomwood",
@@ -141,34 +146,35 @@
       "is_fresh": true
     },
     {
-      "id": "styx-shards-of-darkness",
-      "title": "Styx: Shards of Darkness",
-      "developer": "Cyanide",
+      "id": "deathloop",
+      "title": "Deathloop",
+      "developer": "Arkane Lyon",
       "genre": "immersive-sim-stealth",
-      "why": "Pure stealth-first level design for anyone who savours MGSV's quiet approaches."
-    },
-    {
-      "id": "star-wars-jedi-fallen-order",
-      "title": "Star Wars Jedi: Fallen Order",
-      "developer": "Respawn Entertainment",
-      "genre": "cinematic-action-adventure",
-      "why": "From the Titanfall 2 studio, it blends Arkham-style combat rhythm with Uncharted-flavoured climbing and a strong linear-cinematic spine.",
+      "why": "Styx was slow third-person shadow-crawling; this is a loud, first-person, gunplay-forward immersive sim whose puzzle-box island rewards iterative knowledge like Outer Wilds and shoots like Titanfall 2.",
       "is_fresh": true
     },
     {
-      "id": "a-plague-tale-innocence",
-      "title": "A Plague Tale: Innocence",
-      "developer": "Asobo Studio",
+      "id": "hellblade-senua-s-sacrifice",
+      "title": "Hellblade: Senua's Sacrifice",
+      "developer": "Ninja Theory",
       "genre": "cinematic-action-adventure",
-      "why": "Like Uncharted 4, it's a tightly directed, character-driven set-piece journey, and its bleak sibling-survival tone echoes your love of Little Nightmares II.",
+      "why": "Like God of War, it's a mythology-soaked, tightly framed journey about a parent and grief, with weighty melee combat and no HUD.",
       "is_fresh": true
     },
     {
-      "id": "sleeping-dogs-definitive-edition",
-      "title": "Sleeping Dogs: Definitive Edition",
-      "developer": "United Front Games",
+      "id": "indiana-jones-and-the-great-circle",
+      "title": "Indiana Jones and the Great Circle",
+      "developer": "MachineGames",
       "genre": "cinematic-action-adventure",
-      "why": "Broadens the Mad Max open-world vehicular chaos into an undercover crime story, hitting the same beat as your love for Mafia: Definitive Edition.",
+      "why": "Since A Plague Tale's guided set-piece storytelling landed fine, this pushes further into the pulpy globe-trotting traversal and puzzle-solving that made Uncharted: Legacy of Thieves a favourite.",
+      "is_fresh": true
+    },
+    {
+      "id": "sekiro-shadows-die-twice",
+      "title": "Sekiro: Shadows Die Twice",
+      "developer": "FromSoftware",
+      "genre": "cinematic-action-adventure",
+      "why": "Same Sengoku-era samurai fantasy and duel-focused swordplay as Ghost of Tsushima, sharpened by the FromSoftware craft you already love in Elden Ring.",
       "is_fresh": true
     },
     {
@@ -179,13 +185,120 @@
       "why": "Choreographed brawling with the stylish momentum God of War and Ghost of Tsushima fans crave."
     }
   ],
-  "marks": {
-    "star-wars-jedi-fallen-order": {
-      "played": false,
-      "like": null
-    }
-  },
+  "marks": {},
   "history": [
+    {
+      "id": "ghost-of-tsushima-director-s-cut",
+      "title": "Ghost of Tsushima Director's Cut",
+      "developer": "Sucker Punch Productions",
+      "genre": "cinematic-action-adventure",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T10:52:06+00:00"
+    },
+    {
+      "id": "god-of-war-2018",
+      "title": "God of War (2018)",
+      "developer": "Santa Monica Studio",
+      "genre": "cinematic-action-adventure",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T10:52:06+00:00"
+    },
+    {
+      "id": "ghost-of-tsushima",
+      "title": "Ghost of Tsushima",
+      "developer": "Sucker Punch Productions",
+      "genre": "open-world-rpg",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T10:52:06+00:00"
+    },
+    {
+      "id": "fallout-new-vegas",
+      "title": "Fallout: New Vegas",
+      "developer": "Obsidian Entertainment",
+      "genre": "open-world-rpg",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T10:52:06+00:00"
+    },
+    {
+      "id": "firewatch",
+      "title": "Firewatch",
+      "developer": "Campo Santo",
+      "genre": "narrative-vignette",
+      "mark": "loved",
+      "replaced_at": "2026-09-13T10:52:06+00:00"
+    },
+    {
+      "id": "sleeping-dogs-definitive-edition",
+      "title": "Sleeping Dogs: Definitive Edition",
+      "developer": "United Front Games",
+      "genre": "cinematic-action-adventure",
+      "mark": "passed",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "a-plague-tale-innocence",
+      "title": "A Plague Tale: Innocence",
+      "developer": "Asobo Studio",
+      "genre": "cinematic-action-adventure",
+      "mark": "played",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "star-wars-jedi-fallen-order",
+      "title": "Star Wars Jedi: Fallen Order",
+      "developer": "Respawn Entertainment",
+      "genre": "cinematic-action-adventure",
+      "mark": "played",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "styx-shards-of-darkness",
+      "title": "Styx: Shards of Darkness",
+      "developer": "Cyanide",
+      "genre": "immersive-sim-stealth",
+      "mark": "passed",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "elex-2",
+      "title": "ELEX II",
+      "developer": "Piranha Bytes",
+      "genre": "open-world-rpg",
+      "mark": "passed",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "outward",
+      "title": "Outward",
+      "developer": "Nine Dots Studio",
+      "genre": "open-world-rpg",
+      "mark": "passed",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "dragons-dogma-2",
+      "title": "Dragon's Dogma 2",
+      "developer": "Capcom",
+      "genre": "open-world-rpg",
+      "mark": "passed",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "virginia",
+      "title": "Virginia",
+      "developer": "Variable State",
+      "genre": "narrative-vignette",
+      "mark": "passed",
+      "replaced_at": "2026-09-13T10:51:04+00:00"
+    },
+    {
+      "id": "soma",
+      "title": "SOMA",
+      "developer": "Frictional Games",
+      "genre": "survival-horror",
+      "mark": "played",
+      "replaced_at": "2026-09-13T09:08:28+00:00"
+    },
     {
       "id": "uncharted-4-a-thief-s-end",
       "title": "Uncharted 4: A Thief's End",
@@ -337,6 +450,53 @@
       "genre": "survival-horror",
       "mark": "played",
       "replaced_at": "2026-07-31T12:38:07+00:00"
+    }
+  ],
+  "also_played": [
+    {
+      "title": "Drova",
+      "like": "love",
+      "added_at": "2026-09-13T10:45:50+00:00"
+    },
+    {
+      "title": "Before your eyes",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:04+00:00"
+    },
+    {
+      "title": "Pragmata",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:08+00:00"
+    },
+    {
+      "title": "Doom (all of them)",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:52+00:00"
+    },
+    {
+      "title": "The long Dark",
+      "like": "love",
+      "added_at": "2026-09-13T10:49:31+00:00"
+    },
+    {
+      "title": "Silent Hill",
+      "like": "meh",
+      "added_at": "2026-09-13T10:49:44+00:00"
+    },
+    {
+      "title": "Tomb raider (all of them)",
+      "like": "love",
+      "added_at": "2026-09-13T10:50:01+00:00"
+    },
+    {
+      "title": "Uncharted",
+      "like": "love",
+      "added_at": "2026-09-13T10:50:05+00:00"
+    },
+    {
+      "title": "Dirt Rally",
+      "like": "love",
+      "added_at": "2026-09-13T10:50:29+00:00"
     }
   ]
 }

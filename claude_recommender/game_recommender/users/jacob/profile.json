@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "display_name": "Jacob",
+  "original_favourites": [
+    "Helldivers 2 — Arrowhead Game Studios",
+    "Warhammer 40,000: Space Marine 2 — Saber Interactive",
+    "Ace Combat series — Bandai Namco / Project Aces",
+    "Marvel's Spider-Man 1 & 2 and Miles Morales — Insomniac Games",
+    "Deep Rock Galactic (and DRG: Rogue Core) — Ghost Ship Games",
+    "Star Wars Battlefront — DICE / EA",
+    "Fortnite — Epic Games",
+    "Underdogs — One Hamsa (VR mech brawler)",
+    "Sea of Thieves — Rare",
+    "Marvel's Guardians of the Galaxy — Eidos-Montréal",
+    "Uncharted series — Naughty Dog",
+    "Tomb Raider — Crystal Dynamics",
+    "Serious Sam — Croteam",
+    "Neon White — Angel Matrix",
+    "Titanfall 2 — Respawn Entertainment",
+    "Subnautica — Unknown Worlds"
+  ],
+  "genres": [
+    {
+      "key": "horde-shooter",
+      "label": "Co-op horde shooters",
+      "sub": "For when you want another Helldivers 2 bug wave"
+    },
+    {
+      "key": "extraction-shooter",
+      "label": "Extraction shooters",
+      "sub": "For when the Deep Rock Galactic 'get to the drop pod' tension is the point"
+    },
+    {
+      "key": "movement-fps",
+      "label": "Movement-first FPS",
+      "sub": "For when you want Neon White speed with Titanfall 2 flow"
+    },
+    {
+      "key": "cinematic-action-adventure",
+      "label": "Cinematic action-adventures",
+      "sub": "For when you want the Spider-Man and Uncharted spectacle"
+    },
+    {
+      "key": "coop-survival-sandbox",
+      "label": "Co-op survival sandboxes",
+      "sub": "For when Subnautica and Sea of Thieves nights with friends call"
+    },
+    {
+      "key": "arcade-air-combat",
+      "label": "Arcade air and space combat",
+      "sub": "For when you want Ace Combat missiles and Battlefront dogfights"
+    }
+  ],
+  "seed_games": [
+    {
+      "id": "warhammer-vermintide-2",
+      "title": "Warhammer: Vermintide 2",
+      "developer": "Fatshark",
+      "genre": "horde-shooter",
+      "why": "The melee-heavy ancestor of Space Marine 2's Operations mode, with rat tides that swarm exactly like Tyranids."
+    },
+    {
+      "id": "warhammer-darktide",
+      "title": "Warhammer 40,000: Darktide",
+      "developer": "Fatshark",
+      "genre": "horde-shooter",
+      "why": "Same 40K setting as Space Marine 2 but built around four-player gunplay and stamina-managed melee against endless poxwalker hordes."
+    },
+    {
+      "id": "earth-defense-force-5",
+      "title": "Earth Defense Force 5",
+      "developer": "Sandlot",
+      "genre": "horde-shooter",
+      "why": "Giant-bug slaughter with absurd weapon counts — the cheerfully dumb cousin of Helldivers 2's Terminid fronts and Serious Sam's screen-filling mobs."
+    },
+    {
+      "id": "starship-troopers-extermination",
+      "title": "Starship Troopers: Extermination",
+      "developer": "Offworld Industries",
+      "genre": "horde-shooter",
+      "why": "Sixteen-player bug hunts with base building and hot extractions; it shares Helldivers 2's satirical military-propaganda DNA at the source."
+    },
+    {
+      "id": "hunt-showdown-1896",
+      "title": "Hunt: Showdown 1896",
+      "developer": "Crytek",
+      "genre": "extraction-shooter",
+      "why": "The most atmospheric extraction shooter going — bag the bounty, then survive the run to the exit like a tense DRG mission with other players hunting you."
+    },
+    {
+      "id": "zero-sievert",
+      "title": "ZERO Sievert",
+      "developer": "CABO Studio",
+      "genre": "extraction-shooter",
+      "why": "A top-down pixel-art take on Tarkov-style raids; great if you like the loot-and-escape loop but want it single-player and low-pressure."
+    },
+    {
+      "id": "the-forever-winter",
+      "title": "The Forever Winter",
+      "developer": "Fun Dog Studios",
+      "genre": "extraction-shooter",
+      "why": "You're a scavenger, not a supersoldier, in a war between giant machines — a grim inversion of the Space Marine 2 power fantasy with extraction rules."
+    },
+    {
+      "id": "marauders",
+      "title": "Marauders",
+      "developer": "Small Impact Games",
+      "genre": "extraction-shooter",
+      "why": "Board derelict ships, loot them, and fly out before rivals catch you — extraction raiding with the ship-boarding thrill of Sea of Thieves."
+    },
+    {
+      "id": "ultrakill",
+      "title": "ULTRAKILL",
+      "developer": "Arsi \"Hakita\" Patala / New Blood",
+      "genre": "movement-fps",
+      "why": "Style-ranked, dash-cancelling carnage that scratches both the Serious Sam crowd-clearing itch and Neon White's chase-the-leaderboard obsession."
+    },
+    {
+      "id": "severed-steel",
+      "title": "Severed Steel",
+      "developer": "Greylock Studio",
+      "genre": "movement-fps",
+      "why": "Wall-running, slow-mo dives and fully destructible walls — Titanfall 2's pilot movement distilled into short, restartable arenas."
+    },
+    {
+      "id": "ghostrunner",
+      "title": "Ghostrunner",
+      "developer": "One More Level",
+      "genre": "movement-fps",
+      "why": "One-hit-kill cyberpunk parkour where death costs two seconds; the closest thing to Neon White's rhythm outside the game itself."
+    },
+    {
+      "id": "doom-eternal",
+      "title": "DOOM Eternal",
+      "developer": "id Software",
+      "genre": "movement-fps",
+      "why": "Constant dash-and-grapple movement while a Serious Sam-sized horde chases you, with the weapon-swap puzzle layered on top."
+    },
+    {
+      "id": "batman-arkham-city",
+      "title": "Batman: Arkham City",
+      "developer": "Rocksteady Studios",
+      "genre": "cinematic-action-adventure",
+      "why": "The freeflow combat and gliding traversal Insomniac built Spider-Man on, from the same studio behind Batman: Arkham VR."
+    },
+    {
+      "id": "sunset-overdrive",
+      "title": "Sunset Overdrive",
+      "developer": "Insomniac Games",
+      "genre": "cinematic-action-adventure",
+      "why": "Insomniac's grind-rail traversal sandbox before Spider-Man, with a wisecracking tone very close to Guardians of the Galaxy."
+    },
+    {
+      "id": "star-wars-jedi-fallen-order",
+      "title": "Star Wars Jedi: Fallen Order",
+      "developer": "Respawn Entertainment",
+      "genre": "cinematic-action-adventure",
+      "why": "Respawn (Titanfall 2) doing set-piece traversal and tomb-raiding in the Star Wars universe you already visit via Battlefront."
+    },
+    {
+      "id": "prince-of-persia-sands-of-time",
+      "title": "Prince of Persia: The Sands of Time",
+      "developer": "Ubisoft Montreal",
+      "genre": "cinematic-action-adventure",
+      "why": "The older blueprint for Uncharted and Tomb Raider — wall-runs, collapsing ruins and a charming narrator, all in about eight hours."
+    },
+    {
+      "id": "astroneer",
+      "title": "Astroneer",
+      "developer": "System Era Softworks",
+      "genre": "coop-survival-sandbox",
+      "why": "Terrain-deforming planetary mining with friends — Deep Rock Galactic's digging and Trailmakers' build-a-rover tinkering in one relaxed package."
+    },
+    {
+      "id": "barotrauma",
+      "title": "Barotrauma",
+      "developer": "Undertow Games / FakeFish",
+      "genre": "coop-survival-sandbox",
+      "why": "Crewing a submarine under Europa's ice is Subnautica's deep-sea dread crossed with the crisis-management chaos of a bad Deep Rock run."
+    },
+    {
+      "id": "lethal-company",
+      "title": "Lethal Company",
+      "developer": "Zeekerss",
+      "genre": "coop-survival-sandbox",
+      "why": "Scrap quotas, a departure deadline and terrible voice comms — a tiny indie distillation of the DRG mission loop with extraction-shooter nerves."
+    },
+    {
+      "id": "grounded",
+      "title": "Grounded",
+      "developer": "Obsidian Entertainment",
+      "genre": "coop-survival-sandbox",
+      "why": "Backyard survival with base building and genuinely scary bugs; it hits the Subnautica progression rhythm with four-player co-op built in."
+    },
+    {
+      "id": "project-wingman",
+      "title": "Project Wingman",
+      "developer": "Sector D2",
+      "genre": "arcade-air-combat",
+      "why": "A three-person indie love letter to Ace Combat, missile spam, cheesy radio chatter and all — plus a full VR mode."
+    },
+    {
+      "id": "star-wars-squadrons",
+      "title": "Star Wars: Squadrons",
+      "developer": "Motive Studio",
+      "genre": "arcade-air-combat",
+      "why": "Cockpit-level X-wing dogfighting from the Battlefront family, and one of the best VR flight experiences going."
+    },
+    {
+      "id": "house-of-the-dying-sun",
+      "title": "House of the Dying Sun",
+      "developer": "Marauder Interactive",
+      "genre": "arcade-air-combat",
+      "why": "A short, brutal space-fighter game about commanding a strike wing; pure arcade precision for Ace Combat players who want it in zero-g."
+    },
+    {
+      "id": "everspace-2",
+      "title": "EVERSPACE 2",
+      "developer": "ROCKFISH Games",
+      "genre": "arcade-air-combat",
+      "why": "Hand-crafted space combat with loot and exploration — the dogfighting feel of Ace Combat wrapped around a Subnautica-ish urge to poke at every wreck."
+    }
+  ]
+}
