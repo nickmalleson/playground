@@ -149,7 +149,7 @@ log = logging.getLogger("recommender")
 #
 # Layout on disk:
 #     users/<name>/profile.json   favourites, genres, seed_games (the "prompt")
-#     users/<name>/state.json     version, current_games, marks, history
+#     users/<name>/state.json     version, current_games, marks, history, also_played
 #     last_user.txt               name of the most recently launched user
 #
 # A profile is the personalised setup for a user. The state is their live
@@ -303,6 +303,7 @@ def default_state(profile: dict[str, Any]) -> dict[str, Any]:
         "current_games": [dict(b) for b in profile.get("seed_games", [])],
         "marks": {},
         "history": [],
+        "also_played": [],
     }
 
 
@@ -320,6 +321,8 @@ def load_state(user: str, profile: dict[str, Any]) -> dict[str, Any]:
         for key in ("current_games", "marks", "history"):
             if key not in st:
                 raise ValueError(f"missing key: {key}")
+        # Added later; older state files won't have it
+        st.setdefault("also_played", [])
         return st
     except Exception as e:
         backup = path.with_suffix(f".corrupt-{int(time.time())}.json")
@@ -349,6 +352,8 @@ def save_state(user: str, state: dict[str, Any]) -> None:
 # ───────────────────── Claude integration ─────────────────────
 
 SYSTEM_PROMPT = """You recommend video games. The user gives you a list of their original favourite games and developers, a list of titles to avoid, and a list of "slots to replace" — each slot has a genre and a mark indicating how the user reacted to the game it's replacing. For each slot, return one new recommendation.
+
+The user may also give "alsoPlayed": games they have played outside this app, each with a reaction. Treat "loved" entries like extra favourites and "passed" entries as a style to steer away from; "played" entries are neutral. Never recommend an alsoPlayed game.
 
 Output format: your entire reply must be a single JSON array. The first character must be [ and the last must be ]. No prose, no preamble, no code fences, no commentary.
 
@@ -707,6 +712,7 @@ def api_get_state():
             "current_games": state["current_games"],
             "marks": state["marks"],
             "history": state["history"],
+            "also_played": state["also_played"],
             "genres": PROFILE["genres"],
             "original_favourites": PROFILE["original_favourites"],
             "model": MODEL,
@@ -755,6 +761,39 @@ def api_clear_marks():
     return jsonify({"ok": True, "marks": state["marks"]})
 
 
+@app.route("/api/also-played", methods=["POST"])
+def api_also_played_add():
+    """Record a game played outside the app: {title, like: "love"|"meh"|null}."""
+    body = request.get_json(silent=True) or {}
+    title = str(body.get("title") or "").strip()
+    like = body.get("like")
+    if not title:
+        return jsonify({"ok": False, "error": "Missing title"}), 400
+    if like not in ("love", "meh", None):
+        return jsonify({"ok": False, "error": "like must be 'love', 'meh' or null"}), 400
+
+    log.info(f"also-played add  user={CURRENT_USER!r}  title={title!r}  like={like}")
+    state = load_state(CURRENT_USER, PROFILE)
+    # Same title again (any case) replaces the earlier entry
+    state["also_played"] = [e for e in state["also_played"] if e["title"].lower() != title.lower()]
+    state["also_played"].append({"title": title, "like": like, "added_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+    save_state(CURRENT_USER, state)
+    return jsonify({"ok": True, "also_played": state["also_played"]})
+
+
+@app.route("/api/also-played/remove", methods=["POST"])
+def api_also_played_remove():
+    body = request.get_json(silent=True) or {}
+    title = str(body.get("title") or "").strip().lower()
+    if not title:
+        return jsonify({"ok": False, "error": "Missing title"}), 400
+    log.info(f"also-played remove  user={CURRENT_USER!r}  title={title!r}")
+    state = load_state(CURRENT_USER, PROFILE)
+    state["also_played"] = [e for e in state["also_played"] if e["title"].lower() != title]
+    save_state(CURRENT_USER, state)
+    return jsonify({"ok": True, "also_played": state["also_played"]})
+
+
 @app.route("/api/clear-history", methods=["POST"])
 def api_clear_history():
     log.info(f"clear history  user={CURRENT_USER!r}")
@@ -781,7 +820,12 @@ def api_fresh_picks():
     avoid_titles = (
         [f"{b['title']} by {b['developer']}" for b in state["current_games"]]
         + [f"{h['title']} by {h['developer']}" for h in state["history"]]
+        + [e["title"] for e in state["also_played"]]
     )
+    also_played = [
+        {"title": e["title"], "reaction": label_for_mark({"played": True, "like": e.get("like")})}
+        for e in state["also_played"]
+    ]
     loved_so_far = [
         f"{b['title']} by {b['developer']}"
         for b in state["current_games"]
@@ -818,6 +862,7 @@ def api_fresh_picks():
             "avoidTitles": avoid_titles,
             "lovedSoFar": loved_so_far,
             "passedSoFar": passed_so_far,
+            "alsoPlayed": also_played,
             "slotsToReplace": batch,
         }
         try:
