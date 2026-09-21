@@ -58,11 +58,12 @@
       "why": "Board derelict ships, loot them, and fly out before rivals catch you — extraction raiding with the ship-boarding thrill of Sea of Thieves."
     },
     {
-      "id": "ultrakill",
-      "title": "ULTRAKILL",
-      "developer": "Arsi \"Hakita\" Patala / New Blood",
+      "id": "post-void",
+      "title": "Post Void",
+      "developer": "YCJY Games",
       "genre": "movement-fps",
-      "why": "Style-ranked, dash-cancelling carnage that scratches both the Serious Sam crowd-clearing itch and Neon White's chase-the-leaderboard obsession."
+      "why": "Like ULTRAKILL, it's a hyper-kinetic, style-obsessed shooter where constant aggression is the only way to survive, and its short run-based loop echoes the speedrun chase of Neon White.",
+      "is_fresh": true
     },
     {
       "id": "severed-steel",
@@ -72,11 +73,12 @@
       "why": "Wall-running, slow-mo dives and fully destructible walls — Titanfall 2's pilot movement distilled into short, restartable arenas."
     },
     {
-      "id": "ghostrunner",
-      "title": "Ghostrunner",
-      "developer": "One More Level",
+      "id": "cultic",
+      "title": "CULTIC",
+      "developer": "Jasozz Games",
       "genre": "movement-fps",
-      "why": "One-hit-kill cyberpunk parkour where death costs two seconds; the closest thing to Neon White's rhythm outside the game itself."
+      "why": "A broader take than Ghostrunner's parkour-slasher: retro boomer-shooter combat with slides, dodges and gory kinetic gunplay that fits your Serious Sam and ULTRAKILL streak.",
+      "is_fresh": true
     },
     {
       "id": "doom-eternal",
@@ -174,6 +176,22 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "ghostrunner",
+      "title": "Ghostrunner",
+      "developer": "One More Level",
+      "genre": "movement-fps",
+      "mark": "played",
+      "replaced_at": "2026-09-21T07:20:01+00:00"
+    },
+    {
+      "id": "ultrakill",
+      "title": "ULTRAKILL",
+      "developer": "Arsi \"Hakita\" Patala / New Blood",
+      "genre": "movement-fps",
+      "mark": "loved",
+      "replaced_at": "2026-09-21T07:20:01+00:00"
+    },
     {
       "id": "star-wars-squadrons",
       "title": "Star Wars: Squadrons",
