@@ -46,7 +46,7 @@ def test_fresh_picks_payload_includes_also_played(client, monkeypatch):
     monkeypatch.setattr(server, "call_claude", fake_call_claude)
 
     assert client.post("/api/fresh-picks").status_code == 200
-    assert "Celeste" in seen["avoidTitles"]
+    assert "Celeste" not in seen["avoidTitles"]  # loved, so listed in lovedSoFar instead
     assert seen["alsoPlayed"] == [{"title": "Celeste", "reaction": "loved"}]
 
 
@@ -77,3 +77,5 @@ def test_fresh_picks_signals_loved_and_passed_from_history_and_also_played(clien
     assert seen["passedSoFar"] == ["Virginia by Variable State", "Fez"]
     assert "Gone Home by Fullbright" in seen["avoidTitles"]
     assert "Gone Home by Fullbright" not in seen["lovedSoFar"]
+    for t in seen["lovedSoFar"] + seen["passedSoFar"]:
+        assert t not in seen["avoidTitles"]

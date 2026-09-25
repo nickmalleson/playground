@@ -357,7 +357,7 @@ def save_state(user: str, state: dict[str, Any]) -> None:
 
 SYSTEM_PROMPT = """You recommend video games. The user gives you a list of their original favourite games and developers, a list of titles to avoid, and a list of "slots to replace" — each slot has a genre and a mark indicating how the user reacted to the game it's replacing. For each slot, return one new recommendation.
 
-"lovedSoFar" lists games the user has loved in this app so far (including in earlier rounds) — treat them like extra favourites and let them drive your picks as much as originalFavourites do. "passedSoFar" lists games they did not take to — steer away from that style. "alsoPlayed" lists games played outside this app with the user's reaction; the loved/passed ones are already in those two lists. Never recommend anything in avoidTitles, which includes everything above.
+"lovedSoFar" lists games the user has loved in this app so far (including in earlier rounds) — treat them like extra favourites and let them drive your picks as much as originalFavourites do. "passedSoFar" lists games they did not take to — steer away from that style. "alsoPlayed" lists games played outside this app with the user's reaction; the loved/passed ones are already in those two lists. avoidTitles lists other games the user has already seen or played (no strong reaction). Never recommend anything in lovedSoFar, passedSoFar, alsoPlayed or avoidTitles.
 
 Output format: your entire reply must be a single JSON array. The first character must be [ and the last must be ]. No prose, no preamble, no code fences, no commentary.
 
@@ -368,7 +368,7 @@ The "genre" field must equal the slot's genre exactly. The "developer" field is 
 
 Rules per replacement:
 - "genre" must equal the slot's genre exactly
-- The game must NOT appear in originalFavourites or avoidTitles
+- The game must NOT appear in originalFavourites, lovedSoFar, passedSoFar, alsoPlayed or avoidTitles
 - mark = "loved": pick something stylistically adjacent (same vibe, mechanics, themes)
 - mark = "passed": pick something in the same genre but with a clearly different style or approach
 - mark = "played": pick a strong adjacent game that broadens exposure
@@ -821,11 +821,6 @@ def api_fresh_picks():
 
     log.info(f"fresh-picks  marked={len(marked_games)}")
 
-    avoid_titles = (
-        [f"{b['title']} by {b['developer']}" for b in state["current_games"]]
-        + [f"{h['title']} by {h['developer']}" for h in state["history"]]
-        + [e["title"] for e in state["also_played"]]
-    )
     also_played = [
         {"title": e["title"], "reaction": label_for_mark({"played": True, "like": e.get("like")})}
         for e in state["also_played"]
@@ -846,6 +841,17 @@ def api_fresh_picks():
 
     loved_so_far = with_reaction("loved")
     passed_so_far = with_reaction("passed")
+    # Loved/passed games are already listed above; keep them out of avoidTitles
+    # so the model doesn't read a loved game as something to steer clear of.
+    already_listed = {t.casefold() for t in loved_so_far + passed_so_far}
+    avoid_titles = [
+        t for t in (
+            [f"{b['title']} by {b['developer']}" for b in state["current_games"]]
+            + [f"{h['title']} by {h['developer']}" for h in state["history"]]
+            + [e["title"] for e in state["also_played"]]
+        )
+        if t.casefold() not in already_listed
+    ]
 
     slots = []
     for b in marked_games:
