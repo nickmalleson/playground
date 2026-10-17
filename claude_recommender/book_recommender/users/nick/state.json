@@ -18,11 +18,12 @@
       "is_fresh": true
     },
     {
-      "id": "american-war",
-      "title": "American War",
-      "author": "Omar El Akkad",
+      "id": "the-dog-stars",
+      "title": "The Dog Stars",
+      "author": "Peter Heller",
       "genre": "cli-fi",
-      "why": "A second US civil war in the 2070s, fought over the last fossil fuels. Spare, devastating prose — distinctly McCarthy-coded, with a slow-burn protagonist arc."
+      "why": "Where American War leaned on polemic and future-history scaffolding, this is a quiet, lyrical post-collapse novel driven by voice and landscape — closer in feel to McCarthy's The Road than to agitprop climate fiction.",
+      "is_fresh": true
     },
     {
       "id": "the-carbon-diaries-2015",
@@ -72,11 +73,12 @@
       "why": "A small-station ambassador navigates the seductive horror of a vast empire. Reads like Hyperion crossed with Le Guin's anthropological eye. The sequel is just as good."
     },
     {
-      "id": "player-of-games",
-      "title": "The Player of Games",
+      "id": "use-of-weapons",
+      "title": "Use of Weapons",
       "author": "Iain M. Banks",
       "genre": "space",
-      "why": "The friendliest doorway into the Culture. Scope, civilisational politics, and moral weight that should hit your Dune and Hyperion nerve. Banks is the missing author from your list."
+      "why": "Since you loved The Player of Games, stay with Banks and the Culture — Use of Weapons has the same wry Special Circumstances machinations but a sharper, fractured structure that pays off like a knife-twist, perfect for a Hyperion/Gibson reader.",
+      "is_fresh": true
     },
     {
       "id": "a-fire-upon-the-deep",
@@ -186,6 +188,22 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "player-of-games",
+      "title": "The Player of Games",
+      "author": "Iain M. Banks",
+      "genre": "space",
+      "mark": "loved",
+      "replaced_at": "2026-10-13T22:05:57+00:00"
+    },
+    {
+      "id": "american-war",
+      "title": "American War",
+      "author": "Omar El Akkad",
+      "genre": "cli-fi",
+      "mark": "passed",
+      "replaced_at": "2026-10-13T22:05:57+00:00"
+    },
     {
       "id": "the-word-for-world-is-forest",
       "title": "The Word for World is Forest",
