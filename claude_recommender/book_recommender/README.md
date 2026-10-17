@@ -56,7 +56,7 @@ Book recommender server
   working dir : /Users/.../book_recommender/html
   state file  : /Users/.../book_recommender/html/state.json
   log file    : /Users/.../book_recommender/html/server.log
-  model       : claude-sonnet-4-6
+  model       : claude-opus-5-5
   batch size  : 6
   timeout     : 90.0s per call
   api key     : sk-ant-abc…wxyz
@@ -73,7 +73,7 @@ Open `http://localhost:5050` in your browser.
 ```
 python server.py --debug             # verbose logging (full prompts, full responses)
 python server.py --port 5070         # different port
-python server.py --model haiku       # faster/cheaper model (sonnet is default, opus also available)
+python server.py --model sonnet      # faster/cheaper model (opus is default, haiku also available)
 python server.py --user nick         # run as a specific user
 ```
 
@@ -89,6 +89,9 @@ python server.py                     # run as the last-used user (then 'nick')
 python server.py --user alice        # run as a specific user
 python server.py --list-users        # show all users, then exit
 python server.py --new-user alice    # create a new user, then exit
+python server.py --new-user alice --favourites-file books.txt
+                                     # create a new user, reading their favourite
+                                     # books from a text file
 ```
 
 - **Default behaviour** is to reuse whichever user you last ran. The most
@@ -114,6 +117,24 @@ six genres and 24 seed books tuned to those tastes — and saves it to
 `users/alice/profile.json`. Edit that file by hand any time to fine-tune the
 favourites, genres or seed books. Then run `python server.py --user alice`.
 
+Instead of typing the favourites at the prompt, you can put them in a text
+file (one book or author per line, free-form, blank lines ignored) and pass it
+with `--favourites-file`:
+
+```
+python server.py --new-user alice --favourites-file books.txt
+```
+
+You'll still be asked for the display name and the optional genre hint; only
+the favourites prompt is skipped.
+
+### Books read elsewhere
+
+Below the reading list, the **Books read elsewhere** section lets you record
+books you've read outside the app, each marked Loved / Read / Passed. They are
+never recommended, and loved/passed ones feed into Claude's picks the same way
+as books you mark on the board (stored as `also_read` in `state.json`).
+
 ## What you'll see in the terminal
 
 Every browser action shows up in your terminal in real time:
@@ -123,18 +144,20 @@ Every browser action shows up in your terminal in real time:
 - `← Claude  latency=8.4s  resp_chars=412  in_tok=… out_tok=…` — every reply
 - Full traceback on any error
 
-With `--debug`, you also get the complete prompt and response printed.
+The full system and user prompts sent to Claude are logged too. With `--debug`,
+you also get the complete raw response printed.
 
 ## Files
 
 - **`server.py`** — Flask backend with all the Claude logic
 - **`index.html`** — single-page frontend
 - **`users/<name>/profile.json`** — a user's favourites, genres and seed books (safe to hand-edit)
-- **`users/<name>/state.json`** — a user's marks, history and current book list (safe to back up, delete, or hand-edit)
+- **`users/<name>/state.json`** — a user's marks, history, books read elsewhere and current book list (safe to back up, delete, or hand-edit)
 - **`last_user.txt`** — name of the most recently run user (used as the default)
 - **`server.log`** — append-only log of everything the server does
 - **`environment.yml`** — conda environment (Python 3.14, Flask, Anthropic)
-- **`requirements.txt`** — pip dependencies (uv users need neither file — deps are declared inline at the top of `server.py`)
+- **`requirements.txt`** — pip dependencies (uv users need neither file — deps are declared inline at the top of `server.py` and in `pyproject.toml`)
+- **`tests/`** — pytest suite; run with `uv run pytest`
 
 ## Useful endpoints (for poking around)
 
@@ -143,6 +166,8 @@ With `--debug`, you also get the complete prompt and response printed.
 - `POST /api/mark`  — `{"id": "...", "patch": {"like": "love"}}`
 - `POST /api/clear-marks`
 - `POST /api/clear-history`
+- `POST /api/also-read` — `{"title": "...", "like": "love"|"meh"|null}` record a book read elsewhere
+- `POST /api/also-read/remove` — `{"title": "..."}`
 - `POST /api/fresh-picks` — generate replacements for marked books
 - `GET  /api/test` — minimal Claude ping for connectivity check (also surfaced as the "Test Claude" button in the UI)
 

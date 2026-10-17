@@ -230,6 +230,59 @@ header .header-text { flex: 1 1 320px; }
 }
 .replace-section .test-btn:hover { background: var(--bg); color: var(--text); }
 
+.also-section { margin: 32px 0 0; }
+.also-section h2 { font-size: 17px; font-weight: 500; margin: 0 0 12px; }
+.also-section .section-label { margin-bottom: 4px; }
+.also-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+}
+.also-form input {
+  flex: 1 1 220px;
+  min-width: 0;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 7px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+}
+.also-form .pill.active.love { background: var(--love); border-color: var(--love); }
+.also-form .pill.active.meh { background: var(--meh); border-color: var(--meh); }
+.also-form .pill.active.read { background: var(--done); border-color: var(--done); }
+.also-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.also-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 4px 6px 4px 10px;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border);
+  background: var(--surface);
+}
+.also-chip.love { background: var(--love-bg); color: var(--love); border-color: transparent; }
+.also-chip.meh { background: var(--meh-bg); color: var(--meh); border-color: transparent; }
+.also-chip.read { background: var(--done-bg); color: var(--done); border-color: transparent; }
+.also-chip button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 2px;
+  opacity: 0.6;
+}
+.also-chip button:hover { opacity: 1; }
+
 .history-section { margin: 32px 0 0; }
 .history-section .section-label { margin-bottom: 4px; }
 .history-section h2 { font-size: 17px; font-weight: 500; margin: 0 0 12px; }
@@ -335,18 +388,7 @@ header .header-text { flex: 1 1 320px; }
     <button class="reset-btn" id="reset-btn">Reset marks</button>
   </section>
 
-  <div class="filters" id="filters">
-    <button class="pill active" data-genre="all">All</button>
-    <button class="pill" data-genre="cli-fi">Climate</button>
-    <button class="pill" data-genre="cyber">Cyberpunk</button>
-    <button class="pill" data-genre="space">Space opera</button>
-    <button class="pill" data-genre="fantasy">Fantasy</button>
-    <button class="pill" data-genre="historical">Historical</button>
-    <button class="pill" data-genre="literary">Literary</button>
-    <span class="spacer"></span>
-    <button class="pill" data-view="hide-read">Hide read</button>
-    <button class="pill" data-view="loved-only">Loved only</button>
-  </div>
+  <div class="filters" id="filters"></div>
 
   <main id="main">
     <div class="loading">Loading…</div>
@@ -358,6 +400,19 @@ header .header-text { flex: 1 1 320px; }
     <button class="replace-button" id="replace-btn" disabled>Mark a book first</button>
     <button class="test-btn" id="test-btn" title="Make a tiny Claude call to verify connectivity">Test Claude</button>
     <p class="replace-status" id="replace-status" style="display:none"></p>
+  </section>
+
+  <section class="also-section">
+    <p class="section-label">Read something that isn't on the list? Add it here so it's never suggested and Claude can learn from your reaction.</p>
+    <h2>Books read elsewhere</h2>
+    <form class="also-form" id="also-form">
+      <input id="also-title" placeholder="Book title (and author), e.g. Piranesi by Susanna Clarke" autocomplete="off">
+      <button type="button" class="pill love" data-like="love">Loved</button>
+      <button type="button" class="pill read active" data-like="">Read</button>
+      <button type="button" class="pill meh" data-like="meh">Passed</button>
+      <button type="submit" class="pill">Add</button>
+    </form>
+    <div class="also-list" id="also-list"></div>
   </section>
 
   <section class="history-section">
@@ -377,7 +432,7 @@ header .header-text { flex: 1 1 320px; }
 <script>
 // ───────────────────── State and rendering ─────────────────────
 
-let state = { current_books: [], marks: {}, history: [], genres: [], original_favourites: [], model: '', user: '', display_name: '', users: [] };
+let state = { current_books: [], marks: {}, history: [], also_read: [], genres: [], original_favourites: [], model: '', user: '', display_name: '', users: [] };
 let view = { genre: 'all', hideRead: false, lovedOnly: false };
 
 function dlog(level, msg) {
@@ -628,6 +683,29 @@ async function testClaude() {
 
 // ───────────────────── Rendering ─────────────────────
 
+function renderFilters() {
+  const filters = document.getElementById('filters');
+  if (!filters) return;
+  filters.innerHTML = '';
+
+  const allPill = el('button', { class: 'pill' + (view.genre === 'all' ? ' active' : ''), 'data-genre': 'all' }, 'All');
+  filters.appendChild(allPill);
+
+  for (const g of state.genres) {
+    filters.appendChild(
+      el('button', { class: 'pill' + (view.genre === g.key ? ' active' : ''), 'data-genre': g.key }, g.label)
+    );
+  }
+
+  filters.appendChild(el('span', { class: 'spacer' }));
+  filters.appendChild(
+    el('button', { class: 'pill' + (view.hideRead ? ' active' : ''), 'data-view': 'hide-read' }, 'Hide read')
+  );
+  filters.appendChild(
+    el('button', { class: 'pill' + (view.lovedOnly ? ' active' : ''), 'data-view': 'loved-only' }, 'Loved only')
+  );
+}
+
 function renderCard(book) {
   const mark = getMark(book.id);
   const classes = ['card'];
@@ -678,6 +756,8 @@ function renderCard(book) {
 }
 
 function render() {
+  renderFilters();
+
   let marked = 0, love = 0, meh = 0;
   for (const id in state.marks) {
     const m = state.marks[id];
@@ -744,15 +824,43 @@ function render() {
     main.appendChild(el('div', { class: 'empty-state' }, 'No books match the current filters. Try clearing them.'));
   }
 
-  document.querySelectorAll('.pill[data-genre]').forEach(p => {
-    p.classList.toggle('active', p.getAttribute('data-genre') === view.genre);
-  });
-  const hideReadPill = document.querySelector('.pill[data-view="hide-read"]');
-  const lovedOnlyPill = document.querySelector('.pill[data-view="loved-only"]');
-  if (hideReadPill) hideReadPill.classList.toggle('active', view.hideRead);
-  if (lovedOnlyPill) lovedOnlyPill.classList.toggle('active', view.lovedOnly);
-
+  renderAlsoRead();
   renderHistory();
+}
+
+function renderAlsoRead() {
+  const list = document.getElementById('also-list');
+  list.innerHTML = '';
+  for (const e of state.also_read || []) {
+    const cls = e.like === 'love' ? 'love' : e.like === 'meh' ? 'meh' : 'read';
+    const chip = el('span', { class: 'also-chip ' + cls, title: `Added ${relativeTime(e.added_at)}` },
+      e.title,
+      el('button', { type: 'button', title: 'Remove', onclick: () => removeAlsoRead(e.title) }, '×')
+    );
+    list.appendChild(chip);
+  }
+}
+
+async function addAlsoRead(title, like) {
+  try {
+    const data = await api('/api/also-read', { method: 'POST', body: { title, like } });
+    state.also_read = data.also_read;
+    setError(null);
+    renderAlsoRead();
+  } catch (e) {
+    setError(`Failed to add book: ${e.message}`);
+  }
+}
+
+async function removeAlsoRead(title) {
+  try {
+    const data = await api('/api/also-read/remove', { method: 'POST', body: { title } });
+    state.also_read = data.also_read;
+    setError(null);
+    renderAlsoRead();
+  } catch (e) {
+    setError(`Failed to remove book: ${e.message}`);
+  }
 }
 
 function renderHistory() {
@@ -798,6 +906,23 @@ document.getElementById('filters').addEventListener('click', (e) => {
 
 document.getElementById('reset-btn').addEventListener('click', clearMarks);
 document.getElementById('history-clear').addEventListener('click', clearHistory);
+
+const alsoForm = document.getElementById('also-form');
+alsoForm.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-like]');
+  if (!btn) return;
+  for (const b of alsoForm.querySelectorAll('[data-like]')) b.classList.remove('active');
+  btn.classList.add('active');
+});
+alsoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = document.getElementById('also-title');
+  const title = input.value.trim();
+  if (!title) return;
+  const like = alsoForm.querySelector('[data-like].active').getAttribute('data-like') || null;
+  addAlsoRead(title, like);
+  input.value = '';
+});
 document.getElementById('replace-btn').addEventListener('click', freshPicks);
 document.getElementById('test-btn').addEventListener('click', testClaude);
 

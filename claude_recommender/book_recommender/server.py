@@ -17,6 +17,10 @@ User management (no server is started for these):
     python server.py --new-user NAME      # interactively create a new user
                                           # (asks for favourites, then Claude
                                           #  builds their starting profile)
+    python server.py --new-user NAME --favourites-file books.txt
+                                          # read the favourite books from a text
+                                          # file (one per line) instead of typing
+                                          # them at the prompt
 
 Requires:
     - ANTHROPIC_API_KEY environment variable
@@ -71,7 +75,7 @@ LOG_FILE = HERE / "server.log"
 DEFAULT_PORT = 5050
 DEFAULT_USER = "nick"
 
-MODEL = "claude-sonnet-4-6"  # overridden by --model at startup
+MODEL = "claude-opus-5-5"  # overridden by --model at startup
 
 # Set at startup once a user has been resolved. The web routes operate on
 # whichever user the server was launched for.
@@ -79,9 +83,9 @@ CURRENT_USER = DEFAULT_USER
 PROFILE: dict[str, Any] = {}
 
 MODELS = {
-    "sonnet": "claude-sonnet-4-6",
-    "haiku":  "claude-haiku-4-5-20251001",
-    "opus":   "claude-opus-4-7",
+    "sonnet": "claude-sonnet-5-5",
+    "haiku":  "claude-haiku-5-5",
+    "opus":   "claude-opus-5-5",
 }
 MAX_TOKENS = 2048
 BOOTSTRAP_MAX_TOKENS = 8192   # new-user profile is a much bigger generation
@@ -248,7 +252,7 @@ SEED_BOOKS: list[dict[str, Any]] = [
 #
 # Layout on disk:
 #     users/<name>/profile.json   favourites, genres, seed_books (the "prompt")
-#     users/<name>/state.json     version, current_books, marks, history
+#     users/<name>/state.json     version, current_books, marks, history, also_read
 #     last_user.txt               name of the most recently launched user
 #
 # A profile is the personalised setup for a user. The state is their live
@@ -410,6 +414,7 @@ def default_state(profile: dict[str, Any]) -> dict[str, Any]:
         "current_books": [dict(b) for b in profile.get("seed_books", [])],
         "marks": {},
         "history": [],
+        "also_read": [],
     }
 
 
@@ -427,6 +432,8 @@ def load_state(user: str, profile: dict[str, Any]) -> dict[str, Any]:
         for key in ("current_books", "marks", "history"):
             if key not in st:
                 raise ValueError(f"missing key: {key}")
+        # Added later; older state files won't have it
+        st.setdefault("also_read", [])
         return st
     except Exception as e:
         backup = path.with_suffix(f".corrupt-{int(time.time())}.json")
@@ -509,16 +516,18 @@ def migrate_legacy_if_needed() -> None:
 
 SYSTEM_PROMPT = """You recommend books. The user gives you a list of their original favourite books and authors, a list of titles to avoid, and a list of "slots to replace" — each slot has a genre and a mark indicating how the user reacted to the book it's replacing. For each slot, return one new recommendation.
 
+"lovedSoFar" lists books the user has loved in this app so far (including in earlier rounds) — treat them like extra favourites and let them drive your picks as much as originalFavourites do. "passedSoFar" lists books they did not take to — steer away from that style. "alsoRead" lists books read outside this app with the user's reaction; the loved/passed ones are already in those two lists. avoidTitles lists other books the user has already seen or read (no strong reaction). Never recommend anything in lovedSoFar, passedSoFar, alsoRead or avoidTitles.
+
 Output format: your entire reply must be a single JSON array. The first character must be [ and the last must be ]. No prose, no preamble, no code fences, no commentary.
 
 Each element must be an object with exactly these fields:
-{"title": string, "author": string, "genre": "cli-fi"|"cyber"|"space"|"fantasy"|"historical"|"literary", "why": string}
+{"title": string, "author": string, "genre": string, "why": string}
 
-The "why" field is 1-2 short sentences tying the pick to a specific original favourite or to the book being replaced.
+The "genre" field must equal the slot's genre exactly. The "why" field is 1-2 short sentences tying the pick to a specific original favourite or to the book being replaced.
 
 Rules per replacement:
 - "genre" must equal the slot's genre exactly
-- The book must NOT appear in originalFavourites or avoidTitles
+- The book must NOT appear in originalFavourites, lovedSoFar, passedSoFar, alsoRead or avoidTitles
 - mark = "loved": pick something stylistically adjacent (same vibe, voice, themes)
 - mark = "passed": pick something in the same genre but with a clearly different style or approach
 - mark = "read": pick a strong adjacent book that broadens exposure
@@ -564,7 +573,8 @@ def call_claude(
         f"→ Claude  model={MODEL}  prompt_chars={len(user_content)}  "
         f"slots={len(payload.get('slotsToReplace', []))}"
     )
-    log.debug(f"full prompt:\n{user_content}")
+    log.info("── system prompt ──\n" + system)
+    log.info("── user prompt ──\n" + user_content)
 
     t0 = time.time()
     try:
@@ -584,7 +594,7 @@ def call_claude(
         raise
 
     elapsed = time.time() - t0
-    text = response.content[0].text
+    text = _response_text(response)
     usage = getattr(response, "usage", None)
     usage_str = ""
     if usage is not None:
@@ -593,6 +603,15 @@ def call_claude(
     log.debug(f"raw response:\n{text}")
 
     return text
+
+
+def _response_text(response: Any) -> str:
+    """Join the text blocks of a response.
+
+    Claude 5 models think by default, so response.content may start with a
+    ThinkingBlock (no .text) — never assume content[0] is the text block.
+    """
+    return "".join(b.text for b in response.content if b.type == "text")
 
 
 def parse_picks(text: str) -> list[dict[str, Any]] | None:
@@ -723,6 +742,17 @@ def _prompt_multiline(prompt: str) -> str:
     return "\n".join(lines).strip()
 
 
+def read_favourites_file(path: str) -> str:
+    """Read a favourites text file: strip blank lines, keep one book per line."""
+    try:
+        raw = Path(path).read_text(encoding="utf-8")
+    except OSError as e:
+        print(f"ERROR: could not read favourites file {path!r}: {e}", file=sys.stderr)
+        sys.exit(1)
+    lines = [line.strip() for line in raw.splitlines() if line.strip()]
+    return "\n".join(lines)
+
+
 def generate_profile(favourites_text: str, genre_hint: str, display_name: str) -> dict[str, Any]:
     """Ask Claude to build a starting profile from the user's stated tastes."""
     payload: dict[str, Any] = {"favourites": favourites_text}
@@ -747,8 +777,12 @@ def generate_profile(favourites_text: str, genre_hint: str, display_name: str) -
     return profile
 
 
-def create_user_interactive(name: str) -> None:
-    """Interactively create a new user: collect tastes, generate a profile."""
+def create_user_interactive(name: str, favourites_file: str | None = None) -> None:
+    """Interactively create a new user: collect tastes, generate a profile.
+
+    If favourites_file is given, the favourite books are read from that file
+    (one per line) instead of being typed at the prompt.
+    """
     try:
         user = normalise_user_name(name)
     except ValueError as e:
@@ -768,13 +802,18 @@ def create_user_interactive(name: str) -> None:
     print("═" * 60)
     display_name = input("Display name (press Enter to use the user name): ").strip() or user
 
-    favourites_text = _prompt_multiline(
-        "\nList this person's favourite books and authors — one per line, free-form.\n"
-        "Example:\n"
-        "  Ursula K. Le Guin, especially The Left Hand of Darkness\n"
-        "  Cormac McCarthy — The Road\n"
-        "Finish with a blank line:"
-    )
+    if favourites_file is not None:
+        favourites_text = read_favourites_file(favourites_file)
+        n_lines = len(favourites_text.splitlines())
+        print(f"\nRead {n_lines} favourite(s) from {favourites_file}")
+    else:
+        favourites_text = _prompt_multiline(
+            "\nList this person's favourite books and authors — one per line, free-form.\n"
+            "Example:\n"
+            "  Ursula K. Le Guin, especially The Left Hand of Darkness\n"
+            "  Cormac McCarthy — The Road\n"
+            "Finish with a blank line:"
+        )
     if not favourites_text:
         print("No favourites given — cannot build a profile. Aborting.", file=sys.stderr)
         sys.exit(1)
@@ -836,6 +875,7 @@ def api_get_state():
             "current_books": state["current_books"],
             "marks": state["marks"],
             "history": state["history"],
+            "also_read": state["also_read"],
             "genres": PROFILE["genres"],
             "original_favourites": PROFILE["original_favourites"],
             "model": MODEL,
@@ -884,6 +924,39 @@ def api_clear_marks():
     return jsonify({"ok": True, "marks": state["marks"]})
 
 
+@app.route("/api/also-read", methods=["POST"])
+def api_also_read_add():
+    """Record a book read outside the app: {title, like: "love"|"meh"|null}."""
+    body = request.get_json(silent=True) or {}
+    title = str(body.get("title") or "").strip()
+    like = body.get("like")
+    if not title:
+        return jsonify({"ok": False, "error": "Missing title"}), 400
+    if like not in ("love", "meh", None):
+        return jsonify({"ok": False, "error": "like must be 'love', 'meh' or null"}), 400
+
+    log.info(f"also-read add  user={CURRENT_USER!r}  title={title!r}  like={like}")
+    state = load_state(CURRENT_USER, PROFILE)
+    # Same title again (any case) replaces the earlier entry
+    state["also_read"] = [e for e in state["also_read"] if e["title"].lower() != title.lower()]
+    state["also_read"].append({"title": title, "like": like, "added_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+    save_state(CURRENT_USER, state)
+    return jsonify({"ok": True, "also_read": state["also_read"]})
+
+
+@app.route("/api/also-read/remove", methods=["POST"])
+def api_also_read_remove():
+    body = request.get_json(silent=True) or {}
+    title = str(body.get("title") or "").strip().lower()
+    if not title:
+        return jsonify({"ok": False, "error": "Missing title"}), 400
+    log.info(f"also-read remove  user={CURRENT_USER!r}  title={title!r}")
+    state = load_state(CURRENT_USER, PROFILE)
+    state["also_read"] = [e for e in state["also_read"] if e["title"].lower() != title]
+    save_state(CURRENT_USER, state)
+    return jsonify({"ok": True, "also_read": state["also_read"]})
+
+
 @app.route("/api/clear-history", methods=["POST"])
 def api_clear_history():
     log.info(f"clear history  user={CURRENT_USER!r}")
@@ -907,19 +980,36 @@ def api_fresh_picks():
 
     log.info(f"fresh-picks  marked={len(marked_books)}")
 
-    avoid_titles = (
-        [f"{b['title']} by {b['author']}" for b in state["current_books"]]
-        + [f"{h['title']} by {h['author']}" for h in state["history"]]
-    )
-    loved_so_far = [
-        f"{b['title']} by {b['author']}"
-        for b in state["current_books"]
-        if state["marks"].get(b["id"], {}).get("like") == "love"
+    also_read = [
+        {"title": e["title"], "reaction": label_for_mark({"read": True, "like": e.get("like")})}
+        for e in state["also_read"]
     ]
-    passed_so_far = [
-        f"{b['title']} by {b['author']}"
-        for b in state["current_books"]
-        if state["marks"].get(b["id"], {}).get("like") == "meh"
+    # Taste signal accumulates across rounds: books on the board now, books
+    # replaced in earlier rounds (history keeps their mark), and alsoRead.
+    def with_reaction(reaction: str) -> list[str]:
+        return (
+            [
+                f"{b['title']} by {b['author']}"
+                for b in state["current_books"]
+                if label_for_mark(state["marks"].get(b["id"], {})) == reaction
+                and state["marks"].get(b["id"], {}).get("like")
+            ]
+            + [f"{h['title']} by {h['author']}" for h in state["history"] if h.get("mark") == reaction]
+            + [e["title"] for e in state["also_read"] if e.get("like") and label_for_mark(e) == reaction]
+        )
+
+    loved_so_far = with_reaction("loved")
+    passed_so_far = with_reaction("passed")
+    # Loved/passed books are already listed above; keep them out of avoidTitles
+    # so the model doesn't read a loved book as something to steer clear of.
+    already_listed = {t.casefold() for t in loved_so_far + passed_so_far}
+    avoid_titles = [
+        t for t in (
+            [f"{b['title']} by {b['author']}" for b in state["current_books"]]
+            + [f"{h['title']} by {h['author']}" for h in state["history"]]
+            + [e["title"] for e in state["also_read"]]
+        )
+        if t.casefold() not in already_listed
     ]
 
     slots = []
@@ -947,6 +1037,7 @@ def api_fresh_picks():
             "avoidTitles": avoid_titles,
             "lovedSoFar": loved_so_far,
             "passedSoFar": passed_so_far,
+            "alsoRead": also_read,
             "slotsToReplace": batch,
         }
         try:
@@ -1040,7 +1131,7 @@ def api_test():
             messages=[{"role": "user", "content": "Reply with exactly: OK"}],
         )
         elapsed = time.time() - t0
-        text = resp.content[0].text
+        text = _response_text(resp)
         log.info(f"test-api OK  latency={elapsed:.1f}s  reply={text!r}")
         return jsonify({"ok": True, "latency_s": round(elapsed, 2), "reply": text, "model": MODEL})
     except Exception as e:
@@ -1102,12 +1193,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Local book recommender server")
     parser.add_argument("--debug", action="store_true", help="Verbose debug logging")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
-    parser.add_argument("--model", choices=["sonnet", "haiku", "opus"], default="sonnet",
-                        help="Claude model to use (default: sonnet)")
+    parser.add_argument("--model", choices=["sonnet", "haiku", "opus"], default="opus",
+                        help="Claude model to use (default: opus)")
     parser.add_argument("--user", default=None,
                         help="Which user to run as (default: the last user, then 'nick')")
     parser.add_argument("--new-user", metavar="NAME", default=None,
                         help="Interactively create a new user, then exit")
+    parser.add_argument("--favourites-file", metavar="PATH", default=None,
+                        help="With --new-user: read the favourite books from this "
+                             "text file (one per line) instead of prompting")
     parser.add_argument("--list-users", action="store_true",
                         help="List all users, then exit")
     args = parser.parse_args()
@@ -1138,8 +1232,11 @@ def main() -> None:
                 print(f"  {u}{suffix}")
         return
 
+    if args.favourites_file is not None and args.new_user is None:
+        parser.error("--favourites-file only makes sense with --new-user")
+
     if args.new_user is not None:
-        create_user_interactive(args.new_user)
+        create_user_interactive(args.new_user, favourites_file=args.favourites_file)
         return
 
     # ── Resolve and load the user we'll serve ──

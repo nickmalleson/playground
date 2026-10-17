@@ -1,0 +1,18 @@
+[project]
+name = "book-recommender"
+version = "1.0.0"
+description = "Local book recommender (Flask + Claude)"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=3.0",
+    "anthropic>=0.40",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
