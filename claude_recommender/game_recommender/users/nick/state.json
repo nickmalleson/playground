@@ -470,37 +470,67 @@
   ],
   "also_played": [
     {
-      "title": "Drova",
+      "title": "Drova: Forsaken Kin by Just2D",
       "like": "love",
       "added_at": "2026-09-13T10:45:50+00:00"
     },
     {
-      "title": "Before Your Eyes",
+      "title": "Before Your Eyes by GoodbyeWorld Games",
       "like": "love",
       "added_at": "2026-09-13T10:48:04+00:00"
     },
     {
-      "title": "Pragmata",
+      "title": "Pragmata by Capcom",
       "like": "love",
       "added_at": "2026-09-13T10:48:08+00:00"
     },
     {
-      "title": "Doom (all of them)",
+      "title": "DOOM (1993) by id Software",
       "like": "love",
       "added_at": "2026-09-13T10:48:52+00:00"
     },
     {
-      "title": "Silent Hill",
+      "title": "DOOM II: Hell on Earth by id Software",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:52+00:00"
+    },
+    {
+      "title": "DOOM 3 by id Software",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:52+00:00"
+    },
+    {
+      "title": "DOOM (2016) by id Software",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:52+00:00"
+    },
+    {
+      "title": "DOOM Eternal by id Software",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:52+00:00"
+    },
+    {
+      "title": "DOOM: The Dark Ages by id Software",
+      "like": "love",
+      "added_at": "2026-09-13T10:48:52+00:00"
+    },
+    {
+      "title": "Silent Hill 2 (2024 remake) by Bloober Team",
       "like": "meh",
       "added_at": "2026-09-13T10:49:44+00:00"
     },
     {
-      "title": "Tomb Raider (all of them)",
+      "title": "Shadow of the Tomb Raider by Eidos Montréal",
       "like": "love",
       "added_at": "2026-09-13T10:50:01+00:00"
     },
     {
-      "title": "Dirt Rally",
+      "title": "DiRT Rally by Codemasters",
+      "like": "love",
+      "added_at": "2026-09-13T10:50:29+00:00"
+    },
+    {
+      "title": "DiRT Rally 2.0 by Codemasters",
       "like": "love",
       "added_at": "2026-09-13T10:50:29+00:00"
     }
