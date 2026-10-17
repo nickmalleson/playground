@@ -42,11 +42,11 @@
       "is_fresh": true
     },
     {
-      "id": "hardwired",
-      "title": "Hardwired",
-      "author": "Walter Jon Williams",
+      "id": "when-gravity-fails",
+      "title": "When Gravity Fails",
+      "author": "George Alec Effinger",
       "genre": "cyber",
-      "why": "Published in 1986 and often overlooked beside Gibson, it shares Altered Carbon's bruising noir physicality and corporate-dystopia grit — mercenaries, black-market implants, and a scorched post-war America run by orbital cartels.",
+      "why": "Like Hardwired, it's a gritty, kinetic slice of first-wave cyberpunk with brain-moddable mercenaries and a hard-boiled edge. Its Middle Eastern setting gives it a fresh texture that Gibson fans tend to love.",
       "is_fresh": true
     },
     {
@@ -188,6 +188,14 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "hardwired",
+      "title": "Hardwired",
+      "author": "Walter Jon Williams",
+      "genre": "cyber",
+      "mark": "loved",
+      "replaced_at": "2026-10-17T10:47:52+00:00"
+    },
     {
       "id": "player-of-games",
       "title": "The Player of Games",
@@ -372,5 +380,6 @@
       "mark": "loved",
       "replaced_at": "2026-05-09T16:41:10+00:00"
     }
-  ]
+  ],
+  "also_read": []
 }
