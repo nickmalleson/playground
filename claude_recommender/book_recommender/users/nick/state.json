@@ -73,11 +73,11 @@
       "why": "A small-station ambassador navigates the seductive horror of a vast empire. Reads like Hyperion crossed with Le Guin's anthropological eye. The sequel is just as good."
     },
     {
-      "id": "use-of-weapons",
-      "title": "Use of Weapons",
+      "id": "consider-phlebas",
+      "title": "Consider Phlebas",
       "author": "Iain M. Banks",
       "genre": "space",
-      "why": "Since you loved The Player of Games, stay with Banks and the Culture — Use of Weapons has the same wry Special Circumstances machinations but a sharper, fractured structure that pays off like a knife-twist, perfect for a Hyperion/Gibson reader.",
+      "why": "Like Use of Weapons, it follows a morally compromised mercenary through the Culture's wars, with the same sardonic voice and bleak ironies. Here the story is told from the side of the Culture's enemies.",
       "is_fresh": true
     },
     {
@@ -188,6 +188,14 @@
   ],
   "marks": {},
   "history": [
+    {
+      "id": "use-of-weapons",
+      "title": "Use of Weapons",
+      "author": "Iain M. Banks",
+      "genre": "space",
+      "mark": "loved",
+      "replaced_at": "2026-10-18T12:15:20+00:00"
+    },
     {
       "id": "hardwired",
       "title": "Hardwired",
